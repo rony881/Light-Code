@@ -220,7 +220,7 @@ class MainWindow(QMainWindow):
 
     def copy(self):
         """Copy the selected text."""
-        pass
+        self.central_panel.copy()
 
     def paste(self):
         """Paste text from the clipboard."""

@@ -128,3 +128,7 @@ class EditorArea(TabBase):
         widget = self.currentWidget()
         if widget is not None:
             widget.cut()
+    def copy(self):
+        widget = self.currentWidget()
+        if widget is not None:
+            widget.copy()
