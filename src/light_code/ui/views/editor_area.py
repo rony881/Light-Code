@@ -103,8 +103,7 @@ class EditorArea(TabBase):
             if choice == QMessageBox.StandardButton.Save:
                 write_file(file_path, content)
     
-        if widget is not None:
-            if file_path in self.OPEN_TABS:
+        if widget is not None and file_path in self.OPEN_TABS:
                 del self.OPEN_TABS[file_path]
     
         self.removeTab(index)
