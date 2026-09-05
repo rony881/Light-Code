@@ -216,7 +216,7 @@ class MainWindow(QMainWindow):
 
     def cut(self):
         """Cut the selected text."""
-        pass
+        self.central_panel.cut()
 
     def copy(self):
         """Copy the selected text."""
