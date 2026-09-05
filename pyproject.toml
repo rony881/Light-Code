@@ -4,8 +4,8 @@ version = "0.1.0"
 description = "Light Code Editor - a lightweight desktop code editor made with PyQt6"
 requires-python = ">=3.11"
 dependencies = [
-    "PyQt6==6.11.0",
-    "PyQt6-QScintilla==2.14.1",
+    "pyqt6==6.11.0",
+    "pyqt6-qscintilla==2.14.1",
 ]
 
 [build-system]
