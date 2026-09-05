@@ -122,3 +122,9 @@ class EditorArea(TabBase):
         widget = self.currentWidget()
         if widget is not None:
             widget.redo()
+
+    def cut(self):
+        """cut the selected text"""
+        widget = self.currentWidget()
+        if widget is not None:
+            widget.cut()
