@@ -6,6 +6,7 @@ from PyQt6.QtWidgets import (
     QMainWindow,
     QFileDialog,
     QInputDialog,
+    QMessageBox
 )
 from PyQt6.QtGui import QIcon
 
@@ -83,7 +84,16 @@ class MainWindow(QMainWindow):
     def open_file_from_explorer(self, file_path: str):
         logger.info(f"Opening file from explorer: {file_path}")
 
-        content, name = read_file(file_path)
+        try:
+            content, name = read_file(file_path)
+        except OSError as e:
+            logger.error(f"Failed to open file: {e}")
+            QMessageBox.critical(
+                self,
+                "Open File Failed",
+                f"Failed to open file:\n{file_path}\n{e}"
+            )
+            return
         self.central_panel.add_tab(name, file_path, content)
 
     def _left_panel_width(self) -> int:
