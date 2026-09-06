@@ -225,7 +225,7 @@ class MainWindow(QMainWindow):
 
     def paste(self):
         """Paste text from the clipboard."""
-        pass
+        self.central_panel.paste()
 
     def find_(self):
         """Open the find interface."""
