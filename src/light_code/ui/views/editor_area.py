@@ -131,3 +131,8 @@ class EditorArea(TabBase):
         widget = self.currentWidget()
         if widget is not None:
             widget.copy()
+
+    def paste(self):
+        widget = self.currentWidget()
+        if widget is not None:
+            widget.paste()
