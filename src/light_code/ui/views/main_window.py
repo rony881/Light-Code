@@ -1,21 +1,24 @@
 # src/ui/views/main_window.py
 
-from textwrap import indent
-
-from PyQt6.QtGui import QIcon
-from PyQt6.QtWidgets import QInputDialog, QMainWindow, QSplitter, QFileDialog
 from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import (
+    QSplitter,
+    QMainWindow,
+    QFileDialog,
+    QInputDialog,
+)
+from PyQt6.QtGui import QIcon
 
-from config import STYLE_SHEET_FILE, WINDOW_HEIGHT, WINDOW_LOGO, WINDOW_WIDTH
-from services.file_service import read_file, rename_file, write_file
-from services.run_code_service import run_python_file
-from ui.base_widgets.base_widget import BaseWidget
-from ui.views.editor_area import EditorArea
+from utils.logger import logger
 from ui.views.left_dock import LeftDock
 from ui.views.right_dock import RightDock
-from ui.custom_widgets.custom_statusbar import CustomStatusBar
+from ui.views.editor_area import EditorArea
+from ui.base_widgets.base_widget import BaseWidget
+from services.run_code_service import run_python_file
 from ui.custom_widgets.custom_menubar import CustomMenuBar
-from utils.logger import logger
+from ui.custom_widgets.custom_statusbar import CustomStatusBar
+from services.file_service import read_file, rename_file, write_file
+from config import STYLE_SHEET_FILE, WINDOW_HEIGHT, WINDOW_LOGO, WINDOW_WIDTH
 
 
 class MainWindow(QMainWindow):
@@ -168,9 +171,7 @@ class MainWindow(QMainWindow):
         """Ask the user to select a file and open it."""
         logger.info("Opening file...")
         file_path = QFileDialog.getOpenFileName(self, "Open File", "", "All Files (*)")[0]
-        if file_path:
-            content, file_name = read_file(file_path)
-            self.central_panel.add_tab(file_name, file_path, content)
+        self.open_existing_file(file_path=file_path)
 
     def browse_folder(self):
         """Open a folder."""
