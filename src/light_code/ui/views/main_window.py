@@ -192,6 +192,10 @@ class MainWindow(QMainWindow):
         file_path = self.current_file_path()
         content = self.central_panel.current_content()
 
+        if not file_path:
+            logger.warning("No file selected to save")
+            return
+
         write_file(file_path, content)
 
     def rename_file(self):
@@ -296,6 +300,9 @@ class MainWindow(QMainWindow):
     def run_file(self):
         """Run interpreted  language scripts"""
         file_path = self.current_file_path()
+        if not file_path:
+            logger.warning("No file selected to run")
+            return
         run_python_file(file_path)
 
     # ─────────────────────────────────────────────
