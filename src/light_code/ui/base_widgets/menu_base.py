@@ -10,6 +10,7 @@ from PyQt6.QtWidgets import QMenu, QMenuBar
 # Menu Manager | File | Edit | View | Settings | About | Help |
 # ============================================================================
 
+
 @dataclass
 class MenuItem:
     """One entry in a menu. Use `None` in a menu's item list for a separator."""
@@ -18,8 +19,10 @@ class MenuItem:
     handler: Optional[Callable] = None
     shortcut: Optional[str] = None
 
+
 # structure passed to Menumanager.build()
 MenuStructure = dict[str, list[Optional[MenuItem]]]
+
 
 class MenuBaseWidget(QMenuBar):
     """Builds the menu bar from a declarative structure."""
@@ -40,7 +43,7 @@ class MenuBaseWidget(QMenuBar):
                     continue
                 self._add_action(menu_name, menu, item)
 
-    def add_menu(self, name: str) -> QMenu|None :
+    def add_menu(self, name: str) -> QMenu | None:
         menu = self.addMenu(name)
         if menu is not None:
             self._menus[name] = menu

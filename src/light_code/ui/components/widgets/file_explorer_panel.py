@@ -18,10 +18,10 @@ class FileExplorer(BaseWidget):
         super().__init__(parent)
         self.setObjectName("file_explorer_panel")
         logger.info("Initializing FileExplorer")
-        
+
         self.header = FileExplorerHeader(self)
         self.add(self.header)
-        
+
         self.file_tree_view = FileTreeView(self)
         self.file_tree_view.file_selected.connect(self.file_selected)
 
@@ -34,7 +34,7 @@ class FileExplorer(BaseWidget):
 
         logger.info("Opening folder dialog")
         current = self.file_tree_view.file_model.rootPath()
-        
+
         folder_path = QFileDialog.getExistingDirectory(self, "Select Folder", current)
         if folder_path:
             self.setFolderPath(folder_path)
@@ -42,12 +42,14 @@ class FileExplorer(BaseWidget):
         else:
             logger.warning("Folder selection cancelled")
 
-    def new_file(self, file_name: str = "untitled.py", folder_path: str|None = None) -> bool:
+    def new_file(
+        self, file_name: str = "untitled.py", folder_path: str | None = None
+    ) -> bool:
         """Create a new file in the specified folder or the current selection."""
         logger.info(f"Creating new file: {file_name}")
         if folder_path is None:
             index = self.file_tree_view.currentIndex()
-    
+
             if not index.isValid():
                 folder_path = self.file_tree_view.file_model.rootPath()
             elif self.file_tree_view.file_model.isDir(index):
@@ -76,7 +78,9 @@ class FileExplorer(BaseWidget):
 
         logger.info(f"Setting folder path: {folder_path}")
         self.file_tree_view.file_model.setRootPath(folder_path)
-        self.file_tree_view.setRootIndex(self.file_tree_view.file_model.index(folder_path))
+        self.file_tree_view.setRootIndex(
+            self.file_tree_view.file_model.index(folder_path)
+        )
         self.file_tree_view.folder_changed.emit(folder_path)
         self.set_folder_lbl_text(self.get_folder_name(folder_path))
 
@@ -93,7 +97,7 @@ class FileExplorerHeader(BaseWidget):
         self.setObjectName("file_explorer_header")
         self.h_layout = QHBoxLayout()
         self.add(self.h_layout)
-        
+
         self.folder_lbl = QLabel(parent=self)
         self.h_layout.addWidget(self.folder_lbl)
         self.h_layout.addStretch()
@@ -111,7 +115,7 @@ class FileExplorerHeader(BaseWidget):
         self.new_folder_btn.setIconSize(QSize(16, 16))
         self.new_folder_btn.setFixedSize(24, 24)
         self.h_layout.addWidget(self.new_folder_btn)
-        
+
 
 class FileTreeView(QTreeView):
     file_selected = pyqtSignal(str)

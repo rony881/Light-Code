@@ -15,20 +15,19 @@ class EditorArea(TabBase):
         super().__init__(parent)
         self.setObjectName("editor_panel")
         logger.info("Initializing EditorArea")
-        
 
     def add_tab(self, tab_name: str, file_path: str, content: str) -> int | None:
-        """ this method used for open a tab """
+        """this method used for open a tab"""
         logger.info(f"Adding tab: {tab_name}")
         if file_path in self.OPEN_TABS:
             tab = self.OPEN_TABS[file_path]
             index = self.indexOf(tab)
             self.setCurrentIndex(index)
             return
-            
-        tab = BaseEditor(file_path = file_path)
+
+        tab = BaseEditor(file_path=file_path)
         tab.setText(content)
-        
+
         tab_index = self.addTab(tab, tab_name)
 
         self.OPEN_TABS[file_path] = tab
@@ -51,7 +50,7 @@ class EditorArea(TabBase):
         widget = self.currentWidget()
 
         if not widget:
-            return ""   
+            return ""
         content = widget.text()
 
         return content
@@ -65,8 +64,7 @@ class EditorArea(TabBase):
         self.setTabText(index, new_name)
 
     def close_tab_by_path(self, file_path: str) -> None:
-        """Silently close and remove the tab for the given file path.
-        """
+        """Silently close and remove the tab for the given file path."""
         file_path = str(file_path)
         widget = self.OPEN_TABS.get(file_path)
         if widget is None:
@@ -79,17 +77,16 @@ class EditorArea(TabBase):
         del self.OPEN_TABS[file_path]
         self.removeTab(index)
         widget.deleteLater()
-        
 
     def on_close_tab(self, index: int) -> None:
         """Close the tab at the given index, ask to save changes first."""
         widget = self.widget(index)
         if widget is None:
             return
-        
+
         file_path = getattr(widget, "file_path", None)
         content = widget.text()
-    
+
         if widget.isModified():
             choice = QMessageBox.question(
                 self,
@@ -100,15 +97,15 @@ class EditorArea(TabBase):
                 | QMessageBox.StandardButton.Cancel,
                 QMessageBox.StandardButton.Save,
             )
-    
+
             if choice == QMessageBox.StandardButton.Cancel:
                 return
             if choice == QMessageBox.StandardButton.Save:
                 write_file(file_path, content)
-    
+
         if file_path in self.OPEN_TABS:
-                del self.OPEN_TABS[file_path]
-    
+            del self.OPEN_TABS[file_path]
+
         self.removeTab(index)
         widget.deleteLater()
 
@@ -129,6 +126,7 @@ class EditorArea(TabBase):
         widget = self.currentWidget()
         if widget is not None:
             widget.cut()
+
     def copy(self):
         widget = self.currentWidget()
         if widget is not None:

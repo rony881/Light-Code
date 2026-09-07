@@ -8,6 +8,7 @@ from light_code.utils.logger import logger
 
 class LeftDock(BaseWidget):
     """Sidebar file explorer panel."""
+
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
         logger.info("Initializing LeftDock")

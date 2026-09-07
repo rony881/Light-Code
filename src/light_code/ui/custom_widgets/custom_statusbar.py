@@ -1,4 +1,5 @@
 from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import QHBoxLayout, QLabel, QStatusBar, QWidget
 
 from light_code.config import (
     AI_AGENT_ICON,
@@ -63,7 +64,7 @@ class CustomStatusBar(QStatusBar):
         self.left_panel_toggle_btn.setToolTip("Toggle Left Panel")
         self.left_panel_toggle_btn.setStyleSheet(BUTTON_STYLE)
         self.h_layout.addWidget(self.left_panel_toggle_btn)
-        
+
         self.explorer_btn = CustomButton("")
         self.explorer_btn.setIcon(QIcon(EXPLORER_ICON))
         self.explorer_btn.setToolTip("Explorer")

@@ -2,7 +2,8 @@
 import sys
 
 from PyQt6.QtWidgets import QApplication
-from ui.views.main_window import MainWindow
+
+from light_code.ui.views.main_window import MainWindow
 
 
 def main():

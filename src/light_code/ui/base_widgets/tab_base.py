@@ -9,11 +9,11 @@ class TabBase(QTabWidget):
         self._config()
 
         self.OPEN_TABS = {}
-        
-        # when user request for closing the tab this code 
+
+        # when user request for closing the tab this code
         # connects to close tab method
         self.tabCloseRequested.connect(self.on_close_tab)
-        
+
     def _config(self):
         self.setObjectName("tab_widget")
         # This makes the tabs closable

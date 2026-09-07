@@ -65,6 +65,4 @@ FOLDER_PLUS_ICON = str(ICONS_PATH / "folder-plus-logo.svg")
 # Application Styles
 # ============================================================
 
-STYLE_SHEET_FILE = str(
-    PACKAGE_ROOT / "ui" / "themes" / "style.qss"
-)
+STYLE_SHEET_FILE = str(PACKAGE_ROOT / "ui" / "themes" / "style.qss")

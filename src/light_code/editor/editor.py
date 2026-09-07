@@ -25,8 +25,8 @@ class BaseEditor(QsciScintilla):
         self.setAutoCompletionSource(QsciScintilla.AutoCompletionSource.AcsAll)
 
         # Editor Paper And Text Color:
-        self.setPaper(QColor("#0d1117"))        # editor background (matches QMainWindow)
-        self.setColor(QColor("#c9d1d9"))        # default text color
+        self.setPaper(QColor("#0d1117"))  # editor background (matches QMainWindow)
+        self.setColor(QColor("#c9d1d9"))  # default text color
 
         # Selection Colors
         self.setSelectionBackgroundColor(QColor("#1f6feb"))  # accent blue
@@ -49,6 +49,9 @@ class BaseEditor(QsciScintilla):
         self.setAutoIndent(True)
         self.setIndentationGuides(True)
         self.setIndentationsUseTabs(False)
-        self.setIndentationGuidesBackgroundColor(QColor("#21262d"))  # Indentation line background Color
-        self.setIndentationGuidesForegroundColor(QColor("#21262d"))  # Indentation line Foregorund Color
-        
+        self.setIndentationGuidesBackgroundColor(
+            QColor("#21262d")
+        )  # Indentation line background Color
+        self.setIndentationGuidesForegroundColor(
+            QColor("#21262d")
+        )  # Indentation line Foregorund Color

@@ -58,7 +58,7 @@ class MainWindow(QMainWindow):
         self.splitter_container.addWidget(self.left_panel)
         self.left_panel.explorer_file_selected_conn(self.open_file_from_explorer)
         self.left_panel.file_explorer.set_new_file_btn_conn(self.new_file)
-        
+
         # ============= Central Panel ==============
         self.central_panel = EditorArea(parent=self)
         self.splitter_container.addWidget(self.central_panel)
@@ -88,9 +88,7 @@ class MainWindow(QMainWindow):
         except OSError as e:
             logger.error(f"Failed to open file: {e}")
             QMessageBox.critical(
-                self,
-                "Open File Failed",
-                f"Failed to open file:\n{file_path}\n{e}"
+                self, "Open File Failed", f"Failed to open file:\n{file_path}\n{e}"
             )
             return
         self.central_panel.add_tab(name, file_path, content)
@@ -124,13 +122,13 @@ class MainWindow(QMainWindow):
         self.left_panel.showPanel(name)
         if self._left_panel_width() < 5:
             self.set_left_panel_visible(True)
-    
+
     def _show_right_panel(self, name: str):
         logger.info(f"Opening {name} panel")
         self.right_panel.showPanel(name)
         if self._right_panel_width() < 5:
             self.set_right_panel_visible(True)
-    
+
     def open_git_panel(self):
         self._show_left_panel("git")
 
@@ -166,11 +164,7 @@ class MainWindow(QMainWindow):
         """Create a new file."""
         logger.info("Creating new file")
 
-        file_name, ok = QInputDialog.getText(
-            self,
-            "New File",
-            "File name:"
-        )
+        file_name, ok = QInputDialog.getText(self, "New File", "File name:")
         if not ok or not file_name:
             return
 
@@ -179,7 +173,9 @@ class MainWindow(QMainWindow):
     def open_file(self):
         """Ask the user to select a file and open it."""
         logger.info("Opening file...")
-        file_path = QFileDialog.getOpenFileName(self, "Open File", "", "All Files (*)")[0]
+        file_path = QFileDialog.getOpenFileName(self, "Open File", "", "All Files (*)")[
+            0
+        ]
         self.open_existing_file(file_path=file_path)
 
     def browse_folder(self):

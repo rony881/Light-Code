@@ -11,7 +11,7 @@ def read_file(file_path):
     """
     try:
         logger.info(f"Reading file: {file_path}")
-        with open(file_path, 'r', encoding='utf-8') as file:
+        with open(file_path, "r", encoding="utf-8") as file:
             content = file.read()
     except Exception as e:
         logger.error(f"Error reading file: {e}")
@@ -21,13 +21,14 @@ def read_file(file_path):
         file_name = Path(file_path).name
         return content, file_name
 
+
 def write_file(file_path, content):
     """
     Writes content to a file.
     """
     try:
         logger.info(f"Writing file: {file_path}")
-        with open(file_path, 'w', encoding='utf-8', newline="") as file:
+        with open(file_path, "w", encoding="utf-8", newline="") as file:
             file.write(content)
     except Exception as e:
         logger.error(f"Error writing file: {e}")

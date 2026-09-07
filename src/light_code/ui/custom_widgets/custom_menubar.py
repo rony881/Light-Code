@@ -18,15 +18,12 @@ class CustomMenuBar(MenuBaseWidget):
         return {
             "File": [
                 MenuItem("New File", handler=win.new_file, shortcut="Ctrl+N"),
-                MenuItem("Open File", handler=win.open_file,
-                         shortcut="Ctrl+O"),
-                MenuItem("Open Folder", handler=win.browse_folder,
-                         shortcut="Ctrl+K"),
+                MenuItem("Open File", handler=win.open_file, shortcut="Ctrl+O"),
+                MenuItem("Open Folder", handler=win.browse_folder, shortcut="Ctrl+K"),
                 MenuItem("Save", handler=win.save_file, shortcut="Ctrl+S"),
                 MenuItem("Rename", handler=win.rename_file),
                 None,
-                MenuItem("Close Tab", handler=win.close_tab,
-                         shortcut="Ctrl+W"),
+                MenuItem("Close Tab", handler=win.close_tab, shortcut="Ctrl+W"),
                 None,
                 MenuItem("Exit", handler=win.close, shortcut="Ctrl+Q"),
             ],
@@ -40,37 +37,40 @@ class CustomMenuBar(MenuBaseWidget):
                 None,
                 MenuItem("Find...", handler=win.find_, shortcut="Ctrl+F"),
                 MenuItem("Replace...", handler=win.replace, shortcut="Ctrl+H"),
-                MenuItem("Go to Line...", handler=win.go_to_line,
-                         shortcut="Ctrl+G"),
+                MenuItem("Go to Line...", handler=win.go_to_line, shortcut="Ctrl+G"),
             ],
             "View": [
-                MenuItem("Toggle Left Panel", handler=win.toggle_left_panel,
-                         shortcut="Ctrl+B"),
-                MenuItem("Toggle Right Panel", handler=win.toggle_right_panel,
-                         shortcut="Ctrl+J"),
-                MenuItem("Toggle Terminal",
-                         handler=win.toggle_terminal, shortcut="Ctrl+`"),
+                MenuItem(
+                    "Toggle Left Panel",
+                    handler=win.toggle_left_panel,
+                    shortcut="Ctrl+B",
+                ),
+                MenuItem(
+                    "Toggle Right Panel",
+                    handler=win.toggle_right_panel,
+                    shortcut="Ctrl+J",
+                ),
+                MenuItem(
+                    "Toggle Terminal", handler=win.toggle_terminal, shortcut="Ctrl+`"
+                ),
                 None,
                 MenuItem("Zoom In", handler=win.zoom_in, shortcut="Ctrl+="),
                 MenuItem("Zoom Out", handler=win.zoom_out, shortcut="Ctrl+-"),
-                MenuItem("Reset Zoom", handler=win.reset_zoom,
-                         shortcut="Ctrl+0"),
+                MenuItem("Reset Zoom", handler=win.reset_zoom, shortcut="Ctrl+0"),
             ],
             "Build": [
-                MenuItem("Run python file",
-                         handler=win.run_file, shortcut="Ctrl+R")
+                MenuItem("Run python file", handler=win.run_file, shortcut="Ctrl+R")
             ],
             "Settings": [
-                MenuItem("Preferences...",
-                         handler=win.open_preferences, shortcut="Ctrl+,"),
-                MenuItem("Keyboard Shortcuts...",
-                         handler=win.open_shortcuts_editor),
+                MenuItem(
+                    "Preferences...", handler=win.open_preferences, shortcut="Ctrl+,"
+                ),
+                MenuItem("Keyboard Shortcuts...", handler=win.open_shortcuts_editor),
                 MenuItem("Theme...", handler=win.open_theme_settings),
             ],
             "About": [
                 MenuItem("About Editor", handler=win.show_about_dialog),
-                MenuItem("Check for Updates...",
-                         handler=win.check_for_updates),
+                MenuItem("Check for Updates...", handler=win.check_for_updates),
             ],
             "Help": [
                 MenuItem("Documentation", handler=win.open_docs, shortcut="F1"),
