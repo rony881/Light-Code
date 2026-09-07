@@ -1,8 +1,10 @@
 from PyQt6.QtWidgets import QStackedWidget
-from ui.base_widgets.base_widget import BaseWidget
-from ui.components.widgets.file_explorer_panel import FileExplorer
-from ui.components.widgets.git_panel import GitPanel
-from utils.logger import logger
+
+from light_code.ui.base_widgets.base_widget import BaseWidget
+from light_code.ui.components.widgets.file_explorer_panel import FileExplorer
+from light_code.ui.components.widgets.git_panel import GitPanel
+from light_code.utils.logger import logger
+
 
 class LeftDock(BaseWidget):
     """Sidebar file explorer panel."""
@@ -15,10 +17,10 @@ class LeftDock(BaseWidget):
 
         self.stack = QStackedWidget()
         self.add(self.stack)
-        
+
         self.file_explorer = FileExplorer(parent=self)
         self.stack.addWidget(self.file_explorer)
-        
+
         self.git_panel = GitPanel()
         self.stack.addWidget(self.git_panel)
 

@@ -2,7 +2,7 @@
 
 from pathlib import Path
 
-from utils.logger import logger
+from light_code.utils.logger import logger
 
 
 def read_file(file_path):

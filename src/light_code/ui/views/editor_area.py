@@ -1,10 +1,11 @@
 # src/light_code/ui/views/editor_area.py
 
-from editor.editor import BaseEditor
-from ui.base_widgets.tab_base import TabBase
 from PyQt6.QtWidgets import QMessageBox
-from services.file_service import write_file
-from utils.logger import logger
+
+from light_code.editor.editor import BaseEditor
+from light_code.services.file_service import write_file
+from light_code.ui.base_widgets.tab_base import TabBase
+from light_code.utils.logger import logger
 
 
 class EditorArea(TabBase):

@@ -1,7 +1,7 @@
 # src/light_code/__main__.py
 import sys
-from PyQt6.QtWidgets import QApplication
 
+from PyQt6.QtWidgets import QApplication
 from ui.views.main_window import MainWindow
 
 

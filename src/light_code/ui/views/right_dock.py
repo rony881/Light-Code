@@ -1,8 +1,10 @@
 from PyQt6.QtWidgets import QStackedWidget
-from ui.base_widgets.base_widget import BaseWidget
-from ui.components.widgets.agent_panel import AgentPanel
-from ui.components.widgets.terminal_panel import TerminalPanel
-from utils.logger import logger
+
+from light_code.ui.base_widgets.base_widget import BaseWidget
+from light_code.ui.components.widgets.agent_panel import AgentPanel
+from light_code.ui.components.widgets.terminal_panel import TerminalPanel
+from light_code.utils.logger import logger
+
 
 class RightDock(BaseWidget):
     """Right-hand agent/assistant panel."""

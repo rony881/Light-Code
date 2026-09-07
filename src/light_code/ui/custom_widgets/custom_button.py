@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QPushButton
 
-from utils.logger import logger
+from light_code.utils.logger import logger
 
 
 class CustomButton(QPushButton):

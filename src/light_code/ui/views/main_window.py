@@ -1,25 +1,24 @@
 # src/ui/views/main_window.py
 
 from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import (
-    QSplitter,
-    QMainWindow,
     QFileDialog,
     QInputDialog,
-    QMessageBox
+    QMainWindow,
+    QSplitter,
 )
-from PyQt6.QtGui import QIcon
 
-from utils.logger import logger
-from ui.views.left_dock import LeftDock
-from ui.views.right_dock import RightDock
-from ui.views.editor_area import EditorArea
-from ui.base_widgets.base_widget import BaseWidget
-from services.run_code_service import run_python_file
-from ui.custom_widgets.custom_menubar import CustomMenuBar
-from ui.custom_widgets.custom_statusbar import CustomStatusBar
-from services.file_service import read_file, rename_file, write_file
-from config import STYLE_SHEET_FILE, WINDOW_HEIGHT, WINDOW_LOGO, WINDOW_WIDTH
+from light_code.config import STYLE_SHEET_FILE, WINDOW_HEIGHT, WINDOW_LOGO, WINDOW_WIDTH
+from light_code.services.file_service import read_file, rename_file, write_file
+from light_code.services.run_code_service import run_python_file
+from light_code.ui.base_widgets.base_widget import BaseWidget
+from light_code.ui.custom_widgets.custom_menubar import CustomMenuBar
+from light_code.ui.custom_widgets.custom_statusbar import CustomStatusBar
+from light_code.ui.views.editor_area import EditorArea
+from light_code.ui.views.left_dock import LeftDock
+from light_code.ui.views.right_dock import RightDock
+from light_code.utils.logger import logger
 
 
 class MainWindow(QMainWindow):
@@ -214,7 +213,7 @@ class MainWindow(QMainWindow):
     def close_tab(self):
         """Close the current editor tab."""
         index = self.central_panel.currentIndex()
-        if index is not None:
+        if index != -1:
             self.central_panel.on_close_tab(index)
 
     # ─────────────────────────────────────────────

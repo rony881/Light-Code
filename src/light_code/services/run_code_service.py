@@ -1,9 +1,10 @@
 # services/run_code_service.py
 
 import sys
+
 from PyQt6.QtCore import QProcess
 
-from utils.logger import logger
+from light_code.utils.logger import logger
 
 
 def run_python_file(file_path: str) -> QProcess:

@@ -1,8 +1,8 @@
 # ui/components/widgets/agent_panel.py
 from PyQt6.QtWidgets import QLabel
 
-from ui.base_widgets.base_widget import BaseWidget
-from utils.logger import logger
+from light_code.ui.base_widgets.base_widget import BaseWidget
+from light_code.utils.logger import logger
 
 
 class AgentPanel(BaseWidget):

@@ -1,5 +1,6 @@
-from PyQt6.QtWidgets import QVBoxLayout, QWidget, QLayout
 from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import QLayout, QVBoxLayout, QWidget
+
 
 class BaseWidget(QWidget):
     def __init__(self, parent=None) -> None:

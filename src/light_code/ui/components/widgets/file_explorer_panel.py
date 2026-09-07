@@ -1,13 +1,14 @@
 # ui/components/widgets/file_explorer.py
 
 from pathlib import Path
-from PyQt6.QtCore import QSize, pyqtSignal, QModelIndex
+
+from PyQt6.QtCore import QModelIndex, QSize, pyqtSignal
 from PyQt6.QtGui import QFileSystemModel, QIcon
 from PyQt6.QtWidgets import QFileDialog, QHBoxLayout, QLabel, QPushButton, QTreeView
 
-from config import FILE_PLUS_ICON, FOLDER_PLUS_ICON
-from ui.base_widgets.base_widget import BaseWidget
-from utils.logger import logger
+from light_code.config import FILE_PLUS_ICON, FOLDER_PLUS_ICON
+from light_code.ui.base_widgets.base_widget import BaseWidget
+from light_code.utils.logger import logger
 
 
 class FileExplorer(BaseWidget):

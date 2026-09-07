@@ -1,9 +1,15 @@
-from PyQt6.QtWidgets import QHBoxLayout, QLabel, QStatusBar, QWidget
 from PyQt6.QtGui import QIcon
 
-from utils.logger import logger
-from config import AI_AGENT_ICON, EXPLORER_ICON, GIT_ICON, LEFT_PANEL_ICON, RIGHT_PANEL_ICON, TERMINAL_ICON
-from ui.custom_widgets.custom_button import CustomButton
+from light_code.config import (
+    AI_AGENT_ICON,
+    EXPLORER_ICON,
+    GIT_ICON,
+    LEFT_PANEL_ICON,
+    RIGHT_PANEL_ICON,
+    TERMINAL_ICON,
+)
+from light_code.ui.custom_widgets.custom_button import CustomButton
+from light_code.utils.logger import logger
 
 BUTTON_STYLE = """
 QPushButton {
