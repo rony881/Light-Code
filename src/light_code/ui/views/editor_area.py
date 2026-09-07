@@ -83,10 +83,13 @@ class EditorArea(TabBase):
     def on_close_tab(self, index: int) -> None:
         """Close the tab at the given index, ask to save changes first."""
         widget = self.widget(index)
+        if widget is None:
+            return
+        
         file_path = getattr(widget, "file_path", None)
         content = widget.text()
     
-        if widget is not None and widget.isModified():
+        if widget.isModified():
             choice = QMessageBox.question(
                 self,
                 "Unsaved Changes",
@@ -102,13 +105,11 @@ class EditorArea(TabBase):
             if choice == QMessageBox.StandardButton.Save:
                 write_file(file_path, content)
     
-        if widget is not None and file_path in self.OPEN_TABS:
+        if file_path in self.OPEN_TABS:
                 del self.OPEN_TABS[file_path]
     
         self.removeTab(index)
-    
-        if widget is not None:
-            widget.deleteLater()
+        widget.deleteLater()
 
     def undo(self):
         """Undo the last editing operation."""
