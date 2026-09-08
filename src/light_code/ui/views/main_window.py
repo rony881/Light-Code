@@ -4,8 +4,8 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import (
     QFileDialog,
-    QInputDialog,
     QMainWindow,
+    QMessageBox,
     QSplitter,
 )
 
@@ -15,6 +15,7 @@ from light_code.services.run_code_service import run_python_file
 from light_code.ui.base_widgets.base_widget import BaseWidget
 from light_code.ui.custom_widgets.custom_menubar import CustomMenuBar
 from light_code.ui.custom_widgets.custom_statusbar import CustomStatusBar
+from light_code.ui.dialogs import NewFileDialog, RenameFileDialog
 from light_code.ui.views.editor_area import EditorArea
 from light_code.ui.views.left_dock import LeftDock
 from light_code.ui.views.right_dock import RightDock
@@ -164,7 +165,8 @@ class MainWindow(QMainWindow):
         """Create a new file."""
         logger.info("Creating new file")
 
-        file_name, ok = QInputDialog.getText(self, "New File", "File name:")
+        dialog = NewFileDialog(self)
+        file_name, ok = dialog.get_file_name()
         if not ok or not file_name:
             return
 
@@ -199,8 +201,8 @@ class MainWindow(QMainWindow):
 
         if not old_file_path:
             return
-
-        new_file_name, ok = QInputDialog.getText(self, "Rename File", "New file name:")
+        dialog = RenameFileDialog(self)
+        new_file_name, ok = dialog.get_file_name()
         if ok and new_file_name:
             new_file_path = rename_file(old_file_path, new_file_name)
             self.central_panel.close_tab_by_path(old_file_path)
