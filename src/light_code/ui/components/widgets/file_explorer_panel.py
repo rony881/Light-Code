@@ -44,8 +44,12 @@ class FileExplorer(BaseWidget):
 
     def new_file(
         self, file_name: str = "untitled.py", folder_path: str | None = None
-    ) -> bool:
-        """Create a new file in the specified folder or the current selection."""
+    ) -> Path | None:
+        """Create a new file in the specified folder or the current selection.
+
+        Returns the created file's Path, or None if a file with that name
+        already exists.
+        """
         logger.info(f"Creating new file: {file_name}")
         if folder_path is None:
             index = self.file_tree_view.currentIndex()
@@ -61,11 +65,11 @@ class FileExplorer(BaseWidget):
 
         if file_path.exists():
             logger.warning(f"File already exists: {file_path}")
-            return False
+            return None
 
         file_path.touch()
         logger.info(f"File created: {file_path}")
-        return True
+        return file_path
 
     def set_folder_lbl_text(self, text: str) -> None:
         self.header.folder_lbl.setText(text)
