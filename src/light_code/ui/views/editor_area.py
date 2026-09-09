@@ -38,12 +38,11 @@ class EditorArea(TabBase):
     def current_file_path(self) -> str | None:
         """Returns file path of current selected tab"""
         widget = self.currentWidget()
-        file_path = getattr(widget, "file_path", None)
 
-        if not widget:
+        if widget is None:
             return None
 
-        return str(file_path)
+        return getattr(widget, "file_path", None)
 
     def current_content(self) -> str:
         """Returns content of current selected tab"""
