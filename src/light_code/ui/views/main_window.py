@@ -11,7 +11,7 @@ from PyQt6.QtWidgets import (
 
 from light_code.config import STYLE_SHEET_FILE, WINDOW_HEIGHT, WINDOW_LOGO, WINDOW_WIDTH
 from light_code.services.file_service import read_file, rename_file, write_file
-from light_code.services.run_code_service import run_python_file
+from light_code.services.run_code_service import CodeRunner
 from light_code.ui.base_widgets.base_widget import BaseWidget
 from light_code.ui.custom_widgets.custom_menubar import CustomMenuBar
 from light_code.ui.custom_widgets.custom_statusbar import CustomStatusBar
@@ -80,6 +80,18 @@ class MainWindow(QMainWindow):
         self.status_bar.setExplorerBtnConn(self.open_explorer_panel)
         self.status_bar.setAgentBtnConn(self.open_agent_panel)
         self.status_bar.setTerminalBtnConn(self.open_terminal_panel)
+
+        # ============= Code Runner ==============
+        # Parented to self so Qt keeps the underlying QProcess alive for the
+        # lifetime of the window, instead of it being garbage-collected.
+        self.code_runner = CodeRunner(self)
+        self.code_runner.output_received.connect(
+            self.right_panel.terminal_panel.show_output
+        )
+        self.code_runner.error_received.connect(
+            self.right_panel.terminal_panel.show_error
+        )
+        self.code_runner.finished.connect(self.on_run_finished)
 
     def open_file_from_explorer(self, file_path: str):
         logger.info(f"Opening file from explorer: {file_path}")
@@ -170,7 +182,14 @@ class MainWindow(QMainWindow):
         if not ok or not file_name:
             return
 
-        self.left_panel.file_explorer.new_file(file_name)
+        file_path = self.left_panel.file_explorer.new_file(file_name)
+        if file_path is None:
+            QMessageBox.warning(
+                self, "New File", f'A file named "{file_name}" already exists.'
+            )
+            return
+
+        self.open_existing_file(str(file_path))
 
     def open_file(self):
         """Ask the user to select a file and open it."""
@@ -300,7 +319,15 @@ class MainWindow(QMainWindow):
         if not file_path:
             logger.warning("No file selected to run")
             return
-        run_python_file(file_path)
+
+        self._show_right_panel("terminal")
+        self.right_panel.terminal_panel.clear_output()
+        self.code_runner.run(file_path)
+
+    def on_run_finished(self, exit_code: int):
+        self.right_panel.terminal_panel.show_output(
+            f"\n[process finished with exit code {exit_code}]\n"
+        )
 
     # ─────────────────────────────────────────────
     # Settings
