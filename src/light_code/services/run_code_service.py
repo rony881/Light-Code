@@ -23,7 +23,7 @@ class CodeRunner(QObject):
         super().__init__(parent)
         self.process: QProcess | None = None
 
-    def run_python_file(self, file_path: str) -> None:
+    def run(self, file_path: str) -> None:
         self.stop()
 
         logger.info(f"Running Python file: {file_path}")
