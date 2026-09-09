@@ -1,6 +1,6 @@
-# ui/components/widgets/git_panel.py
+# ui/components/widgets/terminal_panel.py
 
-from PyQt6.QtWidgets import QLabel
+from PyQt6.QtWidgets import QPlainTextEdit
 
 from light_code.ui.base_widgets.base_widget import BaseWidget
 from light_code.utils.logger import logger
@@ -12,6 +12,20 @@ class TerminalPanel(BaseWidget):
 
         logger.info("Initializing TerminalPanel")
         self.setObjectName("terminal_panel")
-        label = QLabel("TERMINAL PANEL — COMING SOON")
-        label.setObjectName("terminal_panel_label")
-        self.add(label)
+
+        self.output_view = QPlainTextEdit(self)
+        self.output_view.setObjectName("terminal_output")
+        self.output_view.setReadOnly(True)
+        self.add(self.output_view)
+
+    def show_output(self, text: str) -> None:
+        self.output_view.insertPlainText(text)
+        scrollbar = self.output_view.verticalScrollBar()
+        if scrollbar is not None:
+            scrollbar.setValue(scrollbar.maximum())
+
+    def show_error(self, text: str) -> None:
+        self.show_output(text)
+
+    def clear_output(self) -> None:
+        self.output_view.clear()
