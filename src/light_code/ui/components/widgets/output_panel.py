@@ -1,4 +1,4 @@
-# ui/components/widgets/terminal_panel.py
+# ui/components/widgets/output_panel.py
 
 from PyQt6.QtWidgets import QPlainTextEdit
 
@@ -6,15 +6,15 @@ from light_code.ui.base_widgets.base_widget import BaseWidget
 from light_code.utils.logger import logger
 
 
-class TerminalPanel(BaseWidget):
+class OutputPanel(BaseWidget):
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
 
-        logger.info("Initializing TerminalPanel")
-        self.setObjectName("terminal_panel")
+        logger.info("Initializing OutputPanel")
+        self.setObjectName("output_panel")
 
         self.output_view = QPlainTextEdit(self)
-        self.output_view.setObjectName("terminal_output")
+        self.output_view.setObjectName("output_panel")
         self.output_view.setReadOnly(True)
         self.add(self.output_view)
 

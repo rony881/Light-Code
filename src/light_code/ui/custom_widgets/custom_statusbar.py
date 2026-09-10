@@ -7,7 +7,7 @@ from light_code.config import (
     GIT_ICON,
     LEFT_PANEL_ICON,
     RIGHT_PANEL_ICON,
-    TERMINAL_ICON,
+    OUTPUT_ICON,
 )
 from light_code.ui.custom_widgets.custom_button import CustomButton
 from light_code.utils.logger import logger
@@ -108,11 +108,11 @@ class CustomStatusBar(QStatusBar):
         self.agent_btn.setStyleSheet(BUTTON_STYLE)
         self.h_layout.addWidget(self.agent_btn)
 
-        self.terminal_btn = CustomButton("")
-        self.terminal_btn.setIcon(QIcon(TERMINAL_ICON))
-        self.terminal_btn.setToolTip("Terminal")
-        self.terminal_btn.setStyleSheet(BUTTON_STYLE)
-        self.h_layout.addWidget(self.terminal_btn)
+        self.output_btn = CustomButton("")
+        self.output_btn.setIcon(QIcon(OUTPUT_ICON))
+        self.output_btn.setToolTip("Output")
+        self.output_btn.setStyleSheet(BUTTON_STYLE)
+        self.h_layout.addWidget(self.output_btn)
 
         self.right_panel_btn = CustomButton("")
         self.right_panel_btn.setIcon(QIcon(RIGHT_PANEL_ICON))
@@ -144,8 +144,8 @@ class CustomStatusBar(QStatusBar):
     def setAgentBtnConn(self, func):
         self.agent_btn.clicked.connect(func)
 
-    def setTerminalBtnConn(self, func):
-        self.terminal_btn.clicked.connect(func)
+    def setOutputBtnConn(self, func):
+        self.output_btn.clicked.connect(func)
 
     def set_status_message(self, message: str) -> None:
         self.status_message_label.setText(message)

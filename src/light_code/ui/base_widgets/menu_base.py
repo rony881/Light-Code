@@ -1,7 +1,6 @@
 # src/light_code/ui/components/base_widgets/menu_base.py
 
 from dataclasses import dataclass
-from typing import Callable, Optional
 
 from PyQt6.QtGui import QAction, QKeySequence
 from PyQt6.QtWidgets import QMenu, QMenuBar
@@ -16,12 +15,12 @@ class MenuItem:
     """One entry in a menu. Use `None` in a menu's item list for a separator."""
 
     name: str
-    handler: Optional[Callable] = None
-    shortcut: Optional[str] = None
+    handler: str | None = None
+    shortcut: str | None = None
 
 
 # structure passed to Menumanager.build()
-MenuStructure = dict[str, list[Optional[MenuItem]]]
+MenuStructure = dict[str, list[MenuItem | None]]
 
 
 class MenuBaseWidget(QMenuBar):

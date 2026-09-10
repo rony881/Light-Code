@@ -2,7 +2,7 @@
 
 A lightweight, VS Code–inspired desktop code editor written in Python, built with PyQt6 and QScintilla.
 
-Light Code pairs a fast, native-feeling editing surface with a dockable file explorer, a tabbed editing area, and slide-out side panels for Git, an AI agent, and a terminal — all wrapped in a dark, GitHub-style theme.
+Light Code pairs a fast, native-feeling editing surface with a dockable file explorer, a tabbed editing area, and slide-out side panels for Git, an AI agent, and a Output Panel — all wrapped in a dark, GitHub-style theme.
 
 ## ⚠️ Currently in Progress
 This project is under active development and doesn't have many features yet. Most features are incomplete and it may crash. Feel free to contribute or report issues 🙂.
@@ -11,7 +11,7 @@ This project is under active development and doesn't have many features yet. Mos
 
 - **Tabbed code editor** — QScintilla-powered editor with line numbers, auto-completion, a custom caret, and a dark colour scheme.
 - **File explorer** — VS Code/Zed-style tree view for browsing and opening folders, with new file/folder actions
-- **Dockable side panels** — toggleable left dock (Explorer / Git) and right dock (AI Agent / Terminal).
+- **Dockable side panels** — toggleable left dock (Explorer / Git) and right dock (AI Agent / Output Panel).
 - **Run Python files** — Run the active python file in background (thinking for more language support)
 - **Full menu bar** — File, Edit, View, Build, Settings, About, and Help menus with standard shortcuts (New, Open, Save, Rename, Undo/Redo, Cut/Copy/Paste, Find, Replace, Go to Line, Zoom, panel toggles, and more)
 

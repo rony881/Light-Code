@@ -9,7 +9,7 @@ from light_code.utils.logger import logger
 
 
 class EditorArea(TabBase):
-    """Editor area: tabbed code editors (+ terminal later)."""
+    """Editor area: tabbed code editors."""
 
     def __init__(self, parent=None) -> None:
         super().__init__(parent)

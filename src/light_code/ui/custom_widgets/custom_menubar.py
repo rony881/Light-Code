@@ -51,7 +51,9 @@ class CustomMenuBar(MenuBaseWidget):
                     shortcut="Ctrl+J",
                 ),
                 MenuItem(
-                    "Toggle Terminal", handler=win.toggle_terminal, shortcut="Ctrl+`"
+                    "Toggle Output Panel",
+                    handler=win.toggle_output,
+                    shortcut="Ctrl+`",
                 ),
                 None,
                 MenuItem("Zoom In", handler=win.zoom_in, shortcut="Ctrl+="),

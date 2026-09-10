@@ -79,17 +79,17 @@ class MainWindow(QMainWindow):
         self.status_bar.setGitBtnConn(self.open_git_panel)
         self.status_bar.setExplorerBtnConn(self.open_explorer_panel)
         self.status_bar.setAgentBtnConn(self.open_agent_panel)
-        self.status_bar.setTerminalBtnConn(self.open_terminal_panel)
+        self.status_bar.setOutputBtnConn(self.open_output_panel)
 
         # ============= Code Runner ==============
         # Parented to self so Qt keeps the underlying QProcess alive for the
         # lifetime of the window, instead of it being garbage-collected.
         self.code_runner = CodeRunner(self)
         self.code_runner.output_received.connect(
-            self.right_panel.terminal_panel.show_output
+            self.right_panel.output_panel.show_output
         )
         self.code_runner.error_received.connect(
-            self.right_panel.terminal_panel.show_error
+            self.right_panel.output_panel.show_error
         )
         self.code_runner.finished.connect(self.on_run_finished)
 
@@ -151,8 +151,8 @@ class MainWindow(QMainWindow):
     def open_agent_panel(self):
         self._show_right_panel("agent")
 
-    def open_terminal_panel(self):
-        self._show_right_panel("terminal")
+    def open_output_panel(self):
+        self._show_right_panel("output")
 
     def read_style_sheet(self, styleSheetFile: str = STYLE_SHEET_FILE) -> str:
         style_sheet, _ = read_file(styleSheetFile)
@@ -289,8 +289,8 @@ class MainWindow(QMainWindow):
         else:
             self.set_right_panel_visible(False)
 
-    def toggle_terminal(self):
-        """Show or hide the terminal."""
+    def toggle_output(self):
+        """Show or hide the output panel."""
         pass
 
     def toggle_minimap(self):
@@ -320,12 +320,12 @@ class MainWindow(QMainWindow):
             logger.warning("No file selected to run")
             return
 
-        self._show_right_panel("terminal")
-        self.right_panel.terminal_panel.clear_output()
+        self._show_right_panel("output")
+        self.right_panel.output_panel.clear_output()
         self.code_runner.run(file_path)
 
     def on_run_finished(self, exit_code: int):
-        self.right_panel.terminal_panel.show_output(
+        self.right_panel.output_panel.show_output(
             f"\n[process finished with exit code {exit_code}]\n"
         )
 

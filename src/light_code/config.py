@@ -51,8 +51,8 @@ AI_AGENT_ICON = str(ICONS_PATH / "ai-agent-logo.svg")
 # Right Panel Button
 RIGHT_PANEL_ICON = str(ICONS_PATH / "right-panel-logo.svg")
 
-# Terminal Button
-TERMINAL_ICON = str(ICONS_PATH / "terminal-logo.svg")
+# Output Panel Button
+OUTPUT_ICON = str(ICONS_PATH / "output-logo.svg")
 
 # File Plus Button
 FILE_PLUS_ICON = str(ICONS_PATH / "file-plus-logo.svg")
