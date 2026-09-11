@@ -51,8 +51,8 @@ class CustomMenuBar(MenuBaseWidget):
                     shortcut="Ctrl+J",
                 ),
                 MenuItem(
-                    "Toggle Output Panel",
-                    handler=win.toggle_output,
+                    "Show Output Panel",
+                    handler=win.show_output_panel,
                     shortcut="Ctrl+`",
                 ),
                 None,

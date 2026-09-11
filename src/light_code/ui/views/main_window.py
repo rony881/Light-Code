@@ -289,9 +289,9 @@ class MainWindow(QMainWindow):
         else:
             self.set_right_panel_visible(False)
 
-    def toggle_output(self):
-        """Show or hide the output panel."""
-        pass
+    def show_output_panel(self):
+        """Show the output panel."""
+        self._show_right_panel("output")
 
     def toggle_minimap(self):
         """Show or hide the minimap."""
