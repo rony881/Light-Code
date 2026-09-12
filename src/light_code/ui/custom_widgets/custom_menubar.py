@@ -51,6 +51,21 @@ class CustomMenuBar(MenuBaseWidget):
                     shortcut="Ctrl+J",
                 ),
                 MenuItem(
+                    "Show Explorer Panel",
+                    handler=win.show_explorer_panel,
+                    shortcut="Ctrl+E",
+                ),
+                MenuItem(
+                    "Show Git Panel",
+                    handler=win.show_git_panel,
+                    shortcut="Ctrl+G",
+                ),
+                MenuItem(
+                    "Show Agent Panel",
+                    handler=win.show_agent_panel,
+                    shortcut="Ctrl+A",
+                ),
+                MenuItem(
                     "Show Output Panel",
                     handler=win.show_output_panel,
                     shortcut="Ctrl+`",
