@@ -76,10 +76,10 @@ class MainWindow(QMainWindow):
 
         self.status_bar.setLeftPanelToggleBtnConn(self.toggle_left_panel)
         self.status_bar.setRightPanelToggleBtnConn(self.toggle_right_panel)
-        self.status_bar.setGitBtnConn(self.open_git_panel)
-        self.status_bar.setExplorerBtnConn(self.open_explorer_panel)
-        self.status_bar.setAgentBtnConn(self.open_agent_panel)
-        self.status_bar.setOutputBtnConn(self.open_output_panel)
+        self.status_bar.setGitBtnConn(self.show_git_panel)
+        self.status_bar.setExplorerBtnConn(self.show_explorer_panel)
+        self.status_bar.setAgentBtnConn(self.show_agent_panel)
+        self.status_bar.setOutputBtnConn(self.show_output_panel)
 
         # ============= Code Runner ==============
         # Parented to self so Qt keeps the underlying QProcess alive for the
@@ -141,18 +141,6 @@ class MainWindow(QMainWindow):
         self.right_panel.showPanel(name)
         if self._right_panel_width() < 5:
             self.set_right_panel_visible(True)
-
-    def open_git_panel(self):
-        self._show_left_panel("git")
-
-    def open_explorer_panel(self):
-        self._show_left_panel("explorer")
-
-    def open_agent_panel(self):
-        self._show_right_panel("agent")
-
-    def open_output_panel(self):
-        self._show_right_panel("output")
 
     def read_style_sheet(self, styleSheetFile: str = STYLE_SHEET_FILE) -> str:
         style_sheet, _ = read_file(styleSheetFile)
@@ -289,13 +277,18 @@ class MainWindow(QMainWindow):
         else:
             self.set_right_panel_visible(False)
 
+    def show_git_panel(self):
+        self._show_left_panel("git")
+
+    def show_explorer_panel(self):
+        self._show_left_panel("explorer")
+
+    def show_agent_panel(self):
+        self._show_right_panel("agent")
+
     def show_output_panel(self):
         """Show the output panel."""
         self._show_right_panel("output")
-
-    def toggle_minimap(self):
-        """Show or hide the minimap."""
-        pass
 
     def zoom_in(self):
         """Increase editor zoom."""
