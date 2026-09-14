@@ -16,7 +16,6 @@ class FileExplorer(BaseWidget):
 
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
-        self.setObjectName("file_explorer_panel")
         logger.info("Initializing FileExplorer")
 
         self.header = FileExplorerHeader(self)
@@ -97,12 +96,13 @@ class FileExplorerHeader(BaseWidget):
         super().__init__(parent)
 
         logger.info("Initializing FileExplorerHeader")
-        self.setFixedHeight(35)
         self.setObjectName("file_explorer_header")
+        self.setFixedHeight(35)
         self.h_layout = QHBoxLayout()
         self.add(self.h_layout)
 
         self.folder_lbl = QLabel(parent=self)
+        self.folder_lbl.setObjectName("folder_name_label")
         self.h_layout.addWidget(self.folder_lbl)
         self.h_layout.addStretch()
 
