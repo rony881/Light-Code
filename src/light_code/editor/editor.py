@@ -26,22 +26,22 @@ class BaseEditor(QsciScintilla):
 
         # Editor Paper And Text Color:
         self.setPaper(QColor("#0d1117"))  # editor background (matches QMainWindow)
-        self.setColor(QColor("#c9d1d9"))  # default text color
+        self.setColor(QColor("#B3B1AD"))  # default text color
 
         # Selection Colors
-        self.setSelectionBackgroundColor(QColor("#1f6feb"))  # accent blue
+        self.setSelectionBackgroundColor(QColor("#273747"))  # accent blue
         self.setSelectionForegroundColor(QColor("#f0f6fc"))
 
         # Line Number Foreground And Background Color:
         self.setMarginsForegroundColor(
-            QColor("#7d858e")
+            QColor("#3D424D")
         )  # line Number Foreground Color (muted text)
         self.setMarginsBackgroundColor(
             QColor("#0d1117")
         )  # line Number Background Color (panel bg)
 
         # Caret Line Back and Foreground:
-        self.setCaretLineBackgroundColor(QColor("#161b22"))
+        self.setCaretLineBackgroundColor(QColor("#131721"))
         self.setCaretForegroundColor(QColor("#58a6ff"))  # accent blue
         self.setCaretLineVisible(True)
 
