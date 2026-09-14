@@ -10,6 +10,7 @@ class CustomMenuBar(MenuBaseWidget):
     def __init__(self, parent):
         super().__init__(parent)
         logger.info("Initializing CustomMenuBar")
+        self.setObjectName("menu")
         self.main_window = parent
         self.build(self._structure())
 
