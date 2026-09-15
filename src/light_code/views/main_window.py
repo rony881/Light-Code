@@ -292,11 +292,11 @@ class MainWindow(QMainWindow):
 
     def zoom_in(self):
         """Increase editor zoom."""
-        pass
+        self.central_panel.zoom_in()
 
     def zoom_out(self):
         """Decrease editor zoom."""
-        pass
+        self.central_panel.zoom_out()
 
     def reset_zoom(self):
         """Reset editor zoom to the default level."""

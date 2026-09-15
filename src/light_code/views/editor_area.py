@@ -135,3 +135,13 @@ class EditorArea(TabBase):
         widget = self.currentWidget()
         if widget is not None:
             widget.paste()
+
+    def zoom_in(self):
+        widget = self.currentWidget()
+        if widget is not None:
+            widget.zoomIn()
+
+    def zoom_out(self):
+        widget = self.currentWidget()
+        if widget is not None:
+            widget.zoomOut()
