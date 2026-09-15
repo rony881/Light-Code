@@ -153,30 +153,63 @@ QPushButton#new_folder_btn:pressed {
 #file_tree_view::branch { border-image: none; image: none; }
 
 /* ---- Tree view scrollbars ---- */
-QScrollBar#file_tree_view:vertical {
+#file_tree_view QScrollBar:vertical {
     background: #0d1117;
     width: 10px;
     border: none;
 }
-QScrollBar#file_tree_view::handle:vertical {
+#file_tree_view QScrollBar::handle:vertical {
     background: #30363d;
     border-radius: 5px;
     min-height: 30px;
 }
-QScrollBar#file_tree_view::handle:vertical:hover { background: #484f58; }
-QScrollBar#file_tree_view::add-line:vertical, QScrollBar::sub-line:vertical { height: 0; }
-QScrollBar#file_tree_view:horizontal {
+#file_tree_view QScrollBar::handle:vertical:hover { background: #484f58; }
+#file_tree_view QScrollBar::add-line:vertical, #file_tree_view QScrollBar::sub-line:vertical { height: 0; }
+#file_tree_view QScrollBar:horizontal {
     background: #0d1117;
     height: 10px;
     border: none;
 }
-QScrollBar#file_tree_view::handle:horizontal {
+#file_tree_view QScrollBar::handle:horizontal {
     background: #30363d;
     border-radius: 5px;
     min-width: 30px;
 }
-QScrollBar#file_tree_view::handle:horizontal:hover { background: #484f58; }
-QScrollBar#file_tree_view::add-line:horizontal, QScrollBar::sub-line:horizontal { width: 0; }
+#file_tree_view QScrollBar::handle:horizontal:hover { background: #484f58; }
+#file_tree_view QScrollBar::add-line:horizontal, #file_tree_view QScrollBar::sub-line:horizontal { width: 0; }
+
+/* ---- Editor frame ---- */
+#base_editor {
+    border: none;
+}
+
+/* ---- Editor scrollbars ---- */
+/* Same fix, plus these rules didn't exist before at all - QsciScintilla is a
+   QAbstractScrollArea with real QScrollBar children that were never styled. */
+#base_editor QScrollBar:vertical {
+    background: #0d1117;
+    width: 10px;
+    border: none;
+}
+#base_editor QScrollBar::handle:vertical {
+    background: #30363d;
+    border-radius: 5px;
+    min-height: 30px;
+}
+#base_editor QScrollBar::handle:vertical:hover { background: #484f58; }
+#base_editor QScrollBar::add-line:vertical, #base_editor QScrollBar::sub-line:vertical { height: 0; }
+#base_editor QScrollBar:horizontal {
+    background: #0d1117;
+    height: 10px;
+    border: none;
+}
+#base_editor QScrollBar::handle:horizontal {
+    background: #30363d;
+    border-radius: 5px;
+    min-width: 30px;
+}
+#base_editor QScrollBar::handle:horizontal:hover { background: #484f58; }
+#base_editor QScrollBar::add-line:horizontal, #base_editor QScrollBar::sub-line:horizontal { width: 0; }
 
 /* ---- Column headers (used by the tree view) ---- */
 QHeaderView::section {

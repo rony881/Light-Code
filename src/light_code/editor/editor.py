@@ -2,6 +2,7 @@
 
 from PyQt6.Qsci import QsciScintilla
 from PyQt6.QtGui import QColor, QFont
+from PyQt6.QtWidgets import QFrame
 
 
 class BaseEditor(QsciScintilla):
@@ -12,6 +13,8 @@ class BaseEditor(QsciScintilla):
         self._config()
 
     def _config(self):
+        self.setFrameShape(QFrame.Shape.NoFrame)
+
         self.setCaretWidth(2)  # Cursor Width
         self.setUtf8(True)
         self.setTabWidth(4)
@@ -55,3 +58,4 @@ class BaseEditor(QsciScintilla):
         self.setIndentationGuidesForegroundColor(
             QColor("#21262d")
         )  # Indentation line Foregorund Color
+        
