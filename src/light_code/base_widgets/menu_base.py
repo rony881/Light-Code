@@ -1,4 +1,4 @@
-# src/light_code/ui/components/base_widgets/menu_base.py
+# src/light_code/components/base_widgets/menu_base.py
 
 from dataclasses import dataclass
 

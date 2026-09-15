@@ -1,8 +1,8 @@
-# ui/components/widgets/output_panel.py
+# src/light_code/components/widgets/output_panel.py
 
 from PyQt6.QtWidgets import QPlainTextEdit
 
-from light_code.ui.base_widgets.base_widget import BaseWidget
+from light_code.base_widgets.base_widget import BaseWidget
 from light_code.utils.logger import logger
 
 

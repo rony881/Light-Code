@@ -1,4 +1,4 @@
-# src/ui/views/main_window.py
+# src/light_code/views/main_window.py
 
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QIcon
@@ -12,13 +12,13 @@ from PyQt6.QtWidgets import (
 from light_code.config import STYLE_SHEET_FILE, WINDOW_HEIGHT, WINDOW_LOGO, WINDOW_WIDTH
 from light_code.services.file_service import read_file, rename_file, write_file
 from light_code.services.run_code_service import CodeRunner
-from light_code.ui.base_widgets.base_widget import BaseWidget
-from light_code.ui.custom_widgets.custom_menubar import CustomMenuBar
-from light_code.ui.custom_widgets.custom_statusbar import CustomStatusBar
-from light_code.ui.dialogs import NewFileDialog, RenameFileDialog
-from light_code.ui.views.editor_area import EditorArea
-from light_code.ui.views.left_dock import LeftDock
-from light_code.ui.views.right_dock import RightDock
+from light_code.base_widgets.base_widget import BaseWidget
+from light_code.custom_widgets.custom_menubar import CustomMenuBar
+from light_code.custom_widgets.custom_statusbar import CustomStatusBar
+from light_code.dialogs import NewFileDialog, RenameFileDialog
+from light_code.views.editor_area import EditorArea
+from light_code.views.left_dock import LeftDock
+from light_code.views.right_dock import RightDock
 from light_code.utils.logger import logger
 
 

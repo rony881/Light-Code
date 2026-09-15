@@ -1,4 +1,4 @@
-# src/light_code/ui/base_widgets/tab_base.py
+# src/light_code/base_widgets/tab_base.py
 
 from PyQt6.QtWidgets import QTabWidget
 

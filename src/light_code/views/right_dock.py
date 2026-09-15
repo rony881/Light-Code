@@ -1,8 +1,8 @@
 from PyQt6.QtWidgets import QStackedWidget
 
-from light_code.ui.base_widgets.base_widget import BaseWidget
-from light_code.ui.components.widgets.agent_panel import AgentPanel
-from light_code.ui.components.widgets.output_panel import OutputPanel
+from light_code.base_widgets.base_widget import BaseWidget
+from light_code.components.widgets.agent_panel import AgentPanel
+from light_code.components.widgets.output_panel import OutputPanel
 from light_code.utils.logger import logger
 
 

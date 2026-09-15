@@ -1,4 +1,4 @@
-from light_code.ui.base_widgets.menu_base import MenuBaseWidget, MenuItem, MenuStructure
+from light_code.base_widgets.menu_base import MenuBaseWidget, MenuItem, MenuStructure
 from light_code.utils.logger import logger
 
 

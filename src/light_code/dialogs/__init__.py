@@ -1,4 +1,4 @@
-# src/light_code/ui/dialogs/__init__.py
+# src/light_code/dialogs/__init__.py
 from PyQt6.QtWidgets import QInputDialog
 
 

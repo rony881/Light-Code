@@ -9,7 +9,7 @@ from light_code.config import (
     RIGHT_PANEL_ICON,
     OUTPUT_ICON,
 )
-from light_code.ui.custom_widgets.custom_button import CustomButton
+from light_code.custom_widgets.custom_button import CustomButton
 from light_code.utils.logger import logger
 
 BUTTON_STYLE = """
