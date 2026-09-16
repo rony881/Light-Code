@@ -140,8 +140,6 @@ QPushButton#new_folder_btn:pressed {
 }
 #file_tree_view::item {
     padding: 5px 4px;
-    border-radius: 4px;
-    margin: 1px 4px;
 }
 #file_tree_view::item:hover {
     background-color: #131721;
@@ -150,7 +148,6 @@ QPushButton#new_folder_btn:pressed {
     background: #1D2733;
     color: #E6E1CF;
 }
-#file_tree_view::branch { border-image: none; image: none; }
 
 /* ---- Tree view scrollbars ---- */
 #file_tree_view QScrollBar:vertical {
