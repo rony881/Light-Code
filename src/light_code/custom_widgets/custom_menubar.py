@@ -36,8 +36,7 @@ class CustomMenuBar(MenuBaseWidget):
                 MenuItem("Copy", handler=win.copy, shortcut="Ctrl+C"),
                 MenuItem("Paste", handler=win.paste, shortcut="Ctrl+V"),
                 None,
-                MenuItem("Find...", handler=win.find_, shortcut="Ctrl+F"),
-                MenuItem("Replace...", handler=win.replace, shortcut="Ctrl+H"),
+                MenuItem("Find or Replace...", handler=win.find_or_replace, shortcut="Ctrl+F"),
                 MenuItem("Go to Line...", handler=win.go_to_line, shortcut="Ctrl+G"),
             ],
             "View": [
