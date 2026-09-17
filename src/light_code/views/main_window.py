@@ -16,6 +16,7 @@ from light_code.base_widgets.base_widget import BaseWidget
 from light_code.custom_widgets.custom_menubar import CustomMenuBar
 from light_code.custom_widgets.custom_statusbar import CustomStatusBar
 from light_code.dialogs import NewFileDialog, RenameFileDialog
+from light_code.components.widgets.find_replace_bar import FindReplaceBar
 from light_code.views.editor_area import EditorArea
 from light_code.views.left_dock import LeftDock
 from light_code.views.right_dock import RightDock
@@ -45,16 +46,21 @@ class MainWindow(QMainWindow):
         self.central_widget = BaseWidget()
         self.setCentralWidget(self.central_widget)
 
+        # ============= Find and Replace Bar ======
+        self.find_replace_bar = FindReplaceBar(self)
+        self.central_widget.add(self.find_replace_bar)
+        
         # ==================== Splitter =======================
         # This splitter container widget would contain 3 panels-
         # left,right and the contral panel.
         self.splitter_container = QSplitter(Qt.Orientation.Horizontal)
+        self.splitter_container.setObjectName("splitter")
         self.central_widget.add(self.splitter_container)
 
         self.LEFT_PANEL_INDEX = 0
         self.RIGHT_PANEL_INDEX = -1
 
-        # ============= Left Panel ==============
+        # ============= Left Panel ================
         self.left_panel = LeftDock(parent=self)
         self.splitter_container.addWidget(self.left_panel)
         self.left_panel.explorer_file_selected_conn(self.open_file_from_explorer)
@@ -62,6 +68,9 @@ class MainWindow(QMainWindow):
 
         # ============= Central Panel ==============
         self.central_panel = EditorArea(parent=self)
+        self.central_panel.currentChanged.connect(
+            lambda _: self.find_replace_bar.set_editor(self.central_panel.currentWidget())
+        )
         self.splitter_container.addWidget(self.central_panel)
 
         # ============= Right Panel ==============
@@ -245,13 +254,14 @@ class MainWindow(QMainWindow):
         """Paste text from the clipboard."""
         self.central_panel.paste()
 
-    def find_(self):
+    def find_or_replace(self):
         """Open the find interface."""
-        pass
-
-    def replace(self):
-        """Open the replace interface."""
-        pass
+        current_editor = self.central_panel.currentWidget()
+        if current_editor is None:
+            return
+            
+        self.find_replace_bar.set_editor(current_editor)
+        self.find_replace_bar.toggle(True)
 
     def go_to_line(self):
         """Go to a specific line."""
