@@ -15,7 +15,7 @@ from light_code.services.run_code_service import CodeRunner
 from light_code.base_widgets.base_widget import BaseWidget
 from light_code.custom_widgets.custom_menubar import CustomMenuBar
 from light_code.custom_widgets.custom_statusbar import CustomStatusBar
-from light_code.dialogs import NewFileDialog, RenameFileDialog
+from light_code.dialogs import GoToLineDialog, NewFileDialog, RenameFileDialog
 from light_code.components.widgets.find_replace_bar import FindReplaceBar
 from light_code.views.editor_area import EditorArea
 from light_code.views.left_dock import LeftDock
@@ -255,7 +255,7 @@ class MainWindow(QMainWindow):
         self.central_panel.paste()
 
     def find_or_replace(self):
-        """Open the find interface."""
+        """Open the find or replace interface."""
         current_editor = self.central_panel.currentWidget()
         if current_editor is None:
             return
@@ -264,8 +264,19 @@ class MainWindow(QMainWindow):
         self.find_replace_bar.toggle(True)
 
     def go_to_line(self):
-        """Go to a specific line."""
-        pass
+        """Moves cursor to the given line number."""
+        current_editor = self.central_panel.currentWidget()
+        if current_editor is None:
+            return
+
+        max_line = max(1, current_editor.lines())
+        current_line = current_editor.getCursorPosition()[0] + 1
+
+        dialog = GoToLineDialog(self)
+        line, ok = dialog.get_line_number(current_line, max_line)
+
+        if ok:
+            self.central_panel.go_to_line(line)
 
     # ─────────────────────────────────────────────
     # View
