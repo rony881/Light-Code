@@ -145,3 +145,14 @@ class EditorArea(TabBase):
         widget = self.currentWidget()
         if widget is not None:
             widget.zoomOut()
+
+    def go_to_line(self, line: int):
+        """Move the cursor to the given line number."""
+        widget = self.currentWidget()
+        if widget is None:
+            return
+
+        line_index = max(0, min(line - 1, widget.lines() - 1))
+        widget.setCursorPosition(line_index, 0)
+        widget.ensureLineVisible(line_index)
+        widget.setFocus()
