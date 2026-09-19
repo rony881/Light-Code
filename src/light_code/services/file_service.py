@@ -5,21 +5,21 @@ from pathlib import Path
 from light_code.utils.logger import logger
 
 
-def read_file(file_path):
+def read_file(file_path) -> str | None:
     """
     Reads the content of a file and returns it along with the file name.
     """
+    content = ""
     try:
         logger.info(f"Reading file: {file_path}")
         with open(file_path, "r", encoding="utf-8") as file:
             content = file.read()
     except Exception as e:
         logger.error(f"Error reading file: {e}")
-        raise
+        
     else:
         logger.info(f"Successfully read file: {file_path}")
-        file_name = Path(file_path).name
-        return content, file_name
+        return content
 
 
 def write_file(file_path, content):
