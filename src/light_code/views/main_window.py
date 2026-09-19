@@ -1,5 +1,7 @@
 # src/light_code/views/main_window.py
 
+from pathlib import Path
+
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import (
@@ -104,16 +106,16 @@ class MainWindow(QMainWindow):
 
     def open_file_from_explorer(self, file_path: str):
         logger.info(f"Opening file from explorer: {file_path}")
+        file_name = Path(file_path).name
+        content = read_file(file_path)
 
-        try:
-            content, name = read_file(file_path)
-        except OSError as e:
-            logger.error(f"Failed to open file: {e}")
+        if content:
+            self.central_panel.add_tab(file_name, file_path, content)
+        else:
             QMessageBox.critical(
-                self, "Open File Failed", f"Failed to open file:\n{file_path}\n{e}"
+                self, "Open File Failed", f"Failed to open file:\n{file_path}"
             )
             return
-        self.central_panel.add_tab(name, file_path, content)
 
     def _left_panel_width(self) -> int:
         return self.splitter_container.sizes()[0]
@@ -152,7 +154,7 @@ class MainWindow(QMainWindow):
             self.set_right_panel_visible(True)
 
     def read_style_sheet(self, styleSheetFile: str = STYLE_SHEET_FILE) -> str:
-        style_sheet, _ = read_file(styleSheetFile)
+        style_sheet = read_file(styleSheetFile)
         return style_sheet
 
     def open_existing_file(self, file_path: str | None = None):
