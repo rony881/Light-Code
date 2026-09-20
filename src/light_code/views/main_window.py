@@ -12,7 +12,8 @@ from PyQt6.QtWidgets import (
 )
 
 from light_code.config import STYLE_SHEET_FILE, WINDOW_HEIGHT, WINDOW_LOGO, WINDOW_WIDTH
-from light_code.services.file_service import read_file, rename_file, write_file
+from light_code.editor.editor import BaseEditor
+from light_code.services.file_service import UnsupportedFileError, read_file, rename_file, write_file
 from light_code.services.run_code_service import CodeRunner
 from light_code.base_widgets.base_widget import BaseWidget
 from light_code.custom_widgets.custom_menubar import CustomMenuBar
@@ -104,23 +105,28 @@ class MainWindow(QMainWindow):
         )
         self.code_runner.finished.connect(self.on_run_finished)
 
-    def open_file_from_explorer(self, file_path: str):
+    def open_file_from_explorer(self, file_path: str) -> None:
         logger.info(f"Opening file from explorer: {file_path}")
-        file_name = Path(file_path).name
-
+        path = Path(file_path)
+    
         try:
-            content = read_file(file_path)
+            content = read_file(path)
+        except UnsupportedFileError as e:
+            logger.warning(f"Refused to open {path}: {e}")
+            QMessageBox.warning(self, "Can't Open File", f"{path.name}\n\n{e}")
+            return
         except UnicodeDecodeError:
-            logger.exception(f"Not a UTF-8 text file: {file_path}")
-            reason = "The file is not a valid text file."
+            logger.exception(f"Not a UTF-8 text file: {path}")
+            reason = "The file is not valid UTF-8 text."
         except OSError as e:
-            logger.exception(f"Error reading file {file_path}")
+            logger.exception(f"Error reading file: {path}")
             reason = e.strerror or str(e)
         else:
-            self.central_panel.add_tab(file_name, str(file_path), content)
+            self.central_panel.add_tab(path.name, str(path), content)
             return
+    
         QMessageBox.critical(
-            self, "Open File Failed", f"Failed to open file:\n{file_path}\n\nReason: {reason}"
+            self, "Open File Failed", f"Failed to open file:\n{path}\n\nReason: {reason}"
         )
 
     def _left_panel_width(self) -> int:
@@ -274,7 +280,7 @@ class MainWindow(QMainWindow):
     def go_to_line(self):
         """Moves cursor to the given line number."""
         current_editor = self.central_panel.currentWidget()
-        if current_editor is None:
+        if current_editor is None or not isinstance(current_editor, BaseEditor):
             return
 
         max_line = max(1, current_editor.lines())
