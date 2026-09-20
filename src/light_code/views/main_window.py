@@ -107,15 +107,21 @@ class MainWindow(QMainWindow):
     def open_file_from_explorer(self, file_path: str):
         logger.info(f"Opening file from explorer: {file_path}")
         file_name = Path(file_path).name
-        content = read_file(file_path)
 
-        if content:
-            self.central_panel.add_tab(file_name, file_path, content)
+        try:
+            content = read_file(file_path)
+        except UnicodeDecodeError:
+            logger.exception(f"Not a UTF-8 text file: {file_path}")
+            reason = "The file is not a valid text file."
+        except OSError as e:
+            logger.exception(f"Error reading file {file_path}")
+            reason = e.strerror or str(e)
         else:
-            QMessageBox.critical(
-                self, "Open File Failed", f"Failed to open file:\n{file_path}"
-            )
+            self.central_panel.add_tab(file_name, str(file_path), content)
             return
+        QMessageBox.critical(
+            self, "Open File Failed", f"Failed to open file:\n{file_path}\n\nReason: {reason}"
+        )
 
     def _left_panel_width(self) -> int:
         return self.splitter_container.sizes()[0]
