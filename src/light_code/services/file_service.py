@@ -5,7 +5,6 @@ from pathlib import Path
 
 from light_code.utils.logger import logger
 
-MAX_TEXT_FILE_SIZE = 50 * 1024 * 1024  # 50 MB
 
 class UnsupportedFileError(Exception):
     """File can't or shouldn't be opened in the editor."""
@@ -13,8 +12,9 @@ class UnsupportedFileError(Exception):
 @dataclass
 class FileContent:
     text: str
-    file_name: str
-    file_type: str
+    type: str
+
+MAX_TEXT_FILE_SIZE = 50 * 1024 * 1024  # 50 MB
 
 def read_file(file_path) -> FileContent:
     logger.info(f"Reading file: {file_path}")
@@ -38,7 +38,7 @@ def read_file(file_path) -> FileContent:
             f"limit is {MAX_TEXT_FILE_SIZE // 1024 // 1024} MB)."
         )
     text = file_path.read_text(encoding="utf-8-sig")  
-    return FileContent(text=text, file_name=file_path.name, file_type=file_path.suffix)
+    return FileContent(text=text, type=file_path.suffix)
 
     
 def write_file(file_path, content):
