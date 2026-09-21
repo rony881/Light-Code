@@ -66,7 +66,7 @@ class MainWindow(QMainWindow):
         # ============= Left Panel ================
         self.left_panel = LeftDock(parent=self)
         self.splitter_container.addWidget(self.left_panel)
-        self.left_panel.explorer_file_selected_conn(self.open_file_from_explorer)
+        self.left_panel.explorer_file_selected_conn(self.open_path)
         self.left_panel.file_explorer.set_new_file_btn_conn(self.new_file)
 
         # ============= Central Panel ==============
@@ -105,28 +105,31 @@ class MainWindow(QMainWindow):
         )
         self.code_runner.finished.connect(self.on_run_finished)
 
-    def open_file_from_explorer(self, file_path: str) -> None:
+    def open_path(self, file_path: str) -> None:
         logger.info(f"Opening file from explorer: {file_path}")
-        path = Path(file_path)
-    
-        try:
-            content = read_file(path)
-        except UnsupportedFileError as e:
-            logger.warning(f"Refused to open {path}: {e}")
-            QMessageBox.warning(self, "Can't Open File", f"{path.name}\n\n{e}")
+        if not file_path:
             return
+            
+        path = Path(file_path)
+        
+        try:
+            file = read_file(path)
+        except UnsupportedFileError as e:
+            reason = f"Can't Open File {path.name}\n\n{e}"
         except UnicodeDecodeError:
-            logger.exception(f"Not a UTF-8 text file: {path}")
             reason = "The file is not valid UTF-8 text."
         except OSError as e:
-            logger.exception(f"Error reading file: {path}")
             reason = e.strerror or str(e)
         else:
-            self.central_panel.add_tab(path.name, str(path), content)
+            self.central_panel.add_tab(
+                tab_name = path.name,
+                file_path = str(path),
+                content = file.text 
+            )
             return
     
-        QMessageBox.critical(
-            self, "Open File Failed", f"Failed to open file:\n{path}\n\nReason: {reason}"
+        QMessageBox.warning(
+            self, "Open File Failed", f"Reason: {reason}"
         )
 
     def _left_panel_width(self) -> int:
@@ -167,7 +170,7 @@ class MainWindow(QMainWindow):
 
     def read_style_sheet(self, styleSheetFile: str = STYLE_SHEET_FILE) -> str:
         style_sheet = read_file(styleSheetFile)
-        return style_sheet
+        return style_sheet.text
 
     def open_existing_file(self, file_path: str | None = None):
         if not file_path:
@@ -200,7 +203,7 @@ class MainWindow(QMainWindow):
             )
             return
 
-        self.open_existing_file(str(file_path))
+        self.open_path(str(file_path))
 
     def open_file(self):
         """Ask the user to select a file and open it."""
@@ -208,7 +211,7 @@ class MainWindow(QMainWindow):
         file_path = QFileDialog.getOpenFileName(self, "Open File", "", "All Files (*)")[
             0
         ]
-        self.open_existing_file(file_path=file_path)
+        self.open_path(file_path=file_path)
 
     def browse_folder(self):
         """Open a folder."""
@@ -236,7 +239,7 @@ class MainWindow(QMainWindow):
         if ok and new_file_name:
             new_file_path = rename_file(old_file_path, new_file_name)
             self.central_panel.close_tab_by_path(old_file_path)
-            self.open_existing_file(str(new_file_path))
+            self.open_path(str(new_file_path))
 
     def close_tab(self):
         """Close the current editor tab."""
