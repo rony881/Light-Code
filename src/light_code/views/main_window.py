@@ -25,7 +25,6 @@ from light_code.views.left_dock import LeftDock
 from light_code.views.right_dock import RightDock
 from light_code.utils.logger import logger
 
-from tests import editor
 
 
 class MainWindow(QMainWindow):
@@ -348,14 +347,14 @@ class MainWindow(QMainWindow):
 
     def run_file(self):
         """Run interpreted  language scripts"""
-        file_path = self.current_file_path()
-        if not file_path:
+        editor = self.central_panel.current_editor()
+        if not editor.file_path:
             logger.warning("No file selected to run")
             return
 
         self._show_right_panel("output")
         self.right_panel.output_panel.clear_output()
-        self.code_runner.run(file_path)
+        self.code_runner.run(editor.file_path)
 
     def on_run_finished(self, exit_code: int):
         self.right_panel.output_panel.show_output(
