@@ -1,5 +1,7 @@
 # src/light_code/views/editor_area.py
 
+from pathlib import Path
+
 from PyQt6.QtWidgets import QMessageBox
 
 from light_code.editor.editor import BaseEditor
@@ -27,6 +29,10 @@ class EditorArea(TabBase):
 
         tab = BaseEditor(file_path=file_path)
         tab.setText(content)
+        tab.setModified(False)
+        tab.modificationChanged.connect(
+            lambda dirty, e=tab: self._update_tab_title(e, dirty)
+        )
 
         tab_index = self.addTab(tab, tab_name)
 
@@ -35,12 +41,19 @@ class EditorArea(TabBase):
 
         return tab_index
 
-    def current_editor(self) -> BaseEditor:
+    def _update_tab_title(self, editor, dirty: bool) -> None:
+        index = self.indexOf(editor)
+        if index != -1:
+            name = Path(editor.file_path).name
+            self.setTabText(index, f"* {name}" if dirty else name)
+
+    def current_editor(self) -> BaseEditor | None:
         """Returns file path of current selected tab"""
         editor = self.currentWidget()
         if editor is None:
                 return None
-        return editor
+        if isinstance(editor, BaseEditor):
+            return editor
 
     def rename_current_tab(self, new_name: str) -> None:
         """Rename the current tab to the given name."""
