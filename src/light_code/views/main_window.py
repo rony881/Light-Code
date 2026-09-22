@@ -230,15 +230,17 @@ class MainWindow(QMainWindow):
         
     def rename_file(self):
         """Rename the current file."""
-        old_file_path = self.current_file_path()
+        editor = self.central_panel.current_editor()
+        old_path = editor.file_path
 
-        if not old_file_path:
+        if not old_path:
             return
+            
         dialog = RenameFileDialog(self)
         new_file_name, ok = dialog.get_file_name()
         if ok and new_file_name:
-            new_file_path = rename_file(old_file_path, new_file_name)
-            self.central_panel.close_tab_by_path(old_file_path)
+            new_file_path = rename_file(old_path, new_file_name)
+            self.central_panel.close_tab_by_path(old_path)
             self.open_path(str(new_file_path))
 
     def close_tab(self):
