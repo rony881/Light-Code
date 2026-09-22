@@ -35,24 +35,12 @@ class EditorArea(TabBase):
 
         return tab_index
 
-    def current_file_path(self) -> str | None:
+    def current_editor(self) -> BaseEditor:
         """Returns file path of current selected tab"""
-        widget = self.currentWidget()
-
-        if widget is None:
-            return None
-
-        return getattr(widget, "file_path", None)
-
-    def current_content(self) -> str:
-        """Returns content of current selected tab"""
-        widget = self.currentWidget()
-
-        if not widget:
-            return ""
-        content = widget.text()
-
-        return content
+        editor = self.currentWidget()
+        if editor is None:
+                return None
+        return editor
 
     def rename_current_tab(self, new_name: str) -> None:
         """Rename the current tab to the given name."""
