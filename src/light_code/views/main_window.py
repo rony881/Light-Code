@@ -25,6 +25,8 @@ from light_code.views.left_dock import LeftDock
 from light_code.views.right_dock import RightDock
 from light_code.utils.logger import logger
 
+from tests import editor
+
 
 class MainWindow(QMainWindow):
     """
@@ -171,16 +173,7 @@ class MainWindow(QMainWindow):
     def read_style_sheet(self, styleSheetFile: str = STYLE_SHEET_FILE) -> str:
         style_sheet = read_file(styleSheetFile)
         return style_sheet.text
-
-    def open_existing_file(self, file_path: str | None = None):
-        if not file_path:
-            return
-        content, file_name = read_file(file_path)
-        self.central_panel.add_tab(file_name, file_path, content)
-
-    def current_file_path(self) -> str | None:
-        return self.central_panel.current_file_path()
-
+    
     # File / Edit / View / Settings / About / Help methods unchanged below...
 
     # ─────────────────────────────────────────────
@@ -219,14 +212,13 @@ class MainWindow(QMainWindow):
 
     def save_file(self):
         """Save the current file."""
-        file_path = self.current_file_path()
-        content = self.central_panel.current_content()
+        editor = self.central_panel.current_editor()
 
-        if not file_path:
+        if not editor.file_path or editor is None:
             logger.warning("No file selected to save")
             return
 
-        write_file(file_path, content)
+        write_file(editor.file_path, editor.text())
 
     def rename_file(self):
         """Rename the current file."""
