@@ -217,9 +217,17 @@ class MainWindow(QMainWindow):
         if not editor.file_path or editor is None:
             logger.warning("No file selected to save")
             return
-
-        write_file(editor.file_path, editor.text())
-
+            
+        try:
+            write_file(editor.file_path, editor.text())
+        except OSError as e:
+            QMessageBox.critical(
+                self, "Save Failed", f"{editor.file_path}\n\n{e.strerror or e}"
+            )
+            return
+        editor.setModified(False)
+        self.status_bar.set_status_message(f"Saved {Path(editor.file_path).name}")
+        
     def rename_file(self):
         """Rename the current file."""
         old_file_path = self.current_file_path()
