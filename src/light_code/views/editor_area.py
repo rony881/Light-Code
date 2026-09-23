@@ -78,36 +78,52 @@ class EditorArea(TabBase):
         self.removeTab(index)
         widget.deleteLater()
 
-    def on_close_tab(self, index: int) -> None:
-        """Close the tab at the given index, ask to save changes first."""
-        widget = self.widget(index)
-        if widget is None:
-            return
+    def ask_for_save(self, index: int) -> bool:
+        """Ask the user to save changes about one tab.
+        Returns True if the user chooses to save, False if the user canceled or saving failed.
+        """
+        editor = self.widget(index)
+        if not isinstance(editor, BaseEditor) or not editor.file_path:
+            return True
+        if not editor.isModified():
+            return True
 
-        file_path = getattr(widget, "file_path", None)
-        content = widget.text()
-
-        if widget.isModified():
-            choice = QMessageBox.question(
-                self,
-                "Unsaved Changes",
-                f'Save changes to "{self.tabText(index)}" before closing?',
-                QMessageBox.StandardButton.Save
-                | QMessageBox.StandardButton.Discard
+        name = Path(editor.file_path).name
+        choice = QMessageBox.question(
+                self, "Unsaved Changes", f'Save changes to "{name}"?',
+                QMessageBox.StandardButton.Save | QMessageBox.StandardButton.Discard
                 | QMessageBox.StandardButton.Cancel,
                 QMessageBox.StandardButton.Save,
             )
+        if choice == QMessageBox.StandardButton.Cancel:
+            return False
+        if choice == QMessageBox.StandardButton.Save:
+            try:
+                write_file(editor.file_path, editor.text())
+            except OSError as e:
+                QMessageBox.critical(self, "Save Failed", str(e))
+                return False
+            editor.setModified(False)
+        return True
 
-            if choice == QMessageBox.StandardButton.Cancel:
-                return
-            if choice == QMessageBox.StandardButton.Save:
-                write_file(file_path, content)
+    def confirm_close_all(self) -> bool:
+        for i in range(self.count()):
+            self.setCurrentIndex(i)
+            if not self.ask_for_save(i):
+                return False
+        return True
 
-        if file_path in self.OPEN_TABS:
-            del self.OPEN_TABS[file_path]
-
+    def _remove_tab(self, index: int) -> None:
+        """Remove the tab at the given index."""
+        widget = self.widget(index)
+        if widget is not None:
+            widget.deleteLater()
         self.removeTab(index)
-        widget.deleteLater()
+        
+    def on_close_tab(self, index: int) -> None:
+        """Close the tab at the given index."""
+        if self.ask_for_save(index):
+            self._remove_tab(index)
 
     def undo(self):
         """Undo the last editing operation."""
