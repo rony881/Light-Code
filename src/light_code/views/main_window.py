@@ -248,6 +248,13 @@ class MainWindow(QMainWindow):
         if index != -1:
             self.central_panel.on_close_tab(index)
 
+    def closeEvent(self, event):
+        if not self.central_panel.confirm_close_all():
+            event.ignore()
+            return
+        self.code_runner.stop()
+        event.accept()
+
     # ─────────────────────────────────────────────
     # Edit
     # ─────────────────────────────────────────────
