@@ -53,17 +53,17 @@ class CustomMenuBar(MenuBaseWidget):
                 MenuItem(
                     "Show Explorer Panel",
                     handler=win.show_explorer_panel,
-                    shortcut="Ctrl+E",
+                    shortcut="Ctrl+Shift+E",
                 ),
                 MenuItem(
                     "Show Git Panel",
                     handler=win.show_git_panel,
-                    shortcut="Ctrl+G",
+                    shortcut="Ctrl+Shift+G",
                 ),
                 MenuItem(
                     "Show Agent Panel",
                     handler=win.show_agent_panel,
-                    shortcut="Ctrl+A",
+                    shortcut="Ctrl+Shift+A",
                 ),
                 MenuItem(
                     "Show Output Panel",
