@@ -118,21 +118,21 @@ class FindReplaceBar(QFrame):
         self.find_next()
 
     def replace_all(self):
-        if not self._editor:
-            return
+        editor = self._editor
         text = self.find_input.text()
         repl = self.replace_input.text()
-        if not text:
+        if editor is None or not text:
             return
-        count = 0
         cs = self.case_check.isChecked()
-        self._editor.beginUndoAction()
-        if self._editor.findFirst(text, False, cs, False, True, True, 0, 0):
-            self._editor.replace(repl)
-            count += 1
-            while self._editor.findNext():
-                self._editor.replace(repl)
+        count = 0
+        editor.beginUndoAction()
+        try:
+            found = editor.findFirst(text, False, cs, False, False, True, 0, 0)
+            while found:
+                editor.replace(repl)
                 count += 1
-        self._editor.endUndoAction()
+                found = editor.findNext()
+        finally:
+            editor.endUndoAction()
         self.match_label.setText(f"{count} replaced")
-        return count
+        
