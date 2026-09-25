@@ -93,6 +93,7 @@ class MainWindow(QMainWindow):
         self.status_bar.setExplorerBtnConn(self.show_explorer_panel)
         self.status_bar.setAgentBtnConn(self.show_agent_panel)
         self.status_bar.setOutputBtnConn(self.show_output_panel)
+        self.central_panel.cursor_moved.connect(self.status_bar.set_cursor_position)
 
         # ============= Code Runner ==============
         # Parented to self so Qt keeps the underlying QProcess alive for the
@@ -346,8 +347,7 @@ class MainWindow(QMainWindow):
 
     def reset_zoom(self):
         """Reset editor zoom to the default level."""
-        pass
-
+        self.central_panel.reset_zoom()
     # ─────────────────────────────────────────────
     # Build
     # ─────────────────────────────────────────────
