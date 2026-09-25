@@ -7,7 +7,7 @@ from PyQt6.QtWidgets import QFrame
 
 class BaseEditor(QsciScintilla):
     def __init__(self, parent=None, file_path=None):
-        super().__init__()
+        super().__init__(parent=parent)
         self.setObjectName("base_editor")
         self.file_path = file_path
         self._config()
