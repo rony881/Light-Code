@@ -14,7 +14,7 @@ class OutputPanel(BaseWidget):
         self.setObjectName("output_panel")
 
         self.output_view = QPlainTextEdit(self)
-        self.output_view.setObjectName("output_panel")
+        self.output_view.setObjectName("output_view")
         self.output_view.setReadOnly(True)
         self.add(self.output_view)
 
