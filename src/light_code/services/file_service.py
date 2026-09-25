@@ -1,6 +1,7 @@
 # services/file_service.py
 
 from dataclasses import dataclass
+from os import path
 from pathlib import Path
 
 from light_code.utils.logger import logger
@@ -37,18 +38,16 @@ def read_file(file_path) -> FileContent:
             f"File is too large ({file_size / 1024 / 1024:.1f} MB, "
             f"limit is {MAX_TEXT_FILE_SIZE // 1024 // 1024} MB)."
         )
-    text = file_path.read_text(encoding="utf-8-sig")  
+    text = file_path.read_text(encoding="utf-8-sig")
     return FileContent(text=text, type=file_path.suffix)
 
     
 def write_file(file_path, content):
-    """
-    Writes content to a file.
-    """
+    """Writes content to a file."""
+    file_path = Path(file_path)
     try:
         logger.info(f"Writing file: {file_path}")
-        with open(file_path, "w", encoding="utf-8", newline="") as file:
-            file.write(content)
+        file_path.write_text(content, encoding="utf-8", newline="")
     except Exception as e:
         logger.error(f"Error writing file: {e}")
         raise
