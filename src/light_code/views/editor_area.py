@@ -2,6 +2,7 @@
 
 from pathlib import Path
 
+from PyQt6.QtCore import pyqtSignal
 from PyQt6.QtWidgets import QMessageBox
 
 from light_code.editor.editor import BaseEditor
@@ -12,6 +13,7 @@ from light_code.utils.logger import logger
 
 class EditorArea(TabBase):
     """Editor area: tabbed code editors."""
+    cursor_moved = pyqtSignal(int, int)
 
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
@@ -33,6 +35,9 @@ class EditorArea(TabBase):
         tab.modificationChanged.connect(
             lambda dirty, e=tab: self._update_tab_title(e, dirty)
         )
+        tab.cursorPositionChanged.connect(
+            lambda line, column, e=tab: self.cursor_position(e, line, column)
+        )
 
         tab_index = self.addTab(tab, tab_name)
 
@@ -40,6 +45,10 @@ class EditorArea(TabBase):
         self.setCurrentIndex(tab_index)
 
         return tab_index
+
+    def cursor_position(self, editor, line: int, column: int) -> None:
+        if editor is self.currentWidget():
+            self.cursor_moved.emit(line + 1, column + 1)
 
     def _update_tab_title(self, editor, dirty: bool) -> None:
         index = self.indexOf(editor)
