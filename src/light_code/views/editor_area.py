@@ -127,49 +127,55 @@ class EditorArea(TabBase):
 
     def undo(self):
         """Undo the last editing operation."""
-        widget = self.currentWidget()
-        if widget is not None:
-            widget.undo()
+        editor = self.current_editor()
+        if editor is not None:
+            editor.undo()
 
     def redo(self):
         """Redo the last editing operation."""
-        widget = self.currentWidget()
-        if widget is not None:
-            widget.redo()
+        editor = self.current_editor()
+        if editor is not None:
+            editor.redo()
 
     def cut(self):
         """cut the selected text"""
-        widget = self.currentWidget()
-        if widget is not None:
-            widget.cut()
+        editor = self.current_editor()
+        if editor is not None:
+            editor.cut()
 
     def copy(self):
-        widget = self.currentWidget()
-        if widget is not None:
-            widget.copy()
+        editor = self.current_editor()
+        if editor is not None:
+            editor.copy()
 
     def paste(self):
-        widget = self.currentWidget()
-        if widget is not None:
-            widget.paste()
+        editor = self.current_editor()
+        if editor is not None:
+            editor.paste()
 
     def zoom_in(self):
-        widget = self.currentWidget()
-        if widget is not None:
-            widget.zoomIn()
+        editor = self.current_editor()
+        if editor is not None:
+            editor.zoomIn()
 
     def zoom_out(self):
-        widget = self.currentWidget()
-        if widget is not None:
-            widget.zoomOut()
+        editor = self.current_editor()
+        if editor is not None:
+            editor.zoomOut()
 
     def go_to_line(self, line: int):
         """Move the cursor to the given line number."""
-        widget = self.currentWidget()
-        if widget is None:
+        editor = self.current_editor()
+        if editor is None:
             return
 
-        line_index = max(0, min(line - 1, widget.lines() - 1))
-        widget.setCursorPosition(line_index, 0)
-        widget.ensureLineVisible(line_index)
-        widget.setFocus()
+        line_index = max(0, min(line - 1, editor.lines() - 1))
+        editor.setCursorPosition(line_index, 0)
+        editor.ensureLineVisible(line_index)
+        editor.setFocus()
+
+    def reset_zoom(self):
+        """Reset editor zoom to the default level."""
+        editor = self.current_editor()
+        if editor is not None:
+            editor.zoomTo(0)
