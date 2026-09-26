@@ -160,13 +160,13 @@ class MainWindow(QMainWindow):
 
     def _show_left_panel(self, name: str):
         logger.info(f"Opening {name} panel")
-        self.left_panel.showPanel(name)
+        self.left_panel.show_panel(name)
         if self._left_panel_width() < 5:
             self.set_left_panel_visible(True)
 
     def _show_right_panel(self, name: str):
         logger.info(f"Opening {name} panel")
-        self.right_panel.showPanel(name)
+        self.right_panel.show_panel(name)
         if self._right_panel_width() < 5:
             self.set_right_panel_visible(True)
 
