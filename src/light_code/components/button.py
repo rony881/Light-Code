@@ -3,7 +3,7 @@ from PyQt6.QtWidgets import QPushButton
 from light_code.utils.logger import logger
 
 
-class CustomButton(QPushButton):
+class Button(QPushButton):
     def __init__(self, text: str, parent=None):
         super().__init__(parent)
         logger.info("Initializing CustomButton")

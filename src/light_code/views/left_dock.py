@@ -2,8 +2,8 @@ from PyQt6.QtWidgets import QStackedWidget
 
 from light_code.base_widgets.base_widget import BaseWidget
 from light_code.base_widgets.panel_base import PanelBase
-from light_code.components.widgets.file_explorer_panel import FileExplorer
-from light_code.components.widgets.git_panel import GitPanel
+from light_code.components.file_explorer_panel import FileExplorer
+from light_code.components.git_panel import GitPanel
 from light_code.utils.logger import logger
 
 

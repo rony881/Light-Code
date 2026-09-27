@@ -2,7 +2,7 @@ from light_code.base_widgets.menu_base import MenuBaseWidget, MenuItem, MenuStru
 from light_code.utils.logger import logger
 
 
-class CustomMenuBar(MenuBaseWidget):
+class MenuBar(MenuBaseWidget):
     """
     Menu bar for a code editor: File | Edit | View | Settings | About | Help
     """

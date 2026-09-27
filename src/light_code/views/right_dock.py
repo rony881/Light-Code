@@ -1,7 +1,7 @@
 
 from light_code.base_widgets.panel_base import PanelBase
-from light_code.components.widgets.agent_panel import AgentPanel
-from light_code.components.widgets.output_panel import OutputPanel
+from light_code.components.agent_panel import AgentPanel
+from light_code.components.output_panel import OutputPanel
 from light_code.utils.logger import logger
 
 

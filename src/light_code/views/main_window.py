@@ -16,10 +16,10 @@ from light_code.editor.editor import BaseEditor
 from light_code.services.file_service import UnsupportedFileError, read_file, rename_file, write_file
 from light_code.services.run_code_service import CodeRunner
 from light_code.base_widgets.base_widget import BaseWidget
-from light_code.custom_widgets.custom_menubar import CustomMenuBar
-from light_code.custom_widgets.custom_statusbar import CustomStatusBar
+from light_code.components.menubar import MenuBar
+from light_code.components.statusbar import StatusBar
 from light_code.dialogs import GoToLineDialog, NewFileDialog, RenameFileDialog
-from light_code.components.widgets.find_replace_bar import FindReplaceBar
+from light_code.components.find_replace_bar import FindReplaceBar
 from light_code.views.editor_area import EditorArea
 from light_code.views.left_dock import LeftDock
 from light_code.views.right_dock import RightDock
@@ -43,7 +43,7 @@ class MainWindow(QMainWindow):
         self.setStyleSheet(self.read_style_sheet())
 
         # ============= Menu Bar ===============
-        self.menu_bar = CustomMenuBar(parent=self)
+        self.menu_bar = MenuBar(parent=self)
         self.setMenuBar(self.menu_bar)
 
         # ============= Central Widget ============
@@ -84,7 +84,7 @@ class MainWindow(QMainWindow):
         self.splitter_container.setSizes([260, 1000, 0])
 
         # ==================== Status Bar ======================
-        self.status_bar = CustomStatusBar(self)
+        self.status_bar = StatusBar(self)
         self.setStatusBar(self.status_bar)
 
         self.status_bar.setLeftPanelToggleBtnConn(self.toggle_left_panel)
@@ -214,7 +214,7 @@ class MainWindow(QMainWindow):
         """Save the current file."""
         editor = self.central_panel.current_editor()
 
-        if not editor.file_path or editor is None:
+        if editor is None or not editor.file_path:
             logger.warning("No file selected to save")
             return
             
@@ -231,11 +231,11 @@ class MainWindow(QMainWindow):
     def rename_file(self):
         """Rename the current file."""
         editor = self.central_panel.current_editor()
-        old_path = editor.file_path
-
-        if not old_path:
+        if editor is None or not editor.file_path:
             return
             
+        old_path = editor.file_path
+
         dialog = RenameFileDialog(self)
         new_file_name, ok = dialog.get_file_name()
         if ok and new_file_name:
@@ -355,7 +355,7 @@ class MainWindow(QMainWindow):
     def run_file(self):
         """Run interpreted  language scripts"""
         editor = self.central_panel.current_editor()
-        if not editor.file_path:
+        if editor is None or not editor.file_path:
             logger.warning("No file selected to run")
             return
 

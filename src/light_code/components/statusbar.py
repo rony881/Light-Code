@@ -9,7 +9,7 @@ from light_code.config import (
     RIGHT_PANEL_ICON,
     OUTPUT_ICON,
 )
-from light_code.custom_widgets.custom_button import CustomButton
+from light_code.components.button import Button
 from light_code.utils.logger import logger
 
 BUTTON_STYLE = """
@@ -44,7 +44,7 @@ padding: 0px 4px;
 """
 
 
-class CustomStatusBar(QStatusBar):
+class StatusBar(QStatusBar):
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
 
@@ -59,19 +59,19 @@ class CustomStatusBar(QStatusBar):
         self.h_layout.setSpacing(10)
 
         # Left panel buttons
-        self.left_panel_toggle_btn = CustomButton("")
+        self.left_panel_toggle_btn = Button("")
         self.left_panel_toggle_btn.setIcon(QIcon(LEFT_PANEL_ICON))
         self.left_panel_toggle_btn.setToolTip("Toggle Left Panel")
         self.left_panel_toggle_btn.setStyleSheet(BUTTON_STYLE)
         self.h_layout.addWidget(self.left_panel_toggle_btn)
 
-        self.explorer_btn = CustomButton("")
+        self.explorer_btn = Button("")
         self.explorer_btn.setIcon(QIcon(EXPLORER_ICON))
         self.explorer_btn.setToolTip("Explorer")
         self.explorer_btn.setStyleSheet(BUTTON_STYLE)
         self.h_layout.addWidget(self.explorer_btn)
 
-        self.git_btn = CustomButton("")
+        self.git_btn = Button("")
         self.git_btn.setIcon(QIcon(GIT_ICON))
         self.git_btn.setToolTip("Git Panel")
         self.git_btn.setStyleSheet(BUTTON_STYLE)
@@ -102,19 +102,19 @@ class CustomStatusBar(QStatusBar):
         self.h_layout.addSpacing(8)
 
         # Right panel buttons
-        self.agent_btn = CustomButton("")
+        self.agent_btn = Button("")
         self.agent_btn.setIcon(QIcon(AI_AGENT_ICON))
         self.agent_btn.setToolTip("AI Agent")
         self.agent_btn.setStyleSheet(BUTTON_STYLE)
         self.h_layout.addWidget(self.agent_btn)
 
-        self.output_btn = CustomButton("")
+        self.output_btn = Button("")
         self.output_btn.setIcon(QIcon(OUTPUT_ICON))
         self.output_btn.setToolTip("Output")
         self.output_btn.setStyleSheet(BUTTON_STYLE)
         self.h_layout.addWidget(self.output_btn)
 
-        self.right_panel_btn = CustomButton("")
+        self.right_panel_btn = Button("")
         self.right_panel_btn.setIcon(QIcon(RIGHT_PANEL_ICON))
         self.right_panel_btn.setToolTip("Right Panel")
         self.right_panel_btn.setStyleSheet(BUTTON_STYLE)
