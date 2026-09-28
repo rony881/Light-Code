@@ -24,9 +24,7 @@ class EditorArea(TabBase):
         """this method used for open a tab"""
         logger.info(f"Adding tab: {tab_name}")
         if file_path in self.OPEN_TABS:
-            tab = self.OPEN_TABS[file_path]
-            index = self.indexOf(tab)
-            self.setCurrentIndex(index)
+            self.set_current_tab(file_path)
             return
 
         tab = BaseEditor(file_path=file_path)
@@ -45,6 +43,13 @@ class EditorArea(TabBase):
         self.setCurrentIndex(tab_index)
 
         return tab_index
+
+    def set_current_tab(self, file_path: str) -> None:
+        """Set the current tab to the one associated with the given file path."""
+        tab = self.OPEN_TABS[file_path]
+        index = self.indexOf(tab)
+        if index != -1:
+            self.setCurrentIndex(index)
 
     def cursor_position(self, editor, line: int, column: int) -> None:
         if editor is self.currentWidget():
