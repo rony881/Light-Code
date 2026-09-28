@@ -63,17 +63,15 @@ class EditorArea(TabBase):
 
     def current_editor(self) -> BaseEditor | None:
         """Returns file path of current selected tab"""
-        editor = self.currentWidget()
-        if editor is None:
-                return None
-        if isinstance(editor, BaseEditor):
-            return editor
+        w = self.currentWidget()
+        return w if isinstance(w, BaseEditor) else None
 
     def rename_current_tab(self, new_name: str) -> None:
         """Rename the current tab to the given name."""
-        widget = self.currentWidget()
-        if widget is None:
+        editor = self.current_editor()
+        if editor is None:
             return
+            
         index = self.currentIndex()
         self.setTabText(index, new_name)
 
