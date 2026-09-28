@@ -126,6 +126,10 @@ class EditorArea(TabBase):
         """Remove the tab at the given index."""
         widget = self.widget(index)
         if widget is not None:
+            file_path = getattr(widget, "file_path", None)
+            if file_path is not None:
+                logger.info(f"Removing tab for file: {file_path}")
+                self.OPEN_TABS.pop(str(file_path), None)
             widget.deleteLater()
         self.removeTab(index)
         
