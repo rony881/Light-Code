@@ -18,7 +18,7 @@ from light_code.services.run_code_service import CodeRunner
 from light_code.base_widgets.base_widget import BaseWidget
 from light_code.components.menubar import MenuBar
 from light_code.components.statusbar import StatusBar
-from light_code.dialogs import GoToLineDialog, NewFileDialog, RenameFileDialog
+from light_code.dialogs.file_dialogs import ask_file_name, ask_number
 from light_code.components.find_replace_bar import FindReplaceBar
 from light_code.views.editor_area import EditorArea
 from light_code.views.left_dock import LeftDock
@@ -184,9 +184,8 @@ class MainWindow(QMainWindow):
         """Create a new file."""
         logger.info("Creating new file")
 
-        dialog = NewFileDialog(self)
-        file_name, ok = dialog.get_file_name()
-        if not ok or not file_name:
+        file_name = ask_file_name(self, "New File", "File Name:")
+        if not file_name:
             return
 
         file_path = self.left_panel.file_explorer.new_file(file_name)
@@ -235,10 +234,8 @@ class MainWindow(QMainWindow):
             return
             
         old_path = editor.file_path
-
-        dialog = RenameFileDialog(self)
-        new_file_name, ok = dialog.get_file_name()
-        if ok and new_file_name:
+        new_file_name = ask_file_name(self, "Rename File", "New file name:", Path(old_path).name)
+        if new_file_name:
             new_file_path = rename_file(old_path, new_file_name)
             self.central_panel.close_tab_by_path(old_path)
             self.open_path(str(new_file_path))
@@ -297,11 +294,9 @@ class MainWindow(QMainWindow):
 
         max_line = max(1, current_editor.lines())
         current_line = current_editor.getCursorPosition()[0] + 1
-
-        dialog = GoToLineDialog(self)
-        line, ok = dialog.get_line_number(current_line, max_line)
-
-        if ok:
+        
+        line = ask_number(self, "Go to Line", "Line number:", value=current_line, min=1, max=max_line)
+        if line is not None:
             self.central_panel.go_to_line(line)
 
     # ─────────────────────────────────────────────
