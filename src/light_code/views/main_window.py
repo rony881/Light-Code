@@ -356,6 +356,7 @@ class MainWindow(QMainWindow):
 
         self._show_right_panel("output")
         self.right_panel.output_panel.clear_output()
+        self.right_panel.output_panel.set_path(editor.file_path)
         self.code_runner.run(editor.file_path)
 
     def on_run_finished(self, exit_code: int):
