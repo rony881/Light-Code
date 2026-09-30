@@ -14,6 +14,7 @@ class OutputPanel(BaseWidget):
 
         logger.info("Initializing OutputPanel")
         self.setObjectName("output_panel")
+        self.path = None
 
         self.code_runner = CodeRunner(self)
         self.code_runner.output_received.connect(self.show_output)
@@ -46,6 +47,7 @@ class OutputPanel(BaseWidget):
         self.cmd_input = QLineEdit(self)
         self.cmd_input.setObjectName("cmd_input")
         self.cmd_input.setPlaceholderText("Type a command...")
+        self.cmd_input.returnPressed.connect(self.run_command)
         
         self.add(self.header_frame)
         self.add(self.output_view)
@@ -54,6 +56,7 @@ class OutputPanel(BaseWidget):
     def execute_file(self, file_path: str) -> None:
         self.clear_output()
         self.set_file_name(file_path)
+        self.path = file_path
         self.code_runner.run(file_path)
         
     def show_output(self, text: str) -> None:
@@ -62,17 +65,23 @@ class OutputPanel(BaseWidget):
         if scrollbar is not None:
             scrollbar.setValue(scrollbar.maximum())
 
+    def show_error(self, text: str) -> None:
+        self.show_output(text)
+     
+    def clear_output(self) -> None:
+        self.output_view.clear()
+
     def set_file_name(self, path: str) -> None:
         self.file_name_lbl.setText(os.path.basename(path))
         self.file_name_lbl.setToolTip(path)
-
-    def show_error(self, text: str) -> None:
-        self.show_output(text)
-
-    def clear_output(self) -> None:
-        self.output_view.clear()
 
     def on_run_finished(self, exit_code: int):
         self.show_output(
             f"\n[process finished with exit code {exit_code}]\n"
         )
+
+    def run_command(self) -> None:
+        command = self.cmd_input.text()
+        self.cmd_input.clear()
+        self.clear_output()
+        self.code_runner.run_command(command)
