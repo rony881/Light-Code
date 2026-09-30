@@ -51,9 +51,9 @@ class OutputPanel(BaseWidget):
         self.add(self.output_view)
         self.add(self.cmd_input)
 
-    def process_output(self, file_path: str) -> None:
+    def execute_file(self, file_path: str) -> None:
         self.clear_output()
-        self.set_path(file_path)
+        self.set_file_name(file_path)
         self.code_runner.run(file_path)
         
     def show_output(self, text: str) -> None:
@@ -62,7 +62,7 @@ class OutputPanel(BaseWidget):
         if scrollbar is not None:
             scrollbar.setValue(scrollbar.maximum())
 
-    def set_path(self, path: str) -> None:
+    def set_file_name(self, path: str) -> None:
         self.file_name_lbl.setText(os.path.basename(path))
         self.file_name_lbl.setToolTip(path)
 

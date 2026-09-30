@@ -343,7 +343,7 @@ class MainWindow(QMainWindow):
             return
 
         self._show_right_panel("output")
-        self.right_panel.output_panel.process_output(editor.file_path)
+        self.right_panel.output_panel.execute_file(editor.file_path)
 
     # ─────────────────────────────────────────────
     # Settings
