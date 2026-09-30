@@ -14,7 +14,6 @@ from PyQt6.QtWidgets import (
 from light_code.config import STYLE_SHEET_FILE, WINDOW_HEIGHT, WINDOW_LOGO, WINDOW_WIDTH
 from light_code.editor.editor import BaseEditor
 from light_code.services.file_service import UnsupportedFileError, read_file, rename_file, write_file
-from light_code.services.run_code_service import CodeRunner
 from light_code.base_widgets.base_widget import BaseWidget
 from light_code.components.menubar import MenuBar
 from light_code.components.statusbar import StatusBar
@@ -95,17 +94,6 @@ class MainWindow(QMainWindow):
         self.status_bar.setOutputBtnConn(self.show_output_panel)
         self.central_panel.cursor_moved.connect(self.status_bar.set_cursor_position)
 
-        # ============= Code Runner ==============
-        # Parented to self so Qt keeps the underlying QProcess alive for the
-        # lifetime of the window, instead of it being garbage-collected.
-        self.code_runner = CodeRunner(self)
-        self.code_runner.output_received.connect(
-            self.right_panel.output_panel.show_output
-        )
-        self.code_runner.error_received.connect(
-            self.right_panel.output_panel.show_error
-        )
-        self.code_runner.finished.connect(self.on_run_finished)
 
     def open_path(self, file_path: str) -> None:
         logger.info(f"Opening file from explorer: {file_path}")
@@ -250,7 +238,7 @@ class MainWindow(QMainWindow):
         if not self.central_panel.confirm_close_all():
             event.ignore()
             return
-        self.code_runner.stop()
+        self.right_panel.output_panel.code_runner.stop()
         event.accept()
 
     # ─────────────────────────────────────────────
@@ -355,14 +343,7 @@ class MainWindow(QMainWindow):
             return
 
         self._show_right_panel("output")
-        self.right_panel.output_panel.clear_output()
-        self.right_panel.output_panel.set_path(editor.file_path)
-        self.code_runner.run(editor.file_path)
-
-    def on_run_finished(self, exit_code: int):
-        self.right_panel.output_panel.show_output(
-            f"\n[process finished with exit code {exit_code}]\n"
-        )
+        self.right_panel.output_panel.process_output(editor.file_path)
 
     # ─────────────────────────────────────────────
     # Settings
