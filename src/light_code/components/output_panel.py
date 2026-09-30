@@ -2,7 +2,7 @@
 
 import os
 
-from PyQt6.QtWidgets import QFrame, QPlainTextEdit, QLabel, QHBoxLayout
+from PyQt6.QtWidgets import QFrame, QLineEdit, QPlainTextEdit, QLabel, QHBoxLayout, QPushButton
 from light_code.base_widgets.base_widget import BaseWidget
 from light_code.utils.logger import logger
 
@@ -27,11 +27,21 @@ class OutputPanel(BaseWidget):
         self.hdr_frame_layout.addWidget(self.file_name_lbl)
         self.hdr_frame_layout.addStretch()
 
+        self.clear_btn = QPushButton(parent=self, text="clear")
+        self.clear_btn.clicked.connect(self.clear_output)
+        self.hdr_frame_layout.addWidget(self.clear_btn)
+
         self.output_view = QPlainTextEdit(self)
         self.output_view.setObjectName("output_view")
         self.output_view.setReadOnly(True)
+
+        self.cmd_input = QLineEdit(self)
+        self.cmd_input.setObjectName("cmd_input")
+        self.cmd_input.setPlaceholderText("Type a command...")
+        
         self.add(self.header_frame)
         self.add(self.output_view)
+        self.add(self.cmd_input)
 
     def show_output(self, text: str) -> None:
         self.output_view.insertPlainText(text)
