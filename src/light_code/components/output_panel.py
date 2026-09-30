@@ -4,6 +4,7 @@ import os
 
 from PyQt6.QtWidgets import QFrame, QLineEdit, QPlainTextEdit, QLabel, QHBoxLayout, QPushButton
 from light_code.base_widgets.base_widget import BaseWidget
+from light_code.services.run_code_service import CodeRunner
 from light_code.utils.logger import logger
 
 
@@ -14,6 +15,13 @@ class OutputPanel(BaseWidget):
         logger.info("Initializing OutputPanel")
         self.setObjectName("output_panel")
 
+        self.code_runner = CodeRunner(self)
+        self.code_runner.output_received.connect(self.show_output)
+        self.code_runner.error_received.connect(self.show_error)
+        
+        self._setup_ui()
+
+    def _setup_ui(self):
         self.header_frame = QFrame(self)
         self.header_frame.setObjectName("header_frame")
         self.header_frame.setMaximumHeight(30)
@@ -43,6 +51,11 @@ class OutputPanel(BaseWidget):
         self.add(self.output_view)
         self.add(self.cmd_input)
 
+    def process_output(self, file_path: str) -> None:
+        self.clear_output()
+        self.set_path(file_path)
+        self.code_runner.run(file_path)
+        
     def show_output(self, text: str) -> None:
         self.output_view.insertPlainText(text)
         scrollbar = self.output_view.verticalScrollBar()
@@ -58,3 +71,8 @@ class OutputPanel(BaseWidget):
 
     def clear_output(self) -> None:
         self.output_view.clear()
+
+    def on_run_finished(self, exit_code: int):
+        self.show_output(
+            f"\n[process finished with exit code {exit_code}]\n"
+        )
