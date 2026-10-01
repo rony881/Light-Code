@@ -47,10 +47,8 @@ source venv/bin/activate  # On Windows use: venv\Scripts\activate
 ```
 Run the application
 ```bash
-python src/light_code
+python -m light_code
 ```
-
-(equivalently, `cd` into `light_code/` and run `python __main__.py` or `python .`)
 
 
 ## 🤝 Contributing

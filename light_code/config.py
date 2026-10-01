@@ -12,7 +12,7 @@ from pathlib import Path
 # │   └── light_code/
 # │       └── config.py
 # └── ...
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 # Python package root:
 PACKAGE_ROOT = Path(__file__).resolve().parent
