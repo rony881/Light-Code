@@ -82,6 +82,7 @@ class OutputPanel(BaseWidget):
 
     def run_command(self) -> None:
         command = self.cmd_input.text()
+        cwd = os.path.dirname(self.path) if self.path else None
         self.cmd_input.clear()
         self.clear_output()
-        self.code_runner.run_command(command)
+        self.code_runner.run_command(command, cwd)
