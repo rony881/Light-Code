@@ -38,14 +38,16 @@ class CodeRunner(QObject):
             self.process.kill()
             self.process.waitForFinished(1000)
 
-    def run_command(self, command: str) -> None:
+    def run_command(self, command: str, cwd: str | None = None) -> None:
         self.stop()
         self.process = QProcess(self)
         self.process.readyReadStandardOutput.connect(self._on_stdout)
         self.process.readyReadStandardError.connect(self._on_stderr)
         self.process.finished.connect(self._on_finished)
+        if cwd:
+            self.process.setWorkingDirectory(cwd)
         self.process.start("sh", ["-c", command])
-        
+
     def _on_stdout(self) -> None:
         data = bytes(self.process.readAllStandardOutput()).decode("utf-8", errors="replace")
         self.output_received.emit(data)
