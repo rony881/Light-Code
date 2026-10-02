@@ -22,6 +22,7 @@ class CodeRunner(QObject):
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
         self.process: QProcess | None = None
+        self.python_executable = sys.executable
 
     def run(self, file_path: str) -> None:
         self.stop()
@@ -31,7 +32,7 @@ class CodeRunner(QObject):
         self.process.readyReadStandardOutput.connect(self._on_stdout)
         self.process.readyReadStandardError.connect(self._on_stderr)
         self.process.finished.connect(self._on_finished)
-        self.process.start(sys.executable, ["-u", file_path])
+        self.process.start(self.python_executable, ["-u", file_path])
 
     def stop(self) -> None:
         if self.process is not None and self.process.state() != QProcess.ProcessState.NotRunning:
