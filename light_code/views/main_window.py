@@ -78,6 +78,7 @@ class MainWindow(QMainWindow):
 
         # ============= Right Panel ==============
         self.right_panel = RightDock(parent=self)
+        self.right_panel.output_panel.minimize_btn.clicked.connect(self.toggle_right_panel)
         self.splitter_container.addWidget(self.right_panel)
 
         self.splitter_container.setSizes([260, 1000, 0])
