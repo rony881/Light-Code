@@ -2,8 +2,9 @@
 
 import os
 
-from PyQt6.QtWidgets import QFrame, QLineEdit, QPlainTextEdit, QLabel, QHBoxLayout, QPushButton
+from PyQt6.QtWidgets import QFrame, QLineEdit, QPlainTextEdit, QLabel, QHBoxLayout 
 from light_code.base_widgets.base_widget import BaseWidget
+from light_code.components.button import Button
 from light_code.services.run_code_service import CodeRunner
 from light_code.utils.logger import logger
 
@@ -36,9 +37,8 @@ class OutputPanel(BaseWidget):
         self.hdr_frame_layout.addWidget(self.file_name_lbl)
         self.hdr_frame_layout.addStretch()
 
-        self.clear_btn = QPushButton(parent=self, text="clear")
-        self.clear_btn.clicked.connect(self.clear_output)
-        self.hdr_frame_layout.addWidget(self.clear_btn)
+        self.minimize_btn = Button(text="-")
+        self.hdr_frame_layout.addWidget(self.minimize_btn)
 
         self.output_view = QPlainTextEdit(self)
         self.output_view.setObjectName("output_view")
@@ -47,7 +47,7 @@ class OutputPanel(BaseWidget):
         self.cmd_input = QLineEdit(self)
         self.cmd_input.setObjectName("cmd_input")
         self.cmd_input.setPlaceholderText("Type a command...")
-        self.cmd_input.returnPressed.connect(self.run_command)
+        self.cmd_input.returnPressed.connect(self._on_cmd_input)
         
         self.add(self.header_frame)
         self.add(self.output_view)
@@ -80,9 +80,15 @@ class OutputPanel(BaseWidget):
             f"\n[process finished with exit code {exit_code}]\n"
         )
 
-    def run_command(self) -> None:
+    def _on_cmd_input(self) -> None:
         command = self.cmd_input.text()
-        cwd = os.path.dirname(self.path) if self.path else None
         self.cmd_input.clear()
+        if command == "clear" or command == "cls":
+            self.clear_output()
+            return
+        self.run_command(command)
+
+    def run_command(self, command: str) -> None:
+        cwd = os.path.dirname(self.path) if self.path else None
         self.clear_output()
         self.code_runner.run_command(command, cwd)
