@@ -94,6 +94,7 @@ class MainWindow(QMainWindow):
         self.status_bar.setAgentBtnConn(self.show_agent_panel)
         self.status_bar.setOutputBtnConn(self.show_output_panel)
         self.central_panel.cursor_moved.connect(self.status_bar.set_cursor_position)
+        self.central_panel.language_changed.connect(self.status_bar.set_language)
 
 
     def open_path(self, file_path: str) -> None:
