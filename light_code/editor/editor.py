@@ -4,13 +4,25 @@ from PyQt6.Qsci import QsciScintilla
 from PyQt6.QtGui import QColor, QFont
 from PyQt6.QtWidgets import QFrame
 
+from light_code.editor.syntax_highlighter import detect_language, get_lexer
+
 
 class BaseEditor(QsciScintilla):
     def __init__(self, parent=None, file_path=None):
         super().__init__(parent=parent)
         self.setObjectName("base_editor")
         self.file_path = file_path
+        self.language = detect_language(file_path)
         self._config()
+        self.apply_syntax_highlighter()
+
+    def apply_syntax_highlighter(self):
+        lexer = get_lexer(self.language, self)
+        if lexer:
+            lexer.setDefaultFont(self.font())
+            lexer.setDefaultPaper(QColor("#0d1117"))
+            lexer.setDefaultColor(QColor("#B3B1AD"))
+            self.setLexer(lexer)
 
     def _config(self):
         self.setFrameShape(QFrame.Shape.NoFrame)
