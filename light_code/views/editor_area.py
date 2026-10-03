@@ -14,11 +14,13 @@ from light_code.utils.logger import logger
 class EditorArea(TabBase):
     """Editor area: tabbed code editors."""
     cursor_moved = pyqtSignal(int, int)
+    language_changed = pyqtSignal(str)
 
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
         self.setObjectName("editor_panel")
         logger.info("Initializing EditorArea")
+        self.currentChanged.connect(self._on_language_changed)
 
     def add_tab(self, tab_name: str, file_path: str, content: str) -> int | None:
         """this method used for open a tab"""
@@ -43,6 +45,13 @@ class EditorArea(TabBase):
         self.setCurrentIndex(tab_index)
 
         return tab_index
+
+    def _on_language_changed(self, index: int) -> None:
+        editor = self.current_editor()
+        if editor:
+            self.language_changed.emit(editor.language)
+        else:
+            self.language_changed.emit("Plain Text")
 
     def set_current_tab(self, file_path: str) -> None:
         """Set the current tab to the one associated with the given file path."""
