@@ -20,8 +20,9 @@ class BaseEditor(QsciScintilla):
         lexer = get_lexer(self.language, self)
         if lexer:
             lexer.setDefaultFont(self.font())
-            lexer.setDefaultPaper(QColor("#0d1117"))
-            lexer.setDefaultColor(QColor("#B3B1AD"))
+            lexer.setDefaultPaper(self.paper())
+            lexer.setDefaultColor(self.color())
+            lexer.setPaper(self.paper())
             self.setLexer(lexer)
 
     def _config(self):
