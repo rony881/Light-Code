@@ -39,7 +39,7 @@ SYNTAX_COLORS = {
     "comment": "#5a6673",
 }
 
-COLOR_CONFIG = [
+PYTHON_COLOR_CONFIG = [
     (SYNTAX_COLORS["text"], QsciLexerPython.Default),
     (SYNTAX_COLORS["keyword"], QsciLexerPython.Keyword),
     (SYNTAX_COLORS["number"], QsciLexerPython.Number),
@@ -64,7 +64,7 @@ class PythonLexer(QsciLexerPython):
         self.setup_lexer()
 
     def setup_lexer(self):
-        for color, syntax in COLOR_CONFIG:
+        for color, syntax in PYTHON_COLOR_CONFIG:
             self.setColor(QColor(color), syntax)
 
 LEXER_CLASS = {
