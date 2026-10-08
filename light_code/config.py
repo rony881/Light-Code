@@ -28,8 +28,19 @@ ICONS_PATH = ASSETS_PATH / "icons"
 
 WINDOW_WIDTH = 1080
 WINDOW_HEIGHT = 720
+WINDOW_BACKGROUND = "#0d1117"
 
 WINDOW_LOGO = str(ICONS_PATH / "app-logo.png")
+
+# ============================================================
+# Editor Configuration 
+# ============================================================
+EDITOR_SELECTION_BACKGROUND = "#273747"
+EDITOR_SELECTION_FOREGROUND = "#f0f6fc"
+
+# ===========================================================
+# Syntax Highlighter Configuration
+# ============================================================
 
 
 # ============================================================
