@@ -4,6 +4,11 @@ from PyQt6.Qsci import QsciScintilla
 from PyQt6.QtGui import QColor, QFont
 from PyQt6.QtWidgets import QFrame
 
+from light_code.config import (
+    EDITOR_SELECTION_BACKGROUND,
+    EDITOR_SELECTION_FOREGROUND,
+    WINDOW_BACKGROUND
+)
 from light_code.editor.syntax_highlighter import detect_language, get_lexer
 
 
@@ -28,7 +33,7 @@ class BaseEditor(QsciScintilla):
     def _config(self):
         self.setFrameShape(QFrame.Shape.NoFrame)
 
-        self.setCaretWidth(2)  # Cursor Width
+        self.setCaretWidth(3)
         self.setUtf8(True)
         self.setTabWidth(4)
         self.setMarginWidth(0, "00000000")
@@ -41,20 +46,15 @@ class BaseEditor(QsciScintilla):
         self.setAutoCompletionSource(QsciScintilla.AutoCompletionSource.AcsAll)
 
         # Editor Paper And Text Color:
-        self.setPaper(QColor("#0d1117"))  # editor background (matches QMainWindow)
-        self.setColor(QColor("#B3B1AD"))  # default text color
+        self.setPaper(QColor(WINDOW_BACKGROUND))  # editor background (matches QMainWindow)
 
         # Selection Colors
-        self.setSelectionBackgroundColor(QColor("#273747"))  # accent blue
-        self.setSelectionForegroundColor(QColor("#f0f6fc"))
+        self.setSelectionBackgroundColor(QColor(EDITOR_SELECTION_BACKGROUND))
+        self.setSelectionForegroundColor(QColor(EDITOR_SELECTION_FOREGROUND))
 
         # Line Number Foreground And Background Color:
-        self.setMarginsForegroundColor(
-            QColor("#3D424D")
-        )  # line Number Foreground Color (muted text)
-        self.setMarginsBackgroundColor(
-            QColor("#0d1117")
-        )  # line Number Background Color (panel bg)
+        self.setMarginsBackgroundColor(QColor("#0d1117"))
+        self.setMarginsForegroundColor(QColor("#3D424D"))
 
         # Caret Line Back and Foreground:
         self.setCaretLineBackgroundColor(QColor("#131721"))
