@@ -1,7 +1,7 @@
 # src/light_code/editor/editor.py
 
 from PyQt6.Qsci import QsciScintilla
-from PyQt6.QtGui import QColor, QFont
+from PyQt6.QtGui import QColor
 from PyQt6.QtWidgets import QFrame
 
 from light_code.config import (
@@ -24,7 +24,6 @@ class BaseEditor(QsciScintilla):
     def apply_syntax_highlighter(self):
         lexer = get_lexer(self.language, self)
         if lexer:
-            lexer.setDefaultFont(self.font())
             lexer.setDefaultPaper(self.paper())
             lexer.setDefaultColor(self.color())
             lexer.setPaper(self.paper())
@@ -37,7 +36,6 @@ class BaseEditor(QsciScintilla):
         self.setUtf8(True)
         self.setTabWidth(4)
         self.setMarginWidth(0, "00000000")
-        self.setFont(QFont("Jetbrains Mono", 15))
         self.setMarginType(0, QsciScintilla.MarginType.NumberMargin)
 
         # Auto-completion
