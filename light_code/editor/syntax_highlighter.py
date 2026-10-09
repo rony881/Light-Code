@@ -26,6 +26,8 @@ from PyQt6.Qsci import (
 )
 from PyQt6.QtGui import QColor
 
+from light_code.config import EDITOR_FONT
+
 
 SYNTAX_COLORS = {
     "text": "#E0E0E0",
@@ -39,32 +41,35 @@ SYNTAX_COLORS = {
     "comment": "#5a6673",
 }
 
-PYTHON_COLOR_CONFIG = [
-    (SYNTAX_COLORS["text"], QsciLexerPython.Default),
-    (SYNTAX_COLORS["keyword"], QsciLexerPython.Keyword),
-    (SYNTAX_COLORS["number"], QsciLexerPython.Number),
-    (SYNTAX_COLORS["function"], QsciLexerPython.FunctionMethodName),
-    (SYNTAX_COLORS["class"], QsciLexerPython.ClassName),
-    (SYNTAX_COLORS["operator"], QsciLexerPython.Operator),
-    (SYNTAX_COLORS["text"], QsciLexerPython.Identifier),
-    (SYNTAX_COLORS["decorator"], QsciLexerPython.Decorator),
-    (SYNTAX_COLORS["comment"], QsciLexerPython.Comment),
-    (SYNTAX_COLORS["comment"], QsciLexerPython.CommentBlock),
-    (SYNTAX_COLORS["string"], QsciLexerPython.SingleQuotedString),
-    (SYNTAX_COLORS["string"], QsciLexerPython.SingleQuotedFString),
-    (SYNTAX_COLORS["string"], QsciLexerPython.DoubleQuotedString),
-    (SYNTAX_COLORS["string"], QsciLexerPython.DoubleQuotedFString),
-    (SYNTAX_COLORS["string"], QsciLexerPython.TripleSingleQuotedFString),
-    (SYNTAX_COLORS["string"], QsciLexerPython.TripleDoubleQuotedString),
-]
+
 
 class PythonLexer(QsciLexerPython):
     def __init__(self, parent: QsciScintilla):
         super().__init__(parent)
+
+        self.PYTHON_COLOR_CONFIG = [
+            (SYNTAX_COLORS["text"], QsciLexerPython.Default),
+            (SYNTAX_COLORS["keyword"], QsciLexerPython.Keyword),
+            (SYNTAX_COLORS["number"], QsciLexerPython.Number),
+            (SYNTAX_COLORS["function"], QsciLexerPython.FunctionMethodName),
+            (SYNTAX_COLORS["class"], QsciLexerPython.ClassName),
+            (SYNTAX_COLORS["operator"], QsciLexerPython.Operator),
+            (SYNTAX_COLORS["text"], QsciLexerPython.Identifier),
+            (SYNTAX_COLORS["decorator"], QsciLexerPython.Decorator),
+            (SYNTAX_COLORS["comment"], QsciLexerPython.Comment),
+            (SYNTAX_COLORS["comment"], QsciLexerPython.CommentBlock),
+            (SYNTAX_COLORS["string"], QsciLexerPython.SingleQuotedString),
+            (SYNTAX_COLORS["string"], QsciLexerPython.SingleQuotedFString),
+            (SYNTAX_COLORS["string"], QsciLexerPython.DoubleQuotedString),
+            (SYNTAX_COLORS["string"], QsciLexerPython.DoubleQuotedFString),
+            (SYNTAX_COLORS["string"], QsciLexerPython.TripleSingleQuotedFString),
+            (SYNTAX_COLORS["string"], QsciLexerPython.TripleDoubleQuotedString),
+        ]
+        self.setDefaultFont(EDITOR_FONT)
         self.setup_lexer()
 
     def setup_lexer(self):
-        for color, syntax in PYTHON_COLOR_CONFIG:
+        for color, syntax in self.PYTHON_COLOR_CONFIG:
             self.setColor(QColor(color), syntax)
 
 LEXER_CLASS = {
