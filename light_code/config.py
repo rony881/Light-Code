@@ -2,6 +2,8 @@
 
 from pathlib import Path
 
+from PyQt6.QtGui import QFont
+
 # ============================================================
 # Project Paths
 # ============================================================
@@ -37,6 +39,7 @@ WINDOW_LOGO = str(ICONS_PATH / "app-logo.png")
 # ============================================================
 EDITOR_SELECTION_BACKGROUND = "#273747"
 EDITOR_SELECTION_FOREGROUND = "#f0f6fc"
+EDITOR_FONT = QFont("Jetbrains Mono", 15)
 
 # ===========================================================
 # Syntax Highlighter Configuration
