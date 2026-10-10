@@ -8,6 +8,8 @@ from light_code.views.main_window import MainWindow
 
 def main():
     app = QApplication(sys.argv)
+    app.setOrganizationName("Rony")
+    app.setApplicationName("Light Code")
     main_window = MainWindow()
     main_window.show()
 
