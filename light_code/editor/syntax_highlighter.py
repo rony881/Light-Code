@@ -24,9 +24,9 @@ from PyQt6.Qsci import (
     QsciLexerCMake,
     QsciScintilla,
 )
-from PyQt6.QtGui import QColor
+from PyQt6.QtGui import QColor, QFont
 
-from light_code.config import EDITOR_FONT
+from light_code.settings import settings
 
 
 SYNTAX_COLORS = {
@@ -65,7 +65,7 @@ class PythonLexer(QsciLexerPython):
             (SYNTAX_COLORS["string"], QsciLexerPython.TripleSingleQuotedFString),
             (SYNTAX_COLORS["string"], QsciLexerPython.TripleDoubleQuotedString),
         ]
-        self.setDefaultFont(EDITOR_FONT)
+        self.setDefaultFont(QFont(settings.editor_font_family))
         self.setup_lexer()
 
     def setup_lexer(self):
