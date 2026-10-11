@@ -1,15 +1,11 @@
 # src/light_code/editor/editor.py
 
 from PyQt6.Qsci import QsciScintilla
-from PyQt6.QtGui import QColor
+from PyQt6.QtGui import QColor, QFont
 from PyQt6.QtWidgets import QFrame
 
-from light_code.config import (
-    EDITOR_SELECTION_BACKGROUND,
-    EDITOR_SELECTION_FOREGROUND,
-    WINDOW_BACKGROUND
-)
 from light_code.editor.syntax_highlighter import detect_language, get_lexer
+from light_code.settings import settings
 
 
 class BaseEditor(QsciScintilla):
@@ -28,6 +24,7 @@ class BaseEditor(QsciScintilla):
             lexer.setDefaultColor(self.color())
             lexer.setPaper(self.paper())
             self.setLexer(lexer)
+        self.lexer().setFont(settings.editor_font_family)
 
     def _config(self):
         self.setFrameShape(QFrame.Shape.NoFrame)
@@ -44,11 +41,11 @@ class BaseEditor(QsciScintilla):
         self.setAutoCompletionSource(QsciScintilla.AutoCompletionSource.AcsAll)
 
         # Editor Paper And Text Color:
-        self.setPaper(QColor(WINDOW_BACKGROUND))  # editor background (matches QMainWindow)
+        self.setPaper(QColor(settings.window_background))  # editor background (matches QMainWindow)
 
         # Selection Colors
-        self.setSelectionBackgroundColor(QColor(EDITOR_SELECTION_BACKGROUND))
-        self.setSelectionForegroundColor(QColor(EDITOR_SELECTION_FOREGROUND))
+        self.setSelectionBackgroundColor(QColor(settings.editor_selection_background))
+        self.setSelectionForegroundColor(QColor(settings.editor_selection_foreground))
 
         # Line Number Foreground And Background Color:
         self.setMarginsBackgroundColor(QColor("#0d1117"))
