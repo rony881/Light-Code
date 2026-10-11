@@ -8,6 +8,7 @@ from PyQt6.QtWidgets import QFileDialog, QHBoxLayout, QLabel, QPushButton, QTree
 
 from light_code.config import FILE_PLUS_ICON, FOLDER_PLUS_ICON
 from light_code.base_widgets.base_widget import BaseWidget
+from light_code.settings import settings
 from light_code.utils.logger import logger
 
 
@@ -24,8 +25,7 @@ class FileExplorer(BaseWidget):
         self.file_tree_view = FileTreeView(self)
         self.file_tree_view.file_selected.connect(self.file_selected)
 
-        self.home_path = str(Path.home())
-        self.setFolderPath(self.home_path)
+        self.setFolderPath(settings.last_directory)
         self.add(self.file_tree_view)
 
     def browse_folder(self) -> None:
