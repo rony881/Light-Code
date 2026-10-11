@@ -19,6 +19,7 @@ from light_code.components.menubar import MenuBar
 from light_code.components.statusbar import StatusBar
 from light_code.dialogs.file_dialogs import ask_file_name, ask_number
 from light_code.components.find_replace_bar import FindReplaceBar
+from light_code.settings import Settings
 from light_code.views.editor_area import EditorArea
 from light_code.views.left_dock import LeftDock
 from light_code.views.right_dock import RightDock
