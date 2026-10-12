@@ -24,7 +24,7 @@ class BaseEditor(QsciScintilla):
             lexer.setDefaultColor(self.color())
             lexer.setPaper(self.paper())
             self.setLexer(lexer)
-        self.lexer().setFont(settings.editor_font_family)
+            self.lexer().setFont(settings.editor_font_family)
 
     def _config(self):
         self.setFrameShape(QFrame.Shape.NoFrame)
