@@ -11,7 +11,7 @@ from PyQt6.QtWidgets import (
     QSplitter,
 )
 
-from light_code.config import STYLE_SHEET_FILE, WINDOW_HEIGHT, WINDOW_LOGO, WINDOW_WIDTH
+from light_code.config import STYLE_SHEET_FILE, WINDOW_LOGO
 from light_code.editor.editor import BaseEditor
 from light_code.services.file_service import UnsupportedFileError, read_file, rename_file, write_file
 from light_code.base_widgets.base_widget import BaseWidget
@@ -19,7 +19,7 @@ from light_code.components.menubar import MenuBar
 from light_code.components.statusbar import StatusBar
 from light_code.dialogs.file_dialogs import ask_file_name, ask_number
 from light_code.components.find_replace_bar import FindReplaceBar
-from light_code.settings import Settings
+from light_code.settings import settings
 from light_code.views.editor_area import EditorArea
 from light_code.views.left_dock import LeftDock
 from light_code.views.right_dock import RightDock
@@ -39,7 +39,7 @@ class MainWindow(QMainWindow):
         logger.info("Initializing MainWindow")
         self.setWindowTitle("Light Code")
         self.setWindowIcon(QIcon(WINDOW_LOGO))
-        self.resize(WINDOW_WIDTH, WINDOW_HEIGHT)
+        self.resize(settings.window_width, settings.window_height)
         self.setStyleSheet(self.read_style_sheet())
 
         # ============= Menu Bar ===============
