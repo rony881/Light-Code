@@ -86,6 +86,7 @@ class FileExplorer(BaseWidget):
         )
         self.file_tree_view.folder_changed.emit(folder_path)
         self.set_folder_lbl_text(self.get_folder_name(folder_path))
+        settings.setValue("last_directory", folder_path)
 
     def get_folder_name(self, folder_path: str) -> str:
         return Path(folder_path).name
