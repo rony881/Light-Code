@@ -20,7 +20,7 @@ class Settings(QSettings):
         # window fonts
         self.window_font_family = QFont(self.value("window_font_family", self.default_font_family))
         self.window_font_size = self.value("window_font_size", self.default_font_size)
-        self.last_directory = self.value("last_opened_project", str(Path.home()))
+        self.last_directory = self.value("last_directory", str(Path.home()))
         
         # Editor Settings
         self.editor_font_family = QFont(self.value("editor_font_family", self.default_font_family))
