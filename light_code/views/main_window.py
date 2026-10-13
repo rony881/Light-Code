@@ -242,6 +242,8 @@ class MainWindow(QMainWindow):
             event.ignore()
             return
         self.right_panel.output_panel.code_runner.stop()
+        settings.setValue("window_width", self.width())
+        settings.setValue("window_height", self.height())
         event.accept()
 
     # ─────────────────────────────────────────────
