@@ -81,8 +81,11 @@ class MainWindow(QMainWindow):
         self.right_panel = RightDock(parent=self)
         self.right_panel.output_panel.minimize_btn.clicked.connect(self.toggle_right_panel)
         self.splitter_container.addWidget(self.right_panel)
-
-        self.splitter_container.setSizes([260, 1000, 0])
+        
+        if settings.splitter_state:
+            self.splitter_container.restoreState(settings.splitter_state)
+        else:
+            self.splitter_container.setSizes([260, 1000, 0])
 
         # ==================== Status Bar ======================
         self.status_bar = StatusBar(self)
@@ -244,6 +247,7 @@ class MainWindow(QMainWindow):
         self.right_panel.output_panel.code_runner.stop()
         settings.setValue("window_width", self.width())
         settings.setValue("window_height", self.height())
+        settings.setValue("splitter_state", self.splitter_container.saveState())
         event.accept()
 
     # ─────────────────────────────────────────────
