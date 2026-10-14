@@ -3,7 +3,7 @@
 import logging
 
 logging.basicConfig(
-    format="%(levelname)s - File: %(filename)s, Func: %(funcName)s, Line: %(lineno)d - %(message)s",
+    format="%(message)s File: %(filename)s, Func: %(funcName)s, Line: %(lineno)d",
     datefmt="%I:%M:%S %p",
     level=logging.DEBUG,
 )
