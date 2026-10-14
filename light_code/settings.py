@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from PyQt6.QtCore import QSettings
+from PyQt6.QtCore import QByteArray, QSettings
 from PyQt6.QtGui import QFont
 
 
@@ -14,7 +14,7 @@ class Settings(QSettings):
         # Window settings
         self.window_width = self.value("window_width", 1080, type=int)
         self.window_height = self.value("window_height", 720, type=int)
-        self.splitter_size = self.value("splitter_size")
+        self.splitter_state = self.value("splitter_state", QByteArray(),type=QByteArray)
         self.window_background = self.value(
             "window_background", "#0d1117"
         )
