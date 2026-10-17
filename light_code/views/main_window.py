@@ -15,7 +15,7 @@ from light_code.config import STYLE_SHEET_FILE, WINDOW_LOGO
 from light_code.editor.editor import BaseEditor
 from light_code.services.file_service import UnsupportedFileError, read_file, rename_file, write_file
 from light_code.base_widgets.base_widget import BaseWidget
-from light_code.components.menubar import MenuBar
+from light_code.components.top_bar import TopBar
 from light_code.components.statusbar import StatusBar
 from light_code.dialogs.file_dialogs import ask_file_name, ask_number
 from light_code.components.find_replace_bar import FindReplaceBar
@@ -42,13 +42,14 @@ class MainWindow(QMainWindow):
         self.resize(settings.window_width, settings.window_height)
         self.setStyleSheet(self.read_style_sheet())
 
-        # ============= Menu Bar ===============
-        self.menu_bar = MenuBar(parent=self)
-        self.setMenuBar(self.menu_bar)
-
         # ============= Central Widget ============
         self.central_widget = BaseWidget()
         self.setCentralWidget(self.central_widget)
+
+        # ============= Top Bar (menu bar + buttons) ===============
+        self.top_bar = TopBar(parent=self)
+        self.menu_bar = self.top_bar.menu_bar
+        self.central_widget.add(self.top_bar)
 
         # ============= Find and Replace Bar ======
         self.find_replace_bar = FindReplaceBar(self)
