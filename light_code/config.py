@@ -2,18 +2,11 @@
 
 from pathlib import Path
 
-from PyQt6.QtGui import QFont
 
 # ============================================================
 # Project Paths
 # ============================================================
 
-# Project root:
-# LiteCode/
-# ├── src/
-# │   └── light_code/
-# │       └── config.py
-# └── ...
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 # Python package root:
