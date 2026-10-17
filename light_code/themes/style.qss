@@ -12,10 +12,14 @@ QMainWindow {
 /* ============================================================
    TOP MENU BAR (File, Edit, View)
    ============================================================ */
-#menu {
+#top_bar {
     background-color: #0D1017;
-    color: #B3B1AD;
     border-bottom: 1px solid #21262d;
+}
+#menu {
+    background-color: transparent;
+    color: #B3B1AD;
+    border: none;
     font-size: 12px;
 }
 /* Menu Items. e.g. File,Edit,view etc. */
