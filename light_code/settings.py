@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from PyQt6.QtCore import QByteArray, QSettings
+from PyQt6.QtCore import QByteArray, QObject, QSettings, pyqtSignal
 from PyQt6.QtGui import QFont
 
 
@@ -51,3 +51,21 @@ class Settings(QSettings):
 
 
 settings = Settings()
+
+class NewSettings(QObject):
+    setting_changed = pyqtSignal(str, object)
+
+    def __init__(self) -> None:
+        super().__init__(self)
+        self.qs = QSettings("Rony", "Light Code")
+
+    def get(self, key):
+        self.qs.value(key=key)
+
+    def set(self, key, value):
+        if self.get(key) == value:
+            return
+        self.qs.setValue(key=key, value=value)
+        self.setting_changed.emit(key, value)
+
+    def reset(self): ...
