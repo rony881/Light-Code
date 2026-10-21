@@ -8,34 +8,16 @@ from light_code.components.button import Button
 from light_code.components.menubar import MenuBar
 from light_code.utils.logger import logger
 
-BUTTON_STYLE = """
-QPushButton {
-    background: transparent;
-    color: #8b949e;
-    border: none;
-    border-radius: 4px;
-    padding: 0px;
-    font-size: 14px;
-}
-QPushButton:hover {
-    background: #21262d;
-    color: #e6edf3;
-}
-QPushButton:pressed {
-    background: #1D2733;
-    color: #58a6ff;
-}
-"""
-
 
 class TopBar(BaseWidget):
     """Thin bar across the top of the window."""
 
     HEIGHT = 34
 
-    def __init__(self, parent=None) -> None:
+    def __init__(self, parent) -> None:
         super().__init__(parent)
         logger.info("Initializing TopBar")
+        self.parent = parent
         self.setObjectName("top_bar")
         self.setFixedHeight(self.HEIGHT)
 
@@ -51,17 +33,25 @@ class TopBar(BaseWidget):
 
         self.h_layout.addStretch(1)
 
-        # Quick Actions
-        self.add_button("▶", "Run")
-        self.add_button("⚙", "Settings")
-        self.add_button("⋮", "More")
+        # Quick Actions Buttons
+        run_btn = self.add_button("▶", "Run")
+        run_btn.clicked.connect(self.parent.run_file)
+        setting_btn = self.add_button("⚙", "Settings")
+        more_button = self.add_button("⋮", "More")
 
-    def add_button(self, text: str, tooltip: str = "", handler=None) -> Button:
+    def add_button(
+        self,
+        text: str,
+        tooltip: str = "",
+        handler=None,
+        obj_name: str = "quick_action_btn"
+    ) -> Button:
         button = Button(text)
-        button.setFixedSize(28, 24)
+        button.setFixedSize(28, 28)
         button.setToolTip(tooltip)
-        button.setStyleSheet(BUTTON_STYLE)
+        button.setObjectName(obj_name)
         if handler:
             button.clicked.connect(handler)
         self.h_layout.addWidget(button, 0, Qt.AlignmentFlag.AlignVCenter)
         return button
+        
