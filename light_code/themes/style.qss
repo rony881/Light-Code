@@ -16,6 +16,23 @@ QMainWindow {
     background-color: #0D1017;
     border-bottom: 1px solid #21262d;
 }
+#quick_action_btn {
+    background: transparent;
+    color: #8b949e;
+    border: none;
+    border-radius: 4px;
+    padding: 0px;
+    font-size: 14px;
+}
+#quick_action_btn:hover {
+    background: #21262d;
+    color: #e6edf3;
+}
+#quick_action_btn:pressed {
+    background: #1D2733;
+    color: #58a6ff;
+}
+
 #menu {
     background-color: transparent;
     color: #B3B1AD;
