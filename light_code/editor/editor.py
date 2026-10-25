@@ -24,7 +24,7 @@ class BaseEditor(QsciScintilla):
             lexer.setDefaultColor(self.color())
             lexer.setPaper(self.paper())
             self.setLexer(lexer)
-            self.lexer().setFont(settings.editor_font_family)
+            self.lexer().setFont(settings.get("editor_font_family"))
 
     def _config(self):
         self.setFrameShape(QFrame.Shape.NoFrame)
@@ -41,11 +41,11 @@ class BaseEditor(QsciScintilla):
         self.setAutoCompletionSource(QsciScintilla.AutoCompletionSource.AcsAll)
 
         # Editor Paper And Text Color:
-        self.setPaper(QColor(settings.window_background))  # editor background (matches QMainWindow)
+        self.setPaper(QColor(settings.get("window_background")))  # editor background (matches QMainWindow)
 
         # Selection Colors
-        self.setSelectionBackgroundColor(QColor(settings.editor_selection_background))
-        self.setSelectionForegroundColor(QColor(settings.editor_selection_foreground))
+        self.setSelectionBackgroundColor(QColor(settings.get("editor_selection_background")))
+        self.setSelectionForegroundColor(QColor(settings.get("editor_selection_foreground")))
 
         # Line Number Foreground And Background Color:
         self.setMarginsBackgroundColor(QColor("#0d1117"))
