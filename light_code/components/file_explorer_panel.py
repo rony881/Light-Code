@@ -25,7 +25,7 @@ class FileExplorer(BaseWidget):
         self.file_tree_view = FileTreeView(self)
         self.file_tree_view.file_selected.connect(self.file_selected)
 
-        self.setFolderPath(settings.last_directory)
+        self.setFolderPath(settings.get("last_folder_path"))
         self.add(self.file_tree_view)
 
     def browse_folder(self) -> None:
@@ -86,7 +86,7 @@ class FileExplorer(BaseWidget):
         )
         self.file_tree_view.folder_changed.emit(folder_path)
         self.set_folder_lbl_text(self.get_folder_name(folder_path))
-        settings.setValue("last_directory", folder_path)
+        settings.set("last_folder_path", folder_path)
 
     def get_folder_name(self, folder_path: str) -> str:
         return Path(folder_path).name
