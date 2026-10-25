@@ -39,7 +39,10 @@ class MainWindow(QMainWindow):
         logger.info("Initializing MainWindow")
         self.setWindowTitle("Light Code")
         self.setWindowIcon(QIcon(WINDOW_LOGO))
-        self.resize(settings.window_width, settings.window_height)
+        self.resize(
+            settings.get("window_width"),
+            settings.get("window_height")
+        )
         self.setStyleSheet(self.read_style_sheet())
 
         # ============= Central Widget ============
@@ -83,8 +86,8 @@ class MainWindow(QMainWindow):
         self.right_panel.output_panel.minimize_btn.clicked.connect(self.toggle_right_panel)
         self.splitter_container.addWidget(self.right_panel)
         
-        if settings.splitter_state:
-            self.splitter_container.restoreState(settings.splitter_state)
+        if settings.get("splitter_state"):
+            self.splitter_container.restoreState(settings.get("splitter_state"))
         else:
             self.splitter_container.setSizes([260, 1000, 0])
 
@@ -246,9 +249,9 @@ class MainWindow(QMainWindow):
             event.ignore()
             return
         self.right_panel.output_panel.code_runner.stop()
-        settings.setValue("window_width", self.width())
-        settings.setValue("window_height", self.height())
-        settings.setValue("splitter_state", self.splitter_container.saveState())
+        settings.set("window_width", self.width())
+        settings.set("window_height", self.height())
+        settings.set("splitter_state", self.splitter_container.saveState())
         event.accept()
 
     # ─────────────────────────────────────────────
