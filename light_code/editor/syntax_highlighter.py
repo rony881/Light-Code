@@ -65,7 +65,7 @@ class PythonLexer(QsciLexerPython):
             (SYNTAX_COLORS["string"], QsciLexerPython.TripleSingleQuotedFString),
             (SYNTAX_COLORS["string"], QsciLexerPython.TripleDoubleQuotedString),
         ]
-        self.setDefaultFont(QFont(settings.editor_font_family))
+        self.setDefaultFont(QFont(settings.get("editor_font_family")))
         self.setup_lexer()
 
     def setup_lexer(self):
