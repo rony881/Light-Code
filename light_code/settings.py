@@ -4,68 +4,46 @@ from PyQt6.QtCore import QByteArray, QObject, QSettings, pyqtSignal
 from PyQt6.QtGui import QFont
 
 
-class Settings(QSettings):
-    def __init__(self, parent=None):
-        super().__init__("Rony", "Light Code", parent)
+DEFAULTS = {
+    # Default font settings
+    "default_font_family": "JetBrains Mono",
+    "default_font_size": 12,
 
-        self.default_font_family = "JetBrains Mono"
-        self.default_font_size = 12
+    # Window settings
+    "window_width": 1080,
+    "window_height": 720,
+    "splitter_state": QByteArray(),
+    "window_background": "#0d1117",
+    "window_font_family": QFont("JetBrains Mono"),
+    "window_font_size": 12,
+    "last_folder_path": str(Path.home()),
 
-        # Window settings
-        self.window_width = self.value("window_width", 1080, type=int)
-        self.window_height = self.value("window_height", 720, type=int)
-        self.splitter_state = self.value("splitter_state", QByteArray(),type=QByteArray)
-        self.window_background = self.value(
-            "window_background", "#0d1117"
-        )
+    # Editor settings
+    "editor_font_family": QFont("JetBrains Mono"),
+    "editor_font_size": 15,
+    "show_line_numbers": True,
+    "editor_selection_background": "#273747",
+    "editor_selection_foreground": "#f0f6fc",
+}
 
-        self.window_font_family = QFont(
-            self.value("window_font_family", self.default_font_family)
-        )
-        self.window_font_size = self.value(
-            "window_font_size", self.default_font_size, type=int
-        )
-
-        self.last_directory = self.value(
-            "last_directory", str(Path.home())
-        )
-
-        # Editor settings
-        self.editor_font_family = QFont(
-            self.value("editor_font_family", self.default_font_family)
-        )
-        self.editor_font_size = self.value(
-            "editor_font_size", 15, type=int
-        )
-
-        self.show_line_numbers = self.value(
-            "show_line_numbers", True, type=bool
-        )
-
-        self.editor_selection_background = self.value(
-            "editor_selection_background", "#273747"
-        )
-        self.editor_selection_foreground = self.value(
-            "editor_selection_foreground", "#f0f6fc"
-        )
-
-
-settings = Settings()
-
-class NewSettings(QObject):
+class Settings(QObject):
     setting_changed = pyqtSignal(str, object)
 
     def __init__(self) -> None:
-        super().__init__(self)
+        super().__init__()
         self.qs = QSettings("Rony", "Light Code")
 
     def get(self, key):
-        self.qs.value(key=key)
+        default = DEFAULTS[key]
+        return self.qs.value(key, default, type=type(default))
 
     def set(self, key, value):
         if self.get(key) == value:
             return
-        self.qs.setValue(key=key, value=value)
+        self.qs.setValue(key,value)
         self.setting_changed.emit(key, value)
 
-    def reset(self): ...
+    def set_to_default(self, key):
+        self.set(key, DEFAULTS[key])
+
+settings = Settings()
