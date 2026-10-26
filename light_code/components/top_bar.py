@@ -37,6 +37,7 @@ class TopBar(BaseWidget):
         run_btn = self.add_button("▶", "Run")
         run_btn.clicked.connect(self.parent.run_file)
         setting_btn = self.add_button("⚙", "Settings")
+        setting_btn.clicked.connect(self.parent.open_preferences)
         more_button = self.add_button("⋮", "More")
 
     def add_button(
