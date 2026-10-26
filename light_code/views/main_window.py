@@ -11,6 +11,7 @@ from PyQt6.QtWidgets import (
     QSplitter,
 )
 
+from light_code.components.settings_widget import SettingsWidget
 from light_code.config import STYLE_SHEET_FILE, WINDOW_LOGO
 from light_code.editor.editor import BaseEditor
 from light_code.services.file_service import UnsupportedFileError, read_file, rename_file, write_file
@@ -363,7 +364,9 @@ class MainWindow(QMainWindow):
     # ─────────────────────────────────────────────
 
     def open_preferences(self):
-        """Open editor preferences."""
+        """Open application preferences."""
+        settings_widget = SettingsWidget(self)
+        self.central_panel.addTab(settings_widget, "settings")
         pass
 
     def open_shortcuts_editor(self):
