@@ -1,4 +1,7 @@
 
+/* ===========================================================
+    Globals
+   =========================================================== */\\
 
 /* ============================================================
    MAIN WINDOW
@@ -250,20 +253,20 @@ QHeaderView::section {
 /* ============================================================
    SIDE PANEL LABELS (Agent, Git, Output)
    ============================================================ */
-QLabel#agent_panel_label {
+#agent_panel_label {
     color: #8b949e;
     padding: 2px 10px;
     font-size: 12px;
     font-weight: bold;
 }
 
-QLabel#git_panel_label {
+#git_panel_label {
     color: #8b949e;
     padding: 2px 10px;
     font-size: 12px;
     font-weight: bold;
 }
-QLabel#output_panel_label {
+#output_panel_label {
     color: #8b949e;
     padding: 2px 10px;
     font-size: 12px;
@@ -352,3 +355,8 @@ QSplitter::handle {
     width: 1px;
     height: 1px;
 }
+
+#win_settings_lbl{
+    background: transparent;
+    color: red;
+  } 
