@@ -12,36 +12,7 @@ from light_code.config import (
 from light_code.components.button import Button
 from light_code.utils.logger import logger
 
-BUTTON_STYLE = """
-QPushButton {
-    background: transparent;
-    color: #8b949e;
-    border: none;
-    border-radius: 3px;
-    padding: 0px 6px;
-    font-size: 12px;
-}
-QPushButton:hover {
-    background: #30363d;
-    color: #e6edf3;
-}
-QPushButton:pressed {
-    background: #21262d;
-    color: #e6edf3;
-}
-"""
 
-LABEL_STYLE = """
-color: #8b949e;
-font-size: 12px;
-padding: 0px 4px;
-"""
-
-STATUS_MESSAGE_STYLE = """
-color: #c9d1d9;
-font-size: 12px;
-padding: 0px 4px;
-"""
 
 
 class StatusBar(QStatusBar):
@@ -62,26 +33,26 @@ class StatusBar(QStatusBar):
         self.left_panel_toggle_btn = Button("")
         self.left_panel_toggle_btn.setIcon(QIcon(LEFT_PANEL_ICON))
         self.left_panel_toggle_btn.setToolTip("Toggle Left Panel")
-        self.left_panel_toggle_btn.setStyleSheet(BUTTON_STYLE)
+        self.left_panel_toggle_btn.setObjectName("status_bar_btn")
         self.h_layout.addWidget(self.left_panel_toggle_btn)
 
         self.explorer_btn = Button("")
         self.explorer_btn.setIcon(QIcon(EXPLORER_ICON))
         self.explorer_btn.setToolTip("Explorer")
-        self.explorer_btn.setStyleSheet(BUTTON_STYLE)
+        self.explorer_btn.setObjectName("status_bar_btn")
         self.h_layout.addWidget(self.explorer_btn)
 
         self.git_btn = Button("")
         self.git_btn.setIcon(QIcon(GIT_ICON))
         self.git_btn.setToolTip("Git Panel")
-        self.git_btn.setStyleSheet(BUTTON_STYLE)
+        self.git_btn.setObjectName("status_bar_btn")
         self.h_layout.addWidget(self.git_btn)
 
         self.h_layout.addSpacing(8)
 
         # Status message
         self.status_message_label = QLabel("Ready")
-        self.status_message_label.setStyleSheet(STATUS_MESSAGE_STYLE)
+        self.status_message_label.setObjectName("status_message_label")
         self.h_layout.addWidget(self.status_message_label)
 
         self.h_layout.addStretch()
@@ -105,19 +76,19 @@ class StatusBar(QStatusBar):
         self.agent_btn = Button("")
         self.agent_btn.setIcon(QIcon(AI_AGENT_ICON))
         self.agent_btn.setToolTip("AI Agent")
-        self.agent_btn.setStyleSheet(BUTTON_STYLE)
+        self.agent_btn.setObjectName("status_bar_btn")
         self.h_layout.addWidget(self.agent_btn)
 
         self.output_btn = Button("")
         self.output_btn.setIcon(QIcon(OUTPUT_ICON))
         self.output_btn.setToolTip("Output")
-        self.output_btn.setStyleSheet(BUTTON_STYLE)
+        self.output_btn.setObjectName("status_bar_btn")
         self.h_layout.addWidget(self.output_btn)
 
         self.right_panel_btn = Button("")
         self.right_panel_btn.setIcon(QIcon(RIGHT_PANEL_ICON))
         self.right_panel_btn.setToolTip("Right Panel")
-        self.right_panel_btn.setStyleSheet(BUTTON_STYLE)
+        self.right_panel_btn.setObjectName("status_bar_btn")
         self.h_layout.addWidget(self.right_panel_btn)
 
         self.addWidget(self.container_widget, 1)
@@ -126,7 +97,7 @@ class StatusBar(QStatusBar):
     def _create_label(text: str, tooltip: str) -> QLabel:
         label = QLabel(text)
         label.setToolTip(tooltip)
-        label.setStyleSheet(LABEL_STYLE)
+        label.setObjectName("status_bar_label")
         return label
 
     def setLeftPanelToggleBtnConn(self, func):
