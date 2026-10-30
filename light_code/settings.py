@@ -14,12 +14,12 @@ DEFAULTS = {
     "window_height": 720,
     "splitter_state": QByteArray(),
     "window_background": "#0d1117",
-    "window_font_family": QFont("JetBrains Mono"),
+    "window_font_family": "JetBrains Mono",
     "window_font_size": 12,
     "last_folder_path": str(Path.home()),
 
     # Editor settings
-    "editor_font_family": QFont("JetBrains Mono"),
+    "editor_font_family": "JetBrains Mono",
     "editor_font_size": 15,
     "show_line_numbers": True,
     "editor_selection_background": "#273747",
