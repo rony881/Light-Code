@@ -1,7 +1,7 @@
 
 /* ===========================================================
     Globals
-   =========================================================== */\\
+   =========================================================== */
 
 /* ============================================================
    MAIN WINDOW
@@ -116,7 +116,6 @@ QTabBar::tab:hover:!selected {
    FILE EXPLORER
    ============================================================ */
 
-/* ---- Header bar (folder name + new file/folder buttons) ---- */
 #file_explorer_header{
     background-color: #0D1017
 }
@@ -205,8 +204,6 @@ QPushButton#new_folder_btn:pressed {
 }
 
 /* ---- Editor scrollbars ---- */
-/* Same fix, plus these rules didn't exist before at all - QsciScintilla is a
-   QAbstractScrollArea with real QScrollBar children that were never styled. */
 #base_editor QScrollBar:vertical {
     background: #0d1117;
     width: 10px;
@@ -384,5 +381,5 @@ QSplitter::handle {
 
 #win_settings_lbl{
     background: transparent;
-    color: red;
+    font-size: 17px;
   } 
