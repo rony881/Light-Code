@@ -1,7 +1,6 @@
 from pathlib import Path
 
 from PyQt6.QtCore import QByteArray, QObject, QSettings, pyqtSignal
-from PyQt6.QtGui import QFont
 
 
 DEFAULTS = {
