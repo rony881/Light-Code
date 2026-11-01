@@ -380,6 +380,12 @@ QSplitter::handle {
 }
 
 #win_settings_lbl{
+    color: #e1e1e1;
     background: transparent;
     font-size: 17px;
   } 
+
+#settings_subheaders{
+    color: #b8b8b8;
+    font-size: 14;
+}
