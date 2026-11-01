@@ -19,13 +19,15 @@ class SettingsWidget(BaseWidget):
         
         self.add(ws_lbl)
 
-        w_font_family = QLabel("Window Font Family")
-        self.add(w_font_family)
+        w_font_family_lbl = QLabel("Window Font Family")
+        w_font_family_lbl.setObjectName("settings_subheaders")
+        self.add(w_font_family_lbl)
         wf_combobox = QFontComboBox()
         self.add(wf_combobox)
 
-        w_font_size = QLabel("Window Font Size")
-        self.add(w_font_size)
+        w_font_size_lbl = QLabel("Window Font Size")
+        w_font_size_lbl.setObjectName("settings_subheaders")
+        self.add(w_font_size_lbl)
         wf_spinbox = QSpinBox()
         wf_spinbox.setRange(8,50)
         wf_spinbox.setSuffix(" px")
