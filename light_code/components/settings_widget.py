@@ -87,3 +87,4 @@ class SettingsWidget(BaseWidget):
         settings.set("window_font_size", self.wf_spinbox.value())
         settings.set("editor_font_family", self.ef_combobox.currentFont().family())
         settings.set("editor_font_size", self.ef_spinbox.value())
+        logger.info("Settings Saved")
