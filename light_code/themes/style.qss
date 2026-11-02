@@ -379,7 +379,7 @@ QSplitter::handle {
     height: 1px;
 }
 
-#win_settings_lbl{
+#settings_headers{
     color: #e1e1e1;
     background: transparent;
     font-size: 17px;
