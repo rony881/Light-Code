@@ -2,6 +2,8 @@ from pathlib import Path
 
 from PyQt6.QtCore import QByteArray, QObject, QSettings, pyqtSignal
 
+from light_code.utils.logger import logger
+
 
 DEFAULTS = {
     # Default font settings
@@ -48,5 +50,6 @@ class Settings(QObject):
     def reset(self):
         for key in DEFAULTS:
             self.set_to_default(key)
+        logger.info("Application settings Reset")
 
 settings = Settings()
