@@ -45,4 +45,8 @@ class Settings(QObject):
     def set_to_default(self, key):
         self.set(key, DEFAULTS[key])
 
+    def reset(self):
+        for key in DEFAULTS:
+            self.set_to_default(key)
+
 settings = Settings()
