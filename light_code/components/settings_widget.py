@@ -20,6 +20,7 @@ class SettingsWidget(BaseWidget):
         button_layout = QHBoxLayout()
         
         self.reset_button = QPushButton("Reset")
+        self.reset_button.clicked.connect(settings.reset)
         self.save_button = QPushButton("Save")
         self.save_button.clicked.connect(self.save)
         
@@ -30,20 +31,17 @@ class SettingsWidget(BaseWidget):
         self.add(button_layout)
         
         # Window Settings
-        ws_lbl = QLabel("Window Settings", parent=self)
-        ws_lbl.setObjectName("settings_headers")
+        ws_lbl = self._make_header("Window Settings")
         self.add(ws_lbl)
 
-        w_font_family_lbl = QLabel("Window Font Family")
-        w_font_family_lbl.setObjectName("settings_subheaders")
+        w_font_family_lbl = self._make_subheader("Window Font Family")
         self.add(w_font_family_lbl)
 
         self.wf_combobox = QFontComboBox()
         self.wf_combobox.setCurrentFont(QFont(settings.get("window_font_family")))
         self.add(self.wf_combobox)
 
-        w_font_size_lbl = QLabel("Window Font Size")
-        w_font_size_lbl.setObjectName("settings_subheaders")
+        w_font_size_lbl = self._make_subheader("Window Font Size")
         self.add(w_font_size_lbl)
         
         self.wf_spinbox = QSpinBox()
@@ -53,12 +51,10 @@ class SettingsWidget(BaseWidget):
         self.add(self.wf_spinbox)
  
         # Editor settings
-        es_lbl = QLabel("Editor Settings")
-        es_lbl.setObjectName("settings_headers")
+        es_lbl = self._make_header("Editor Settings")
         self.add(es_lbl)
 
-        e_font_family_lbl = QLabel("Editor Font Family")
-        e_font_family_lbl.setObjectName("settings_subheaders")
+        e_font_family_lbl = self._make_subheader("Editor Font Family")
         self.add(e_font_family_lbl)
 
         self.ef_combobox = QFontComboBox()
@@ -75,6 +71,16 @@ class SettingsWidget(BaseWidget):
         self.add(self.ef_spinbox)
         
         self.main_layout.addStretch()
+
+    def _make_header(self, text: str):
+        header = QLabel(text=text)
+        header.setObjectName("settings_headers")
+        return header
+
+    def _make_subheader(self, text: str):
+        sub_header = self._make_header(text=text)
+        sub_header.setObjectName("settings_subheaders")
+        return sub_header
 
     def save(self):
         settings.set("window_font_family", self.wf_combobox.currentFont().family())
