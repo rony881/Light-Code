@@ -15,6 +15,7 @@ PACKAGE_ROOT = Path(__file__).resolve().parent
 # Application resources
 ASSETS_PATH = PACKAGE_ROOT / "assets"
 ICONS_PATH = ASSETS_PATH / "icons"
+FONTS_PATH = ASSETS_PATH / "fonts"
 
 
 # ============================================================
@@ -51,6 +52,9 @@ FILE_PLUS_ICON = str(ICONS_PATH / "file-plus-logo.svg")
 # Folder Plus Button
 FOLDER_PLUS_ICON = str(ICONS_PATH / "folder-plus-logo.svg")
 
+
+# Application and Editor Fonts
+JETBRAINS_MONO_REGULAR_FILE = FONTS_PATH / "JetBrainsMonoNL-Regular.ttf"
 
 # ============================================================
 # Application Styles
