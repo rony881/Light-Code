@@ -23,10 +23,12 @@ class SettingsWidget(BaseWidget):
         self.reset_button.clicked.connect(settings.reset)
         self.save_button = QPushButton("Save")
         self.save_button.clicked.connect(self.save)
+        self.close_button = QPushButton("X")
         
         button_layout.addStretch()
         button_layout.addWidget(self.reset_button)
         button_layout.addWidget(self.save_button)
+        button_layout.addWidget(self.close_button)
 
         self.add(button_layout)
         
