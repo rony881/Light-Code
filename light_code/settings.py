@@ -48,8 +48,8 @@ class Settings(QObject):
         self.set(key, DEFAULTS[key])
 
     def reset(self):
-        for key in DEFAULTS:
+        for key, value in DEFAULTS.items():
             self.set_to_default(key)
-            logger.info(f"{key} set to {DEFAULTS[key]}")
+            logger.info(f"{key} set to {value}")
 
 settings = Settings()
