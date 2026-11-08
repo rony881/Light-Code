@@ -4,11 +4,11 @@ import sys
 from PyQt6.QtGui import QFontDatabase
 from PyQt6.QtWidgets import QApplication
 
-from light_code.config import FONTS_PATH
+from light_code.config import JETBRAINS_MONO_REGULAR_FONT
 from light_code.views.main_window import MainWindow
 
 def load_font():
-    font = QFontDatabase.addApplicationFont(str(FONTS_PATH))
+    font = QFontDatabase.addApplicationFont(str(JETBRAINS_MONO_REGULAR_FONT))
     if font == -1:
         print("Failed to load font")
         return
