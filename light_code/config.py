@@ -54,7 +54,7 @@ FOLDER_PLUS_ICON = str(ICONS_PATH / "folder-plus-logo.svg")
 
 
 # Application and Editor Fonts
-JETBRAINS_MONO_REGULAR_FILE = FONTS_PATH / "JetBrainsMonoNL-Regular.ttf"
+JETBRAINS_MONO_REGULAR_FONT = FONTS_PATH / "JetBrainsMono-Regular.ttf"
 
 # ============================================================
 # Application Styles
