@@ -45,6 +45,7 @@ class MainWindow(QMainWindow):
             settings.get("window_height")
         )
         self.setStyleSheet(self.read_style_sheet())
+        self.settings_widget = None
 
         # ============= Central Widget ============
         self.central_widget = BaseWidget()
@@ -365,9 +366,11 @@ class MainWindow(QMainWindow):
 
     def open_preferences(self):
         """Open application preferences."""
-        self.settings_widget = SettingsWidget()
+        if self.settings_widget == None:
+            self.settings_widget = SettingsWidget()
         self.settings_widget.show()
         self.settings_widget.raise_()
+        self.settings_widget.activateWindow()
 
     def open_shortcuts_editor(self):
         """Open keyboard shortcut settings."""
