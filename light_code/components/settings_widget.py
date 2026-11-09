@@ -1,5 +1,5 @@
 
-from PyQt6.QtCore import pyqtSignal
+from PyQt6.QtCore import Qt, pyqtSignal
 from PyQt6.QtGui import QFont
 from PyQt6.QtWidgets import QFontComboBox, QHBoxLayout, QLabel, QPushButton, QSpinBox
 
@@ -13,6 +13,9 @@ class SettingsWidget(BaseWidget):
     
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
+        self.setWindowFlag(Qt.WindowType.Window)
+        self.resize(420, 500)
+        
         self.main_layout.setContentsMargins(15,15,15,15)
         self.main_layout.setSpacing(10)
 
