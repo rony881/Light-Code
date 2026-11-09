@@ -365,9 +365,9 @@ class MainWindow(QMainWindow):
 
     def open_preferences(self):
         """Open application preferences."""
-        settings_widget = SettingsWidget(self)
-        self.central_panel.addTab(settings_widget, "settings")
-        pass
+        self.settings_widget = SettingsWidget()
+        self.settings_widget.show()
+        self.settings_widget.raise_()
 
     def open_shortcuts_editor(self):
         """Open keyboard shortcut settings."""
