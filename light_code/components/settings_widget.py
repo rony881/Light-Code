@@ -20,6 +20,7 @@ class SettingsWidget(BaseWidget):
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
         self.setWindowFlag(Qt.WindowType.Window)
+        self.setWindowTitle("Light Code Settings")
         self.resize(420, 500)
         
         self.setup_ui()
