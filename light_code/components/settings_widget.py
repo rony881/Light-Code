@@ -1,7 +1,13 @@
 
 from PyQt6.QtCore import Qt, pyqtSignal
 from PyQt6.QtGui import QFont
-from PyQt6.QtWidgets import QFontComboBox, QHBoxLayout, QLabel, QPushButton, QSpinBox
+from PyQt6.QtWidgets import (
+    QFontComboBox,
+    QHBoxLayout,
+    QLabel,
+    QPushButton,
+    QSpinBox
+)
 
 from light_code.base_widgets.base_widget import BaseWidget
 from light_code.settings import settings
