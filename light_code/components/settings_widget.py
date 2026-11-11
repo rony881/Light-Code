@@ -22,6 +22,9 @@ class SettingsWidget(BaseWidget):
         self.setWindowFlag(Qt.WindowType.Window)
         self.resize(420, 500)
         
+        self.setup_ui()
+    
+    def setup_ui(self):    
         self.main_layout.setContentsMargins(15,15,15,15)
         self.main_layout.setSpacing(10)
 
