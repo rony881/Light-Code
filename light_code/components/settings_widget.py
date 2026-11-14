@@ -33,7 +33,7 @@ class SettingsWidget(BaseWidget):
         button_layout = QHBoxLayout()
         
         self.reset_button = QPushButton("Reset")
-        self.reset_button.clicked.connect(settings.reset)
+        self.reset_button.clicked.connect(self.reset_settings)
         self.save_button = QPushButton("Save")
         self.save_button.clicked.connect(self.save)
         
@@ -50,18 +50,18 @@ class SettingsWidget(BaseWidget):
         w_font_family_lbl = self._make_subheader("Window Font Family")
         self.add(w_font_family_lbl)
 
-        self.wf_combobox = QFontComboBox()
-        self.wf_combobox.setCurrentFont(QFont(settings.get("window_font_family")))
-        self.add(self.wf_combobox)
+        self.window_font_family = QFontComboBox()
+        self.window_font_family.setCurrentFont(QFont(settings.get("window_font_family")))
+        self.add(self.window_font_family)
 
         w_font_size_lbl = self._make_subheader("Window Font Size")
         self.add(w_font_size_lbl)
         
-        self.wf_spinbox = QSpinBox()
-        self.wf_spinbox.setRange(8, 50)
-        self.wf_spinbox.setSuffix(" px")
-        self.wf_spinbox.setValue(settings.get("window_font_size"))
-        self.add(self.wf_spinbox)
+        self.window_font_size = QSpinBox()
+        self.window_font_size.setRange(8, 50)
+        self.window_font_size.setSuffix(" px")
+        self.window_font_size.setValue(settings.get("window_font_size"))
+        self.add(self.window_font_size)
  
         # Editor settings
         es_lbl = self._make_header("Editor Settings")
@@ -70,20 +70,23 @@ class SettingsWidget(BaseWidget):
         e_font_family_lbl = self._make_subheader("Editor Font Family")
         self.add(e_font_family_lbl)
 
-        self.ef_combobox = QFontComboBox()
-        self.ef_combobox.setCurrentFont(QFont(settings.get("editor_font_family")))
-        self.add(self.ef_combobox)
+        self.editor_font_family = QFontComboBox()
+        self.editor_font_family.setCurrentFont(QFont(settings.get("editor_font_family")))
+        self.add(self.editor_font_family)
 
         e_font_size_lbl = QLabel("Editor Font Size")
         e_font_size_lbl.setObjectName("settings_subheaders")
         self.add(e_font_size_lbl)
 
-        self.ef_spinbox = QSpinBox()
-        self.ef_spinbox.setRange(8, 50)
-        self.ef_spinbox.setValue(settings.get("editor_font_size"))
-        self.add(self.ef_spinbox)
+        self.editor_font_size = QSpinBox()
+        self.editor_font_size.setRange(8, 50)
+        self.editor_font_size.setValue(settings.get("editor_font_size"))
+        self.add(self.editor_font_size)
         
         self.main_layout.addStretch()
+
+    def reset_settings(self):
+        settings.reset()
 
     def _make_header(self, text: str):
         header = QLabel(text=text)
@@ -96,8 +99,8 @@ class SettingsWidget(BaseWidget):
         return sub_header
 
     def save(self):
-        settings.set("window_font_family", self.wf_combobox.currentFont().family())
-        settings.set("window_font_size", self.wf_spinbox.value())
-        settings.set("editor_font_family", self.ef_combobox.currentFont().family())
-        settings.set("editor_font_size", self.ef_spinbox.value())
+        settings.set("window_font_family", self.window_font_family.currentFont().family())
+        settings.set("window_font_size", self.window_font_size.value())
+        settings.set("editor_font_family", self.editor_font_family.currentFont().family())
+        settings.set("editor_font_size", self.editor_font_size.value())
         logger.info("Settings Saved")
