@@ -24,6 +24,7 @@ class SettingsWidget(BaseWidget):
         self.resize(420, 500)
         
         self.setup_ui()
+        self.update_display()
     
     def setup_ui(self):    
         self.main_layout.setContentsMargins(15,15,15,15)
@@ -51,7 +52,6 @@ class SettingsWidget(BaseWidget):
         self.add(w_font_family_lbl)
 
         self.window_font_family = QFontComboBox()
-        self.window_font_family.setCurrentFont(QFont(settings.get("window_font_family")))
         self.add(self.window_font_family)
 
         w_font_size_lbl = self._make_subheader("Window Font Size")
@@ -60,7 +60,6 @@ class SettingsWidget(BaseWidget):
         self.window_font_size = QSpinBox()
         self.window_font_size.setRange(8, 50)
         self.window_font_size.setSuffix(" px")
-        self.window_font_size.setValue(settings.get("window_font_size"))
         self.add(self.window_font_size)
  
         # Editor settings
@@ -71,7 +70,6 @@ class SettingsWidget(BaseWidget):
         self.add(e_font_family_lbl)
 
         self.editor_font_family = QFontComboBox()
-        self.editor_font_family.setCurrentFont(QFont(settings.get("editor_font_family")))
         self.add(self.editor_font_family)
 
         e_font_size_lbl = QLabel("Editor Font Size")
@@ -80,13 +78,19 @@ class SettingsWidget(BaseWidget):
 
         self.editor_font_size = QSpinBox()
         self.editor_font_size.setRange(8, 50)
-        self.editor_font_size.setValue(settings.get("editor_font_size"))
         self.add(self.editor_font_size)
         
         self.main_layout.addStretch()
 
     def reset_settings(self):
         settings.reset()
+        self.update_display()
+
+    def update_display(self):
+        self.window_font_family.setCurrentFont(QFont(settings.get("window_font_family")))
+        self.window_font_size.setValue(settings.get("window_font_size"))
+        self.editor_font_family.setCurrentFont(QFont(settings.get("editor_font_family")))
+        self.editor_font_size.setValue(settings.get("editor_font_size"))
 
     def _make_header(self, text: str):
         header = QLabel(text=text)
