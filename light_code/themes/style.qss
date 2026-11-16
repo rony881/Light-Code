@@ -378,14 +378,5 @@ QSplitter::handle {
     width: 1px;
     height: 1px;
 }
+ 
 
-#settings_headers{
-    color: #e1e1e1;
-    background: transparent;
-    font-size: 17px;
-  } 
-
-#settings_subheaders{
-    color: #b8b8b8;
-    font-size: 14;
-}
