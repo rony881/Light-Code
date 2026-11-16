@@ -13,6 +13,20 @@ from light_code.base_widgets.base_widget import BaseWidget
 from light_code.settings import settings
 from light_code.utils.logger import logger
 
+header_stylesheet = """
+QLabel{
+    color: #e1e1e1;
+    background: transparent;
+    font-size: 20px;
+  }
+"""
+
+subheader_stylesheet = """
+QLabel{
+    color: #b8b8b8;
+    font-size: 14;
+}
+"""
 
 class SettingsWidget(BaseWidget):
     settings_changed = pyqtSignal(str) 
@@ -94,12 +108,12 @@ class SettingsWidget(BaseWidget):
 
     def _make_header(self, text: str):
         header = QLabel(text=text)
-        header.setObjectName("settings_headers")
+        header.setStyleSheet(header_stylesheet)
         return header
 
     def _make_subheader(self, text: str):
         sub_header = self._make_header(text=text)
-        sub_header.setObjectName("settings_subheaders")
+        sub_header.setStyleSheet(subheader_stylesheet)
         return sub_header
 
     def save(self):
