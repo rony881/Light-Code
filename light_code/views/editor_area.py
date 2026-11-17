@@ -51,7 +51,7 @@ class EditorArea(TabBase):
         if editor:
             self.language_changed.emit(editor.language)
         else:
-            self.language_changed.emit("Plain Text")
+            self.language_changed.emit("Text File")
 
     def set_current_tab(self, file_path: str) -> None:
         """Set the current tab to the one associated with the given file path."""
