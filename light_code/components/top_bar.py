@@ -1,7 +1,7 @@
 # components/top_bar.py
 
 from PyQt6.QtCore import Qt
-from PyQt6.QtWidgets import QHBoxLayout
+from PyQt6.QtWidgets import QHBoxLayout, QMenu
 
 from light_code.base_widgets.base_widget import BaseWidget
 from light_code.components.button import Button
@@ -40,6 +40,12 @@ class TopBar(BaseWidget):
         setting_btn.clicked.connect(self.parent.open_preferences)
         more_button = self.add_button("⋮", "More")
 
+        menu = QMenu(more_button)
+        word_wrap = menu.addAction("word wrap")
+        word_wrap.setCheckable(True)
+        word_wrap.toggled.connect(self.set_word_wrap)
+        more_button.setMenu(menu)
+
     def add_button(
         self,
         text: str,
@@ -55,4 +61,9 @@ class TopBar(BaseWidget):
             button.clicked.connect(handler)
         self.h_layout.addWidget(button, 0, Qt.AlignmentFlag.AlignVCenter)
         return button
+        
+    def set_word_wrap(self):
+        current_editor = self.parent.central_panel.current_editor()
+        if current_editor:
+            current_editor.set_wrap_mode()
         
