@@ -120,10 +120,10 @@ EXTENSIONS = {
 def detect_language(file_path: str | None) -> str:
     """Return the language name for a path, or PLAIN_TEXT."""
     if not file_path:
-        return "Plain Text"
+        return "Text File"
     path = Path(file_path)
     extension = path.suffix.lower()
-    return EXTENSIONS.get(extension, "Plain Text")
+    return EXTENSIONS.get(extension, "Text File")
     
 def get_lexer(language: str, parent=None) -> QsciLexer | None:
     """Return a lexer instance for a given language, or None if not found."""
