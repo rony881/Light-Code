@@ -66,4 +66,10 @@ class BaseEditor(QsciScintilla):
         self.setIndentationGuidesForegroundColor(
             QColor("#21262d")
         )  # Indentation line Foregorund Color
+
+    def set_wrap_mode(self):
+        self.setWrapMode(QsciScintilla.WrapMode.WrapWord)
+
+    def off_wrap_mode(self):
+        self.setWrapMode(QsciScintilla.WrapMode.WrapNone)
         
