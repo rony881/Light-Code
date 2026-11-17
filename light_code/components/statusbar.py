@@ -58,7 +58,7 @@ class StatusBar(QStatusBar):
         self.h_layout.addStretch()
 
         # Status information
-        self.language_label = self._create_label("Plain Text", "Language Mode")
+        self.language_label = self._create_label("Text File", "Language Mode")
         self.h_layout.addWidget(self.language_label)
 
         self.indent_label = self._create_label("Spaces: 4", "Indentation")
