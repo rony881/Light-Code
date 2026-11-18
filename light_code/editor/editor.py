@@ -13,6 +13,7 @@ class BaseEditor(QsciScintilla):
         super().__init__(parent=parent)
         self.setObjectName("base_editor")
         self.file_path = file_path
+        self.word_wrap = False
         self.language = detect_language(file_path)
         self._config()
         self.apply_syntax_highlighter()
@@ -67,9 +68,11 @@ class BaseEditor(QsciScintilla):
             QColor("#21262d")
         )  # Indentation line Foregorund Color
 
-    def set_wrap_mode(self):
+    def set_word_wrap(self):
         self.setWrapMode(QsciScintilla.WrapMode.WrapWord)
+        self.word_wrap = True
 
-    def off_wrap_mode(self):
+    def off_word_wrap(self):
         self.setWrapMode(QsciScintilla.WrapMode.WrapNone)
+        self.word_wrap = False
         
