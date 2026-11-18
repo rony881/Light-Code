@@ -204,3 +204,11 @@ class EditorArea(TabBase):
         editor = self.current_editor()
         if editor is not None:
             editor.zoomTo(0)
+
+    def toggle_word_wrap_mode(self):
+        current_editor = self.current_editor()
+        if current_editor:
+            if current_editor.word_wrap == False:
+                current_editor.set_word_wrap()
+            elif current_editor.word_wrap == True:
+                current_editor.off_word_wrap()
