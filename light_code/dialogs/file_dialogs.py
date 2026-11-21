@@ -4,6 +4,16 @@ from PyQt6.QtWidgets import QInputDialog, QMessageBox
 
 _BAD_CHARS = set('<>:"/\\|?*')
 
+# This veriable contains file names that are 
+# reserved by windows.
+_WINDOWS_RESERVED = {
+    "CON", "PRN", "AUX", "NUL",
+    *(f"COM{i}" for i in range(1, 10)),
+    *(f"LPT{i}" for i in range(1, 10)),
+    "COM¹", "COM²", "COM³",
+    "LPT¹", "LPT²", "LPT³",
+}
+
 def ask_file_name(parent, title: str, label: str, text: str = "") -> str | None:
     while True:
         name, ok = QInputDialog.getText(
@@ -29,12 +39,22 @@ def validate_file_name(file_name: str) -> str | None:
     file_name = file_name.strip()
     if not file_name or file_name in [".", ".."]:
         return "File name cannot be empty or a dot"
+        
     if any(c in _BAD_CHARS for c in file_name):
-        return "A file name cannot contain any of : " + " ".join(_BAD_CHARS)
+        return "A file name cannot contain any of : " + ",".join(_BAD_CHARS)
+        
     if file_name.endswith((".", " ")):
         return "A file name cannot end with a dot or space"
+        
     if file_name.startswith(" "):
         return "A file name cannot starts with space"
+
+    # this stores the files name without extention. 
+    prefix = file_name.split(".")[0].upper()
+    # check if the file name without extection are windows reserved
+    # file. 
+    if prefix in _WINDOWS_RESERVED:
+        return f"'{file_name}' is a reserved windows file."
     
     return None
 
