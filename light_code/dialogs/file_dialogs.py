@@ -33,8 +33,6 @@ def validate_file_name(file_name: str) -> str | None:
         return "A file name cannot contain any of : " + " ".join(_BAD_CHARS)
     if file_name.endswith((".", " ")):
         return "A file name cannot end with a dot or space"
-    if file_name.startswith((".", " ")):
-        return "A file name cannot start with a dot or space"
     
     return None
 
