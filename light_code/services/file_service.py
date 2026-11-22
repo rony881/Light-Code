@@ -64,8 +64,6 @@ def rename_file(old_file_path, new_file_name):
     old_file_path = Path(old_file_path)
     new_file_name = Path(new_file_name)
 
-    
-
     if new_file_name.suffix:
         new_file_path = old_file_path.parent / new_file_name.name
     else:
@@ -73,9 +71,12 @@ def rename_file(old_file_path, new_file_name):
             new_file_name.name + old_file_path.suffix
         )
 
+    if new_file_path == old_file_path:
+        return new_file_path
+
     try:
         logger.info(f"Renaming file: {old_file_path} to {new_file_path}")
-        if new_file_path.exists() and new_file_path != old_file_path:
+        if new_file_path.exists() and not new_file_path.samefile(old_file_path):
             raise FileExistsError(f"'{new_file_path.name}' already exists.")
         old_file_path.rename(new_file_path)
         
