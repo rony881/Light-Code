@@ -8,6 +8,7 @@ from PyQt6.QtWidgets import QMessageBox
 from light_code.editor.editor import BaseEditor
 from light_code.services.file_service import write_file
 from light_code.base_widgets.tab_base import TabBase
+from light_code.editor.syntax_highlighter import detect_language
 from light_code.utils.logger import logger
 
 
@@ -69,6 +70,18 @@ class EditorArea(TabBase):
         if index != -1:
             name = Path(editor.file_path).name
             self.setTabText(index, f"* {name}" if dirty else name)
+    
+    def rename_tab(self, old_path: str, new_path: str) -> None:
+        editor = self.OPEN_TABS.pop(old_path, None)
+        if editor is None:
+            return
+        editor.file_path = new_path
+        self.OPEN_TABS[new_path] = editor
+        editor.language = detect_language(new_path)
+        editor.apply_syntax_highlighter()
+        self._update_tab_title(editor, editor.isModified())
+        if editor is self.currentWidget():
+            self.language_changed.emit(editor.language)
 
     def current_editor(self) -> BaseEditor | None:
         """Returns file path of current selected tab"""
