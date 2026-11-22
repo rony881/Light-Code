@@ -228,17 +228,20 @@ class MainWindow(QMainWindow):
         self.status_bar.set_status_message(f"Saved {Path(editor.file_path).name}")
         
     def rename_file(self):
-        """Rename the current file."""
         editor = self.central_panel.current_editor()
         if editor is None or not editor.file_path:
             return
-            
+    
         old_path = editor.file_path
-        new_file_name = ask_file_name(self, "Rename File", "New file name:", Path(old_path).name)
-        if new_file_name:
-            new_file_path = rename_file(old_path, new_file_name)
-            self.central_panel.close_tab_by_path(old_path)
-            self.open_path(str(new_file_path))
+        new_name = ask_file_name(self, "Rename File", "New file name:", Path(old_path).name)
+        if not new_name:
+            return
+        try:
+            new_path = rename_file(old_path, new_name)
+        except OSError as e:
+            QMessageBox.warning(self, "Rename Failed", str(e))
+            return
+        self.central_panel.rename_tab(old_path, str(new_path))
 
     def close_tab(self):
         """Close the current editor tab."""
