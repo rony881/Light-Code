@@ -9,10 +9,6 @@ from light_code.utils.logger import logger
 
 class CodeRunner(QObject):
     """Runs a file as a subprocess and streams its output via signals.
-
-    Must be constructed with a long-lived parent (e.g. MainWindow) — Qt's
-    parent/child ownership is what keeps the underlying QProcess alive,
-    not just holding a Python reference to it.
     """
 
     output_received = pyqtSignal(str)
