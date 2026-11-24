@@ -19,6 +19,8 @@ OUTPUT_STYLESHEET = """
         selection-background-color: #1f6feb44;
     }
 """
+OUTPUT_SUCCESS_COLOR = "#a1f0a1"
+OUTPUT_ERROR_COLOR = "#ff0000"
 
 class OutputPanel(BaseWidget):
     def __init__(self, parent=None) -> None:
@@ -71,7 +73,7 @@ class OutputPanel(BaseWidget):
         self.code_runner.run(file_path)
         
     def show_output(self, text: str, exit_code: int = 0) -> None:
-        text_color = "#a1f0a1" if exit_code == 0 else "#ff0000"
+        text_color = OUTPUT_SUCCESS_COLOR if exit_code == 0 else OUTPUT_ERROR_COLOR
         self.output_view.setStyleSheet(OUTPUT_STYLESHEET % text_color)
         self.output_view.insertPlainText(text)
         scrollbar = self.output_view.verticalScrollBar()
