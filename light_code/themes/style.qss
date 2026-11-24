@@ -272,16 +272,8 @@ QHeaderView::section {
 
 
 /* ============================================================
-   OUTPUT / TERMINAL PANEL
+   OUTPUT
    ============================================================ */
-QPlainTextEdit {
-    background: #0d1117;
-    color: #a1f0a1;
-    border: none;
-    font-family: 'Cascadia Code', 'Consolas', monospace;
-    font-size: 13px;
-    selection-background-color: #1f6feb44;
-}
 #cmd_input {
     background: transparent;
     border: none;
