@@ -9,14 +9,25 @@ from light_code.services.run_code_service import CodeRunner
 from light_code.utils.logger import logger
 
 
+OUTPUT_STYLESHEET = """
+    QPlainTextEdit {
+        background: #0d1117;
+        color: %s;
+        border: none;
+        font-family: 'Cascadia Code', 'Consolas', monospace;
+        font-size: 13px;
+        selection-background-color: #1f6feb44;
+    }
+"""
+
 class OutputPanel(BaseWidget):
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
 
         logger.info("Initializing OutputPanel")
         self.setObjectName("output_panel")
-        self.path = None
-
+        self.file_path = None
+        
         self.code_runner = CodeRunner(self)
         self.code_runner.output_received.connect(self.show_output)
         self.code_runner.error_received.connect(self.show_error)
@@ -59,14 +70,16 @@ class OutputPanel(BaseWidget):
         self.file_path = file_path
         self.code_runner.run(file_path)
         
-    def show_output(self, text: str) -> None:
+    def show_output(self, text: str, exit_code: int = 0) -> None:
+        text_color = "#a1f0a1" if exit_code == 0 else "#ff0000"
+        self.output_view.setStyleSheet(OUTPUT_STYLESHEET % text_color)
         self.output_view.insertPlainText(text)
         scrollbar = self.output_view.verticalScrollBar()
         if scrollbar is not None:
             scrollbar.setValue(scrollbar.maximum())
 
     def show_error(self, text: str) -> None:
-        self.show_output(text)
+        self.show_output(text = text, exit_code = 1)
      
     def clear_output(self) -> None:
         self.output_view.clear()
