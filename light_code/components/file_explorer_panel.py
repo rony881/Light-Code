@@ -14,6 +14,7 @@ from light_code.utils.logger import logger
 
 class FileExplorer(BaseWidget):
     file_selected = pyqtSignal(str)
+    folder_changed = pyqtSignal(str)
 
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
@@ -87,6 +88,7 @@ class FileExplorer(BaseWidget):
         self.file_tree_view.folder_changed.emit(folder_path)
         self.set_folder_lbl_text(self.get_folder_name(folder_path))
         settings.set("last_folder_path", folder_path)
+        self.folder_changed.emit(folder_path)
 
     def get_folder_name(self, folder_path: str) -> str:
         return Path(folder_path).name
