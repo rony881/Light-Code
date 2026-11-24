@@ -44,19 +44,19 @@ class OutputPanel(BaseWidget):
         self.output_view.setObjectName("output_view")
         self.output_view.setReadOnly(True)
 
-        self.cmd_input = QLineEdit(self)
-        self.cmd_input.setObjectName("cmd_input")
-        self.cmd_input.setPlaceholderText("Type a command...")
-        self.cmd_input.returnPressed.connect(self._on_cmd_input)
+        # self.cmd_input = QLineEdit(self)
+        # self.cmd_input.setObjectName("cmd_input")
+        # self.cmd_input.setPlaceholderText("Type a command...")
+        # self.cmd_input.returnPressed.connect(self._on_cmd_input)
         
         self.add(self.header_frame)
         self.add(self.output_view)
-        self.add(self.cmd_input)
+        # self.add(self.cmd_input)
 
     def execute_file(self, file_path: str) -> None:
         self.clear_output()
         self.set_file_name(file_path)
-        self.path = file_path
+        self.file_path = file_path
         self.code_runner.run(file_path)
         
     def show_output(self, text: str) -> None:
@@ -80,15 +80,18 @@ class OutputPanel(BaseWidget):
             f"\n[process finished with exit code {exit_code}]\n"
         )
 
-    def _on_cmd_input(self) -> None:
-        command = self.cmd_input.text()
-        self.cmd_input.clear()
-        if command == "clear" or command == "cls":
-            self.clear_output()
-            return
-        self.run_command(command)
-
-    def run_command(self, command: str) -> None:
-        cwd = os.path.dirname(self.path) if self.path else None
-        self.clear_output()
-        self.code_runner.run_command(command, cwd)
+    # def _on_cmd_input(self) -> None:
+    #     command = self.cmd_input.text()
+    #     self.cmd_input.clear()
+    #     if command == "clear" or command == "cls":
+    #         self.clear_output()
+    #         return
+    #     self.run_command(command)
+        
+    # def run_command(self, command: str, path = None) -> None:
+    #     if not path and not self.cwd:
+    #         path = os.path.dirname(self.file_path) if self.file_path else None           
+    #     elif not path and self.cwd:
+    #         path = self.cwd
+    #     self.clear_output()
+    #     self.code_runner.run_command(command, path)
