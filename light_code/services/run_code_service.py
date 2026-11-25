@@ -13,7 +13,6 @@ class CodeRunner(QObject):
 
     output_received = pyqtSignal(str, int)
     error_received = pyqtSignal(str, int)
-    finished = pyqtSignal(int)
 
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
