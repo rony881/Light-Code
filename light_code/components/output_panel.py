@@ -72,10 +72,11 @@ class OutputPanel(BaseWidget):
         self.file_path = file_path
         self.code_runner.run(file_path)
         
-    def show_output(self, text: str, exit_code: int = 0) -> None:
+    def show_output(self, text: str, exit_code) -> None:
         text_color = OUTPUT_SUCCESS_COLOR if exit_code == 0 else OUTPUT_ERROR_COLOR
         self.output_view.setStyleSheet(OUTPUT_STYLESHEET % text_color)
-        self.output_view.insertPlainText(text)
+        exit_code_message = f"\n[process finished with exit code {exit_code}]\n"
+        self.output_view.insertPlainText(text + exit_code_message)
         scrollbar = self.output_view.verticalScrollBar()
         if scrollbar is not None:
             scrollbar.setValue(scrollbar.maximum())
@@ -89,11 +90,6 @@ class OutputPanel(BaseWidget):
     def set_file_name(self, path: str) -> None:
         self.file_name_lbl.setText(os.path.basename(path))
         self.file_name_lbl.setToolTip(path)
-
-    def on_run_finished(self, exit_code: int):
-        self.show_output(
-            f"\n[process finished with exit code {exit_code}]\n"
-        )
 
     # def _on_cmd_input(self) -> None:
     #     command = self.cmd_input.text()
