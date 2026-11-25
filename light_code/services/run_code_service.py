@@ -11,9 +11,8 @@ class CodeRunner(QObject):
     """Runs a file as a subprocess and streams its output via signals.
     """
 
-    output_received = pyqtSignal(str)
-    error_received = pyqtSignal(str)
-    finished = pyqtSignal(int)
+    output_received = pyqtSignal(str, int)
+    error_received = pyqtSignal(str, int)
 
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
@@ -27,7 +26,6 @@ class CodeRunner(QObject):
         self.process = QProcess(self)
         self.process.readyReadStandardOutput.connect(self._on_stdout)
         self.process.readyReadStandardError.connect(self._on_stderr)
-        self.process.finished.connect(self._on_finished)
         self.process.start(self.python_executable, ["-u", file_path])
 
     def stop(self) -> None:
@@ -47,12 +45,10 @@ class CodeRunner(QObject):
 
     def _on_stdout(self) -> None:
         data = bytes(self.process.readAllStandardOutput()).decode("utf-8", errors="replace")
-        self.output_received.emit(data)
+        exit_code = self.process.exitCode()
+        self.output_received.emit(data, exit_code)
 
     def _on_stderr(self) -> None:
         data = bytes(self.process.readAllStandardError()).decode("utf-8", errors="replace")
-        self.error_received.emit(data)
-
-    def _on_finished(self, code: int, _status) -> None:
-        logger.info(f"Process finished with exit code {code}")
-        self.finished.emit(code)
+        exit_code = self.process.exitCode()
+        self.error_received.emit(data, exit_code)
