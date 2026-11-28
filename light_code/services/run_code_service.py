@@ -1,5 +1,6 @@
 # services/run_code_service.py
 
+import os
 import sys
 
 from PyQt6.QtCore import QObject, QProcess, pyqtSignal
@@ -25,8 +26,10 @@ class CodeRunner(QObject):
 
         logger.info(f"Running Python file: {file_path}")
         self.process = QProcess(self)
+        self.process.setWorkingDirectory(os.path.dirname(file_path))
         self.process.readyReadStandardOutput.connect(self._on_stdout)
         self.process.readyReadStandardError.connect(self._on_stderr)
+        self.process.finished.connect(self._on_finished)
         self.process.start(self.python_executable, ["-u", file_path])
 
     def stop(self) -> None:
