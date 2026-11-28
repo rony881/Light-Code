@@ -45,7 +45,11 @@ class CodeRunner(QObject):
         self.process.finished.connect(self._on_finished)
         if cwd:
             self.process.setWorkingDirectory(cwd)
-        self.process.start("sh", ["-c", command])
+            
+        if sys.platform == "win32":
+            self.process.start("cmd", ["/c", command])
+        else:
+            self.process.start("sh", ["-c", command])
 
     def _on_stdout(self) -> None:
         data = bytes(self.process.readAllStandardOutput()).decode("utf-8", errors="replace")
