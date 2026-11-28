@@ -29,6 +29,7 @@ class OutputPanel(BaseWidget):
         logger.info("Initializing OutputPanel")
         self.setObjectName("output_panel")
         self.file_path = None
+        self.cwd = None
         
         self.code_runner = CodeRunner(self)
         self.code_runner.output_received.connect(self.show_output)
