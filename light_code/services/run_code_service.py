@@ -13,6 +13,7 @@ class CodeRunner(QObject):
 
     output_received = pyqtSignal(str, int)
     error_received = pyqtSignal(str, int)
+    finished = pyqtSignal(int)
 
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
@@ -52,3 +53,7 @@ class CodeRunner(QObject):
         data = bytes(self.process.readAllStandardError()).decode("utf-8", errors="replace")
         exit_code = self.process.exitCode()
         self.error_received.emit(data, exit_code)
+
+    def _on_finished(self, exit_code: int):
+        self.finished.emit(exit_code)
+        
