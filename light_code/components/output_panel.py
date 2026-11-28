@@ -72,6 +72,12 @@ class OutputPanel(BaseWidget):
         self.set_file_name(file_path)
         self.file_path = file_path
         self.code_runner.run(file_path)
+
+    def _append(self, text: str):
+        self.output_view.insertPlainText(text)
+        sb = self.output_view.verticalScrollBar()
+        if sb is not None:
+            sb.setValue(sb.maximum())
         
     def show_output(self, text: str, exit_code) -> None:
         text_color = OUTPUT_SUCCESS_COLOR if exit_code == 0 else OUTPUT_ERROR_COLOR
