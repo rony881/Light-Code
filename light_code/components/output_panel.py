@@ -34,6 +34,7 @@ class OutputPanel(BaseWidget):
         self.code_runner = CodeRunner(self)
         self.code_runner.output_received.connect(self.show_output)
         self.code_runner.error_received.connect(self.show_error)
+        self.code_runner.finished.connect(self.show_finished)
         
         self._setup_ui()
 
@@ -78,21 +79,20 @@ class OutputPanel(BaseWidget):
         sb = self.output_view.verticalScrollBar()
         if sb is not None:
             sb.setValue(sb.maximum())
-        
-    def show_output(self, text: str, exit_code) -> None:
-        text_color = OUTPUT_SUCCESS_COLOR if exit_code == 0 else OUTPUT_ERROR_COLOR
-        self.output_view.setStyleSheet(OUTPUT_STYLESHEET % text_color)
-        exit_code_message = f"\n[process finished with exit code {exit_code}]\n"
-        self.output_view.insertPlainText(text + exit_code_message)
-        scrollbar = self.output_view.verticalScrollBar()
-        if scrollbar is not None:
-            scrollbar.setValue(scrollbar.maximum())
+
+    def show_output(self, text: str, exit_code=0) -> None:
+        self.output_view.setStyleSheet(OUTPUT_STYLESHEET % OUTPUT_SUCCESS_COLOR)
+        self._append(text)
 
     def show_error(self, text: str) -> None:
-        self.show_output(text = text, exit_code = 1)
-     
+        self.output_view.setStyleSheet(OUTPUT_STYLESHEET % OUTPUT_ERROR_COLOR)
+        self._append(text)
+
     def clear_output(self) -> None:
         self.output_view.clear()
+
+    def show_finished(self):
+        self._append(f"\n[process finished with exit code {exit_code}]\n")
 
     def set_file_name(self, path: str) -> None:
         self.file_name_lbl.setText(os.path.basename(path))
