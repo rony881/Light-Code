@@ -99,10 +99,10 @@ class OutputPanel(BaseWidget):
             return
         self.run_command(command)
         
-    # def run_command(self, command: str, path = None) -> None:
-    #     if not path and not self.cwd:
-    #         path = os.path.dirname(self.file_path) if self.file_path else None           
-    #     elif not path and self.cwd:
-    #         path = self.cwd
-    #     self.clear_output()
-    #     self.code_runner.run_command(command, path)
+    def run_command(self, command: str, path = None) -> None:
+        if not path and not self.cwd:
+            path = os.path.dirname(self.file_path) if self.file_path else None           
+        elif not path and self.cwd:
+            path = self.cwd
+        self.clear_output()
+        self.code_runner.run_command(command, path)
